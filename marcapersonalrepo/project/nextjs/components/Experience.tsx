@@ -403,7 +403,7 @@ export default function Experience() {
               </div>
               <div data-hero-img style={{ position: 'relative', overflow: 'hidden', willChange: 'transform' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img data-hero-photo src="/raquel-hero.png" alt="Raquel Rodríguez" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '42% 8%', display: 'block', filter: 'contrast(1.06) saturate(0.5)' }} />
+                <img data-hero-photo src="/raquel-hero.webp" alt="Raquel Rodríguez" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '42% 8%', display: 'block', filter: 'contrast(1.06) saturate(0.5)' }} />
                 <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '14%', background: `linear-gradient(90deg, ${t.bg} 0%, rgba(251,249,246,0) 100%)`, pointerEvents: 'none' }} />
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '16%', background: `linear-gradient(180deg, rgba(251,249,246,0) 0%, ${t.bg} 100%)`, pointerEvents: 'none' }} />
               </div>
@@ -454,7 +454,7 @@ export default function Experience() {
             <figure data-portrait="1" style={{ flex: '1 1 0', minWidth: 0, margin: 0, maxWidth: 420, display: 'block' }}>
               <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4 / 5' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/raquel-retrato.png" alt="Raquel Rodríguez" style={{ width: '100%', height: '118%', objectFit: 'cover', objectPosition: '50% 15%', display: 'block' }} />
+                <img src="/raquel-retrato.webp" alt="Raquel Rodríguez" style={{ width: '100%', height: '118%', objectFit: 'cover', objectPosition: '50% 15%', display: 'block' }} />
               </div>
               <figcaption style={{ margin: '12px 0 0 0', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>Raquel Rodríguez · Empresaria desde 2021</figcaption>
             </figure>

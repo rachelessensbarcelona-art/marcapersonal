@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { t, waHref } from '@/lib/site';
 import { onOpenChat } from '@/lib/chatBus';
 import {
-  ackFor, Booking, Chip, CONSENT, guessInterest, INTERESTS, Msg, nextDays, Step, STORAGE_KEY, TIMES, validPhone,
+  ackFor, Booking, Chip, CONSENT, guessInterest, INTERESTS, Msg, nextDays, Step, STORAGE_KEY, TIMES, validEmail, validPhone,
 } from '@/lib/booking';
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -18,7 +18,7 @@ export default function BookingAgent() {
   const [draft, setDraft] = useState('');
   const [typing, setTyping] = useState(false);
   const box = useRef<HTMLDivElement>(null);
-  const bk = useRef<Booking & { step: Step }>({ step: 'idle', interest: null, day: null, time: null, name: '', phone: '' });
+  const bk = useRef<Booking & { step: Step }>({ step: 'idle', interest: null, day: null, time: null, name: '', email: '', phone: '' });
   const started = useRef(false);
 
   useEffect(() => onOpenChat(() => { setOpen(true); setOpened(true); setNudge(false); void start(); }), []);
@@ -121,8 +121,15 @@ export default function BookingAgent() {
     if (st === 'name') {
       if (text.trim().length < 2) return say('Creo que eso no es un nombre. ¿Cómo te llamas?');
       bk.current.name = text.replace(/\s+/g, ' ').slice(0, 60);
+      bk.current.step = 'email';
+      return say(`Encantado, ${bk.current.name.split(' ')[0]}. ¿A qué correo te mando la confirmación?`, { fast: true });
+    }
+    if (st === 'email') {
+      const m = validEmail(text);
+      if (!m) return say('Ese correo no me cuadra. Escríbelo completo, por ejemplo: nombre@correo.com');
+      bk.current.email = m;
       bk.current.step = 'phone';
-      return say(`Encantado, ${bk.current.name.split(' ')[0]}. ¿Tu número de WhatsApp? Raquel te escribe ahí para confirmar.`, { fast: true });
+      return say('Perfecto. ¿Y tu número de WhatsApp? Raquel te escribe ahí para confirmar.', { fast: true });
     }
     if (st === 'phone') {
       const d = validPhone(text);
@@ -177,7 +184,7 @@ export default function BookingAgent() {
       <div data-native-cursor style={{ width: 'min(376px, calc(100vw - 44px))', height: 'min(560px, calc(100dvh - 140px))', display: 'flex', flexDirection: 'column', background: '#FFFFFF', color: ink, borderRadius: 24, overflow: 'hidden', boxShadow: '0 26px 70px rgba(20,17,16,0.16)', border: '1px solid rgba(25,21,16,0.08)', transformOrigin: '100% 100%', transform: open ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.96)', opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transition: 'transform 380ms cubic-bezier(.22,1,.36,1), opacity 300ms ease' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 18px', borderBottom: '1px solid rgba(25,21,16,0.1)' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/raquel-retrato.png" alt="Raquel Rodríguez" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', flex: 'none' }} />
+          <img src="/raquel-avatar.webp" alt="Raquel Rodríguez" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', flex: 'none' }} />
           <div style={{ flex: 1, minWidth: 0 }}>
             <p style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>Raquel Rodríguez</p>
             <p style={{ margin: '1px 0 0', fontSize: 12, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6B6560' }}>Asistente de agenda · En línea</p>
@@ -195,6 +202,7 @@ export default function BookingAgent() {
                   {row('Hora', m.card.time || '')}
                   {row('Tema', m.card.interest || 'Por decidir')}
                   {row('Nombre', m.card.name)}
+                  {row('Correo', m.card.email)}
                   {row('WhatsApp', m.card.phone)}
                 </div>
               ) : (
@@ -247,7 +255,7 @@ export default function BookingAgent() {
           style={{ position: 'relative', width: 54, height: 54, borderRadius: '50%', flex: 'none', background: t.bg, border: '1px solid rgba(20,17,16,0.14)', boxShadow: '0 10px 30px rgba(20,17,16,0.10)', overflow: 'hidden', transition: 'transform 260ms cubic-bezier(.22,1,.36,1), border-color 260ms ease' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/raquel-retrato.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(1) contrast(1.05)' }} />
+          <img src="/raquel-avatar.webp" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(1) contrast(1.05)' }} />
           <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'rgba(251,249,246,0.92)', color: ink, fontSize: 22, fontWeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: open ? 1 : 0, transition: 'opacity 250ms ease', transform: open ? 'rotate(0deg)' : 'rotate(-90deg)' }}>×</span>
           {!opened && <span style={{ position: 'absolute', top: 4, right: 4, width: 8, height: 8, borderRadius: '50%', background: t.accent, boxShadow: `0 0 0 2px ${t.bg}`, display: 'block' }} />}
         </button>

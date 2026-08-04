@@ -1,7 +1,7 @@
 export type Chip = { label: string; v: string; primary?: boolean };
 export type Msg = { me?: boolean; text?: string; card?: Booking };
-export type Booking = { interest: string | null; day: string | null; time: string | null; name: string; phone: string };
-export type Step = 'idle' | 'interest' | 'day' | 'time' | 'name' | 'phone' | 'consent' | 'done' | 'saved';
+export type Booking = { interest: string | null; day: string | null; time: string | null; name: string; email: string; phone: string };
+export type Step = 'idle' | 'interest' | 'day' | 'time' | 'name' | 'email' | 'phone' | 'consent' | 'done' | 'saved';
 
 export const STORAGE_KEY = 'rr-reserva-v1';
 
@@ -51,4 +51,9 @@ export const guessInterest = (text: string) => {
 export const validPhone = (raw: string) => {
   const d = raw.replace(/[^\d+]/g, '');
   return /^\+?\d{9,15}$/.test(d) ? d : null;
+};
+
+export const validEmail = (raw: string) => {
+  const v = raw.trim().toLowerCase();
+  return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(v) && v.length <= 120 ? v : null;
 };

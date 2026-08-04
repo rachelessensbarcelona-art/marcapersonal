@@ -15,6 +15,7 @@ export async function POST(req: Request) {
   const row = {
     fecha: new Date().toISOString(),
     nombre: cap(body.name, 60),
+    email: cap(body.email, 120).toLowerCase(),
     telefono: cap(body.phone, 20),
     dia: cap(body.day, 40),
     hora: cap(body.time, 10),
