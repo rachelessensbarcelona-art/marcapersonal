@@ -11,12 +11,41 @@
  */
 
 // ── Lo único que puedes querer tocar ──────────────────────────────
+// El identificador de tu hoja: el trozo largo que sale en su enlace, entre
+// /d/ y /edit. Dejarlo puesto hace que funcione tanto si este script está
+// dentro de la hoja como si es un proyecto suelto.
+var ID_HOJA     = '1yu_yopxH-YWVS2lZpJA0T4e44Cn5tLXRwDrjmkFpzMk';
 var AVISARME_A  = '';                  // vacío = tu propia cuenta de Google
 var MI_NOMBRE   = 'Raquel Rodríguez';
 var MI_WHATSAPP = '';                  // ej. '+34600111222'. Vacío = no sale en el correo.
 // ──────────────────────────────────────────────────────────────────
 
 var CABECERAS = ['Fecha', 'Nombre', 'Correo', 'WhatsApp', 'Día', 'Hora', 'Tema', 'Origen'];
+
+/**
+ * Pulsa "Ejecutar" con esta función seleccionada para comprobar que todo
+ * va bien sin pasar por la web: escribe una fila de prueba y manda los
+ * correos. Si algo falla, el error sale abajo en "Registro de ejecución".
+ */
+function probar() {
+  var r = doPost({ postData: { contents: JSON.stringify({
+    nombre: 'PRUEBA — borra esta fila',
+    email: Session.getEffectiveUser().getEmail(),
+    telefono: '+34600000000',
+    dia: 'prueba', hora: '10:00', tema: 'Prueba', origen: 'probar()',
+  }) } });
+  Logger.log(r.getContent());
+  return r.getContent();
+}
+
+/** Devuelve la primera hoja, venga el script de donde venga. */
+function _hoja() {
+  var ss = null;
+  if (ID_HOJA) ss = SpreadsheetApp.openById(ID_HOJA);
+  if (!ss) ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) throw new Error('No encuentro la hoja. Revisa ID_HOJA arriba del todo.');
+  return ss.getSheets()[0];
+}
 
 function doPost(e) {
   var d;
@@ -28,7 +57,7 @@ function doPost(e) {
 
   // 1) Guardar la fila. Va primero y sola: es lo que no se puede perder.
   try {
-    var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    var hoja = _hoja();
     if (hoja.getLastRow() === 0) {
       hoja.appendRow(CABECERAS);
       hoja.getRange(1, 1, 1, CABECERAS.length).setFontWeight('bold');
