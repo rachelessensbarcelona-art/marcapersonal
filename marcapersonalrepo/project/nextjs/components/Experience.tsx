@@ -63,20 +63,35 @@ export default function Experience() {
       const h1 = document.querySelector<HTMLElement>('[data-hero-h1]');
       const img = document.querySelector<HTMLImageElement>('[data-hero-photo]');
       if (split && txt && h1 && img) {
+        // En movil la foto va arriba, entera y nitida, y el texto debajo sobre
+        // fondo solido: ella se ve y el texto se lee, sin pisarse.
         split.style.gridTemplateColumns = narrow ? '1fr' : '52% 48%';
-        split.style.gridTemplateRows = narrow ? '1fr' : 'none';
-        txt.style.padding = narrow ? `clamp(72px,10vh,112px) ${t.gut} 17vh` : `clamp(72px,10vh,112px) clamp(28px,3.5vw,64px) clamp(76px,10vh,100px) 7vw`;
-        txt.style.gridArea = narrow ? '1 / 1' : 'auto';
-        h1.style.fontSize = narrow ? 'clamp(2rem,min(12vw,7.4vh),4.2rem)' : 'clamp(2.2rem,min(7.4vw,8.6vh),7.6rem)';
+        split.style.gridTemplateRows = narrow ? 'minmax(0,38vh) 1fr' : 'none';
+        txt.style.padding = narrow ? `clamp(18px,3vh,28px) ${t.gut} 15vh` : `clamp(72px,10vh,112px) clamp(28px,3.5vw,64px) clamp(76px,10vh,100px) 7vw`;
+        txt.style.gridArea = narrow ? '2 / 1' : 'auto';
+        txt.style.justifyContent = narrow ? 'flex-start' : 'safe center';
+        h1.style.fontSize = narrow ? 'clamp(1.9rem,9vw,2.9rem)' : 'clamp(2.2rem,min(7.4vw,8.6vh),7.6rem)';
         const wrapImg = document.querySelector<HTMLElement>('[data-hero-img]');
         if (wrapImg) {
           wrapImg.style.gridArea = narrow ? '1 / 1' : 'auto';
-          wrapImg.style.opacity = narrow ? '0.3' : '1';
+          wrapImg.style.opacity = '1';
         }
-        img.style.objectPosition = narrow ? '60% 6%' : '42% 8%';
+        img.style.objectPosition = narrow ? '50% 12%' : '42% 8%';
+        const fx = document.querySelector<HTMLElement>('[data-hero-fade-x]');
+        if (fx) fx.style.opacity = narrow ? '0' : '1';
+        const fy = document.querySelector<HTMLElement>('[data-hero-fade-y]');
+        if (fy) fy.style.height = narrow ? '46%' : '16%';
         const bar = document.querySelector<HTMLElement>('[data-hero-bar]');
-        if (bar) bar.style.right = narrow ? t.gut : 'calc(48vw + 28px)';
+        if (bar) {
+          bar.style.right = narrow ? t.gut : 'calc(48vw + 28px)';
+          bar.style.display = narrow ? 'none' : 'flex';
+        }
       }
+      // Los indicadores de capitulo estorban en movil: fuera. Queda la barra de abajo.
+      const rail = document.getElementById('xp-rail');
+      const num = document.getElementById('xp-slidenum');
+      if (rail) rail.style.display = narrow ? 'none' : 'flex';
+      if (num) num.style.display = narrow ? 'none' : 'flex';
       const c2 = document.querySelector<HTMLElement>('[data-ch="3"]');
       const head = document.querySelector<HTMLElement>('[data-ch2-head]');
       const grid = document.querySelector<HTMLElement>('[data-bands-grid]');
@@ -404,8 +419,8 @@ export default function Experience() {
               <div data-hero-img style={{ position: 'relative', overflow: 'hidden', willChange: 'transform' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img data-hero-photo src="/raquel-hero.webp" alt="Raquel Rodríguez" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '42% 8%', display: 'block', filter: 'contrast(1.06) saturate(0.5)' }} />
-                <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '14%', background: `linear-gradient(90deg, ${t.bg} 0%, rgba(251,249,246,0) 100%)`, pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '16%', background: `linear-gradient(180deg, rgba(251,249,246,0) 0%, ${t.bg} 100%)`, pointerEvents: 'none' }} />
+                <div data-hero-fade-x style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '14%', background: `linear-gradient(90deg, ${t.bg} 0%, rgba(251,249,246,0) 100%)`, pointerEvents: 'none' }} />
+                <div data-hero-fade-y style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '16%', background: `linear-gradient(180deg, rgba(251,249,246,0) 0%, ${t.bg} 100%)`, pointerEvents: 'none' }} />
               </div>
             </div>
             <div data-hero-bar style={{ position: 'absolute', left: t.gut, right: t.gut, bottom: 'clamp(18px,2.6vh,32px)', zIndex: 3, display: 'flex', flexWrap: 'nowrap', alignItems: 'center', justifyContent: 'space-between', gap: 24, borderTop: '1px solid rgba(20,17,16,0.12)', paddingTop: 'clamp(10px,1.6vh,16px)' }}>

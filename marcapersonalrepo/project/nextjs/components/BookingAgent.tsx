@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { t, waHref } from '@/lib/site';
-import { onOpenChat } from '@/lib/chatBus';
+import { onOpenChat, onMenuToggle } from '@/lib/chatBus';
 import {
   ackFor, Booking, Chip, CONSENT, guessInterest, INTERESTS, Msg, nextDays, parseContacto, Step, STORAGE_KEY, TIMES,
 } from '@/lib/booking';
@@ -13,6 +13,7 @@ export default function BookingAgent() {
   const [open, setOpen] = useState(false);
   const [opened, setOpened] = useState(false);
   const [nudge, setNudge] = useState(false);
+  const [menuAbierto, setMenuAbierto] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [chips, setChips] = useState<Chip[]>([]);
   const [draft, setDraft] = useState('');
@@ -21,6 +22,7 @@ export default function BookingAgent() {
   const bk = useRef<Booking & { step: Step }>({ step: 'idle', interest: null, day: null, ymd: null, time: null, name: '', email: '', phone: '' });
   const started = useRef(false);
 
+  useEffect(() => onMenuToggle(setMenuAbierto), []);
   useEffect(() => onOpenChat(() => { setOpen(true); setOpened(true); setNudge(false); void start(); }), []);
   useEffect(() => {
     const a = setTimeout(() => setNudge(true), 5000);
@@ -179,7 +181,7 @@ export default function BookingAgent() {
   );
 
   return (
-    <div style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 96, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
+    <div style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 96, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, pointerEvents: 'none', opacity: menuAbierto ? 0 : 1, visibility: menuAbierto ? 'hidden' : 'visible', transition: 'opacity 260ms ease' }}>
       <div data-native-cursor style={{ width: 'min(376px, calc(100vw - 44px))', height: 'min(560px, calc(100dvh - 140px))', display: 'flex', flexDirection: 'column', background: '#FFFFFF', color: ink, borderRadius: 24, overflow: 'hidden', boxShadow: '0 26px 70px rgba(20,17,16,0.16)', border: '1px solid rgba(25,21,16,0.08)', transformOrigin: '100% 100%', transform: open ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.96)', opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transition: 'transform 380ms cubic-bezier(.22,1,.36,1), opacity 300ms ease' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 18px', borderBottom: '1px solid rgba(25,21,16,0.1)' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -239,7 +241,7 @@ export default function BookingAgent() {
         </p>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'auto' }}>
         <button
           type="button"
           onClick={() => { setOpen(true); setOpened(true); setNudge(false); void start(); }}

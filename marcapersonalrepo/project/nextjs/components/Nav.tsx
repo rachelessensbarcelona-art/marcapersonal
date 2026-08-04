@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { t, waHref, igHref, mailHref, site } from '@/lib/site';
-import { openChat } from '@/lib/chatBus';
+import { openChat, setMenuOpen } from '@/lib/chatBus';
 
 const big = {
+  display: 'block',
   fontFamily: t.font,
   fontSize: 'clamp(2.4rem,7vw,5rem)',
   fontWeight: 500,
@@ -15,6 +16,8 @@ const big = {
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => { setMenuOpen(open); }, [open]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
@@ -51,17 +54,45 @@ export default function Nav() {
         >
           ×
         </button>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: `clamp(96px,14vh,150px) ${t.gut} clamp(36px,6vh,64px)`, minHeight: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 40 }}>
-          <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 'clamp(8px,1.8vh,18px)' }}>
-            <a href="/" style={big} onClick={() => setOpen(false)}>Inicio</a>
-            <a href="/inversion" style={big}>Cómo te quiero ayudar</a>
-            <button
-              type="button"
-              onClick={() => { setOpen(false); openChat(); }}
-              style={{ marginTop: 'clamp(14px,2.6vh,26px)', fontSize: 'clamp(15px,1.5vw,18px)', fontWeight: 500, borderBottom: `1px solid ${t.accent}`, paddingBottom: 3, color: t.accent, textAlign: 'left' }}
-            >
-              Reservar una llamada conmigo →
-            </button>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: `clamp(104px,15vh,160px) ${t.gut} clamp(36px,6vh,64px)`, minHeight: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 'clamp(40px,8vh,80px)' }}>
+          <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 0 }}>
+            <p style={{ margin: '0 0 clamp(20px,3.5vh,36px)', fontSize: 12, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#9A938C' }}>
+              Dónde quieres ir
+            </p>
+
+            {[
+              { href: '/', n: '01', title: 'Mi historia', desc: 'Cómo pasé de vivir el plan de otros a tener el mío.' },
+              { href: '/inversion', n: '02', title: 'Cómo te quiero ayudar', desc: 'Qué es, cuánto cuesta y qué dicen quienes ya lo tienen.' },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                style={{ display: 'block', borderTop: '1px solid rgba(20,17,16,0.14)', padding: 'clamp(18px,3vh,30px) 0' }}
+              >
+                <span style={{ display: 'flex', alignItems: 'baseline', gap: 14 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.18em', color: t.accent, flex: 'none' }}>{item.n}</span>
+                  <span style={{ ...big, flex: 1 }}>{item.title}</span>
+                  <span style={{ fontSize: 'clamp(20px,2.5vw,28px)', color: t.accent, flex: 'none', lineHeight: 1 }}>→</span>
+                </span>
+                <span style={{ display: 'block', margin: '8px 0 0 26px', fontSize: 'clamp(14px,1.4vw,16.5px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.6)', maxWidth: '34em' }}>
+                  {item.desc}
+                </span>
+              </a>
+            ))}
+
+            <div style={{ borderTop: '1px solid rgba(20,17,16,0.14)', paddingTop: 'clamp(24px,4vh,40px)' }}>
+              <button
+                type="button"
+                onClick={() => { setOpen(false); openChat(); }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: t.ink, color: t.bg, fontSize: 'clamp(15px,1.5vw,17px)', fontWeight: 600, padding: '16px 30px', borderRadius: 999 }}
+              >
+                Reservar una llamada <span aria-hidden>→</span>
+              </button>
+              <p style={{ margin: '12px 0 0', fontSize: 13.5, color: 'rgba(20,17,16,0.55)' }}>
+                20 minutos, sin compromiso. Te contesto yo.
+              </p>
+            </div>
           </nav>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px 26px', alignItems: 'center', borderTop: `1px solid ${t.hair}`, paddingTop: 20, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
             <a href={waHref()} target="_blank" rel="noopener">WhatsApp</a>
