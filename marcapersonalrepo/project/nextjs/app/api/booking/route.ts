@@ -82,6 +82,7 @@ export async function POST(req: Request) {
     email: cap(body.email, 120).toLowerCase(),
     telefono: cap(body.phone, 20),
     dia: cap(body.day, 40),
+    fechaYmd: cap(body.ymd, 10),
     hora: cap(body.time, 10),
     tema: cap(body.interest, 40),
     origen: cap(body.source, 60),

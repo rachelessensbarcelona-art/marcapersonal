@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { t, waHref } from '@/lib/site';
 import { onOpenChat } from '@/lib/chatBus';
 import {
-  ackFor, Booking, Chip, CONSENT, guessInterest, INTERESTS, Msg, nextDays, Step, STORAGE_KEY, TIMES, validEmail, validPhone,
+  ackFor, Booking, Chip, CONSENT, guessInterest, INTERESTS, Msg, nextDays, parseContacto, Step, STORAGE_KEY, TIMES,
 } from '@/lib/booking';
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -18,7 +18,7 @@ export default function BookingAgent() {
   const [draft, setDraft] = useState('');
   const [typing, setTyping] = useState(false);
   const box = useRef<HTMLDivElement>(null);
-  const bk = useRef<Booking & { step: Step }>({ step: 'idle', interest: null, day: null, time: null, name: '', email: '', phone: '' });
+  const bk = useRef<Booking & { step: Step }>({ step: 'idle', interest: null, day: null, ymd: null, time: null, name: '', email: '', phone: '' });
   const started = useRef(false);
 
   useEffect(() => onOpenChat(() => { setOpen(true); setOpened(true); setNudge(false); void start(); }), []);
@@ -43,7 +43,7 @@ export default function BookingAgent() {
   const askDay = (changing = false) => {
     bk.current.step = 'day';
     return say(changing ? 'Sin problema. ¿Qué día te viene mejor?' : '¿Qué día te viene bien? Son unos 20 minutos, sin compromiso.', {
-      chips: nextDays().map((d) => ({ label: d, v: 'd' })),
+      chips: nextDays().map((d) => ({ label: d.label, v: 'd', ymd: d.ymd })),
     });
   };
 
@@ -111,8 +111,8 @@ export default function BookingAgent() {
       return say('Para orientar la llamada: ¿qué encaja más contigo?', { chips: INTERESTS });
     }
     if (st === 'day') {
-      if (chip) { bk.current.day = text; bk.current.step = 'time'; return say(`${text}. ¿A qué hora?`, { fast: true, chips: TIMES.map((x) => ({ label: x, v: 't' })) }); }
-      return say('Mejor elige uno de los días de abajo, así no nos bailan las fechas.', { chips: nextDays().map((d) => ({ label: d, v: 'd' })) });
+      if (chip) { bk.current.day = text; bk.current.ymd = chip.ymd ?? null; bk.current.step = 'time'; return say(`${text}. ¿A qué hora?`, { fast: true, chips: TIMES.map((x) => ({ label: x, v: 't' })) }); }
+      return say('Mejor elige uno de los días de abajo, así no nos bailan las fechas.', { chips: nextDays().map((d) => ({ label: d.label, v: 'd', ymd: d.ymd })) });
     }
     if (st === 'time') {
       if (chip) { bk.current.time = text; bk.current.step = 'name'; return say('Apuntado. ¿Cómo te llamas?', { fast: true }); }
@@ -121,22 +121,21 @@ export default function BookingAgent() {
     if (st === 'name') {
       if (text.trim().length < 2) return say('Creo que eso no es un nombre. ¿Cómo te llamas?');
       bk.current.name = text.replace(/\s+/g, ' ').slice(0, 60);
-      bk.current.step = 'email';
-      return say(`Encantado, ${bk.current.name.split(' ')[0]}. ¿A qué correo te mando la confirmación?`, { fast: true });
+      bk.current.step = 'contacto';
+      return say(`Encantado, ${bk.current.name.split(' ')[0]}. Déjame dos datos y cierro la cita: tu correo y tu WhatsApp. Puedes ponerlos juntos en un mismo mensaje.`, { fast: true });
     }
-    if (st === 'email') {
-      const m = validEmail(text);
-      if (!m) return say('Ese correo no me cuadra. Escríbelo completo, por ejemplo: nombre@correo.com');
-      bk.current.email = m;
-      bk.current.step = 'phone';
-      return say('Perfecto. ¿Y tu número de WhatsApp? Raquel te escribe ahí para confirmar.', { fast: true });
-    }
-    if (st === 'phone') {
-      const d = validPhone(text);
-      if (!d) return say('Ese número no me cuadra. Escríbelo con prefijo si no es de España: por ejemplo, +34 600 123 456.');
-      bk.current.phone = d;
+    if (st === 'contacto') {
+      const { email, phone } = parseContacto(text);
+      if (email) bk.current.email = email;
+      if (phone) bk.current.phone = phone;
+      const falta = { email: !bk.current.email, phone: !bk.current.phone };
+      if (falta.email && falta.phone) {
+        return say('No he pillado ninguno de los dos. Escríbelos así, en la misma línea: nombre@correo.com +34 600 123 456');
+      }
+      if (falta.email) return say('Tengo el WhatsApp ✓ — me falta el correo. ¿Cuál es?', { fast: true });
+      if (falta.phone) return say('Tengo el correo ✓ — me falta el WhatsApp. ¿Cuál es?', { fast: true });
       bk.current.step = 'consent';
-      return say('Última cosa, y es obligatoria: tus datos se usan solo para organizar esta llamada. Ni listas, ni publicidad. ¿Aceptas la política de privacidad?', { chips: CONSENT });
+      return say('Los dos apuntados ✓ Última cosa y cierro: tus datos se usan solo para organizar esta llamada. Ni listas, ni publicidad. ¿Aceptas la política de privacidad?', { chips: CONSENT });
     }
     if (st === 'consent') {
       if (chip?.v === 'ok' || /acept|s[ií]|vale|ok|claro/.test(text.toLowerCase())) return finish();

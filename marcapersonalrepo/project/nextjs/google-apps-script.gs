@@ -17,7 +17,9 @@
 var ID_HOJA     = '1yu_yopxH-YWVS2lZpJA0T4e44Cn5tLXRwDrjmkFpzMk';
 var AVISARME_A  = '';                  // vacío = tu propia cuenta de Google
 var MI_NOMBRE   = 'Raquel Rodríguez';
-var MI_WHATSAPP = '';                  // ej. '+34600111222'. Vacío = no sale en el correo.
+var MI_WHATSAPP = '+34676508388';      // sale en el correo de confirmación
+var CREAR_EVENTO = true;               // pon false si no quieres la cita en tu Calendar
+var MINUTOS_CITA = 20;
 // ──────────────────────────────────────────────────────────────────
 
 var CABECERAS = ['Fecha', 'Nombre', 'Correo', 'WhatsApp', 'Día', 'Hora', 'Tema', 'Origen'];
@@ -77,7 +79,33 @@ function doPost(e) {
     return _json({ ok: false, error: 'No se pudo guardar: ' + err });
   }
 
-  var avisos = { cliente: false, mio: false };
+  var avisos = { cliente: false, mio: false, evento: false };
+
+  // 1b) Crear la cita en tu Google Calendar. Si falla, seguimos.
+  try {
+    if (CREAR_EVENTO && d.fechaYmd && d.hora) {
+      var partes = String(d.fechaYmd).split('-');
+      var hm = String(d.hora).split(':');
+      var inicio = new Date(+partes[0], +partes[1] - 1, +partes[2], +hm[0], +(hm[1] || 0), 0);
+      if (!isNaN(inicio.getTime())) {
+        var fin = new Date(inicio.getTime() + MINUTOS_CITA * 60000);
+        var ev = CalendarApp.getDefaultCalendar().createEvent(
+          'Llamada con ' + (d.nombre || 'alguien'),
+          inicio, fin,
+          {
+            description: 'Tema: ' + (d.tema || '-') +
+                         '\nWhatsApp: ' + (d.telefono || '-') +
+                         '\nCorreo: ' + (d.email || '-') +
+                         '\nVino de: ' + (d.origen || '-'),
+            guests: d.email || '',
+            sendInvites: !!d.email,
+          }
+        );
+        ev.addPopupReminder(30);
+        avisos.evento = true;
+      }
+    }
+  } catch (err) {}
 
   // 2) Correo a quien ha reservado. Si falla, seguimos.
   try {

@@ -1,19 +1,22 @@
-export type Chip = { label: string; v: string; primary?: boolean };
+export type Chip = { label: string; v: string; primary?: boolean; ymd?: string };
 export type Msg = { me?: boolean; text?: string; card?: Booking };
-export type Booking = { interest: string | null; day: string | null; time: string | null; name: string; email: string; phone: string };
-export type Step = 'idle' | 'interest' | 'day' | 'time' | 'name' | 'email' | 'phone' | 'consent' | 'done' | 'saved';
+export type Booking = { interest: string | null; day: string | null; ymd: string | null; time: string | null; name: string; email: string; phone: string };
+export type Step = 'idle' | 'interest' | 'day' | 'time' | 'name' | 'contacto' | 'consent' | 'done' | 'saved';
 
 export const STORAGE_KEY = 'rr-reserva-v1';
 
-export const nextDays = (n = 5) => {
-  const out: string[] = [];
+export type Dia = { label: string; ymd: string };
+
+export const nextDays = (n = 5): Dia[] => {
+  const out: Dia[] = [];
   const d = new Date();
   const fmt = new Intl.DateTimeFormat('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
   while (out.length < n) {
     d.setDate(d.getDate() + 1);
     const wd = d.getDay();
     if (wd === 0 || wd === 6) continue;
-    out.push(fmt.format(d));
+    const ymd = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    out.push({ label: fmt.format(d), ymd });
   }
   return out;
 };
@@ -56,4 +59,18 @@ export const validPhone = (raw: string) => {
 export const validEmail = (raw: string) => {
   const v = raw.trim().toLowerCase();
   return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(v) && v.length <= 120 ? v : null;
+};
+
+/** Saca correo y teléfono de un mismo mensaje, en cualquier orden. */
+export const parseContacto = (raw: string) => {
+  const texto = raw.trim();
+  const email = texto.match(/[^\s@,;]+@[^\s@,;]+\.[a-zA-Z]{2,}/)?.[0]?.toLowerCase() ?? null;
+  // quitamos el correo antes de buscar el número, o sus dígitos lo ensucian
+  const resto = email ? texto.replace(email, ' ') : texto;
+  const cand = resto.match(/\+?[\d][\d\s().-]{7,}\d/)?.[0] ?? null;
+  const phone = cand ? cand.replace(/[^\d+]/g, '') : null;
+  return {
+    email: email && email.length <= 120 ? email : null,
+    phone: phone && /^\+?\d{9,15}$/.test(phone) ? phone : null,
+  };
 };

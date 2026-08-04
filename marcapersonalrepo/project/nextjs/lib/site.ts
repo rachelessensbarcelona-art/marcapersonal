@@ -1,6 +1,6 @@
 export const site = {
   name: 'Raquel Rodríguez',
-  whatsapp: '+34600000000',
+  whatsapp: '+34676508388',
   instagram: 'raquelrodriguez',
   email: 'hola@raquelrodriguez.es',
 };
