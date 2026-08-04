@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:#FBF9F6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:rgba(74,107,125,0.3)}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit;opacity:0.75}
+button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer}
+input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@keyframes rrpulse{0%{transform:scale(1);opacity:0.5}70%{transform:scale(1.5);opacity:0}100%{transform:scale(1.5);opacity:0}}
+@keyframes rrdot{0%,60%,100%{opacity:0.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+</style>
+</helmet>
+<div id="inv-root" style="--accent:#4A6B7D; --display:'Schibsted Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif; --gut:clamp(26px,6.2vw,104px); --soft:rgba(20,17,16,0.68); --faint:#6B6560; --hair:rgba(20,17,16,0.12); background:#FBF9F6; color:#141110; font-family:'Schibsted Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif; min-height:100vh; overflow-x:clip;">
+
+<nav id="inv-nav" style="position:fixed; top:0; left:0; right:0; z-index:80; display:flex; justify-content:space-between; align-items:center; padding:16px var(--gut); backdrop-filter:blur(14px) saturate(1.4); -webkit-backdrop-filter:blur(14px) saturate(1.4); background:rgba(251,249,246,0.72); border-bottom:1px solid rgba(20,17,16,0.07);">
+  <a href="Raquel Rodriguez Experience.dc.html" style="font-size:14px; font-weight:600; letter-spacing:0.02em; display:flex; align-items:center; gap:9px;"><span style="font-size:16px; line-height:1;">←</span> Raquel Rodríguez</a>
+  <button type="button" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="width:44px; height:44px; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:6px;">
+    <span style="{{ burgerTop }}"></span>
+    <span style="{{ burgerBottom }}"></span>
+  </button>
+</nav>
+
+<div style="{{ menuStyle }}">
+  <button type="button" onClick="{{ toggleMenu }}" aria-label="Cerrar menú" style="position:absolute; top:14px; right:var(--gut); width:46px; height:46px; border-radius:50%; border:1px solid rgba(20,17,16,0.16); display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:300; line-height:1; transition:border-color 250ms ease, background-color 250ms ease;" style-hover="border-color:rgba(20,17,16,0.5); background:rgba(20,17,16,0.04); opacity:1;">×</button>
+  <div style="max-width:1200px; margin:0 auto; padding:clamp(96px,14vh,150px) var(--gut) clamp(36px,6vh,64px); min-height:100%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; gap:40px;">
+    <nav style="display:flex; flex-direction:column; align-items:flex-start; gap:clamp(8px,1.8vh,18px);">
+      <a href="Raquel Rodriguez Experience.dc.html" style="font-family:var(--display); font-size:clamp(2.4rem,7vw,5rem); font-weight:500; letter-spacing:-0.014em; line-height:1.05;" style-hover="color:var(--accent); opacity:1;">Inicio</a>
+      <a href="#producto" onClick="{{ closeMenu }}" style="font-family:var(--display); font-size:clamp(2.4rem,7vw,5rem); font-weight:500; letter-spacing:-0.014em; line-height:1.05;" style-hover="color:var(--accent); opacity:1;">Cómo te quiero ayudar</a>
+      <button type="button" onClick="{{ menuBook }}" style="margin-top:clamp(14px,2.6vh,26px); font-size:clamp(15px,1.5vw,18px); font-weight:500; border-bottom:1px solid var(--accent); padding-bottom:3px; color:var(--accent); text-align:left;">Reservar una llamada conmigo →</button>
+    </nav>
+    <div style="display:flex; flex-wrap:wrap; gap:14px 26px; align-items:center; border-top:1px solid var(--hair); padding-top:20px; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase;">
+      <a href="{{ waHref }}" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="{{ igHref }}" target="_blank" rel="noopener">Instagram</a>
+      <a href="{{ mailHref }}">Correo</a>
+      <span style="margin-left:auto; color:var(--faint);">© 2026 Raquel Rodríguez</span>
+    </div>
+  </div>
+</div>
+
+<header data-screen-label="01 El producto" style="padding:clamp(104px,15vh,168px) var(--gut) clamp(40px,6vh,72px);">
+  <div style="max-width:1240px; margin:0 auto;">
+    <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:clamp(14px,2.4vh,26px);">
+      <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">01</span>
+      <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">Lo que uso en mi casa</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px 48px;">
+      <h1 data-reveal="1" style="margin:0; font-family:var(--display); font-size:clamp(2.5rem,6.6vw,6.2rem); font-weight:500; letter-spacing:-0.022em; line-height:0.94; max-width:17ch;">Míralo antes<br><span style="color:var(--accent);">de decidir nada.</span></h1>
+      <p style="margin:0; font-size:clamp(15.5px,1.4vw,18px); line-height:1.6; color:rgba(20,17,16,0.68); max-width:34ch;">Dos minutos de vídeo, sin efectos: qué es, cómo se conecta y qué hace en una cocina normal. Debajo, los números completos.</p>
+    </div>
+
+    <figure data-reveal="1" style="margin:clamp(28px,4.5vh,56px) 0 0 0; position:relative; border-radius:22px; overflow:hidden; border:1px solid var(--hair); background:rgba(20,17,16,0.035); aspect-ratio:16/9;">
+      <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
+        <iframe src="{{ videoUrl }}" title="Vídeo de presentación" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen="true" style="position:absolute; inset:0; width:100%; height:100%; border:0; display:block;"></iframe>
+      </sc-if>
+      <sc-if value="{{ noVideo }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:repeating-linear-gradient(135deg, rgba(20,17,16,0.045) 0 1px, transparent 1px 13px);">
+          <span style="width:76px; height:76px; border-radius:50%; border:1px solid rgba(20,17,16,0.28); display:flex; align-items:center; justify-content:center; background:rgba(251,249,246,0.7);">
+            <span style="width:0; height:0; border-left:18px solid #141110; border-top:11px solid transparent; border-bottom:11px solid transparent; margin-left:5px;"></span>
+          </span>
+          <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560; text-align:center; padding:0 24px;">Aquí va tu vídeo · 16:9<br>pégale el enlace en los ajustes</span>
+        </div>
+      </sc-if>
+    </figure>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(22px,3.4vh,38px); align-items:center;">
+      <a href="#precio" style="background:#141110; color:#FBF9F6; border-radius:999px; padding:14px 26px; font-size:15px; font-weight:600;">Ver el precio</a>
+      <a href="#negocio" style="border:1px solid rgba(20,17,16,0.22); border-radius:999px; padding:14px 26px; font-size:15px; font-weight:500;">Y si quiero venderlo</a>
+      <span data-cta-note="1" style="font-size:12.5px; color:var(--faint); margin-left:6px;">Precio escrito, sin llamadas para sacarlo.</span>
+    </div>
+  </div>
+</header>
+
+<section id="producto" data-screen-label="02 Qué hace" style="padding:0 var(--gut) clamp(58px,8vh,96px); scroll-margin-top:84px;">
+  <div style="max-width:1240px; margin:0 auto;">
+    <div style="border-top:1px solid var(--hair); padding-top:28px;">
+      <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:16px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">02</span>
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">Qué hace</span>
+      </div>
+      <h2 style="margin:0 0 14px 0; font-family:var(--display); font-size:clamp(1.9rem,3.6vw,3.4rem); font-weight:500; letter-spacing:-0.018em; line-height:1.02;">Un grifo. <span style="color:var(--accent);">Cuatro aguas.</span></h2>
+      <p style="margin:0; font-size:15.5px; line-height:1.65; color:rgba(20,17,16,0.68); max-width:52ch;">Un aparato japonés del tamaño de una cafetera, conectado al grifo de la cocina. Pulsas un botón y sale la que necesitas.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr)); gap:18px; margin-top:30px;">
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px; background:linear-gradient(180deg, rgba(168,70,46,0) 30%, rgba(168,70,46,0.07) 100%);">
+        <p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">pH 2,5</p>
+        <p style="margin:12px 0 0 0; font-family:var(--display); font-size:clamp(1.2rem,1.9vw,1.65rem); font-weight:500; letter-spacing:-0.014em;">Desinfectar</p>
+        <p style="margin:8px 0 0 0; font-size:14px; line-height:1.6; color:var(--soft);">Tablas, baños, juguetes. Adiós a la lejía en casa.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px; background:linear-gradient(180deg, rgba(176,120,86,0) 30%, rgba(176,120,86,0.07) 100%);">
+        <p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">pH 6,0</p>
+        <p style="margin:12px 0 0 0; font-family:var(--display); font-size:clamp(1.2rem,1.9vw,1.65rem); font-weight:500; letter-spacing:-0.014em;">Cuidar tu piel</p>
+        <p style="margin:8px 0 0 0; font-size:14px; line-height:1.6; color:var(--soft);">Tónico para cara y pelo. Nada más, solo agua.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px; background:linear-gradient(180deg, rgba(92,120,148,0) 30%, rgba(92,120,148,0.08) 100%);">
+        <p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">pH 9,5</p>
+        <p style="margin:12px 0 0 0; font-family:var(--display); font-size:clamp(1.2rem,1.9vw,1.65rem); font-weight:500; letter-spacing:-0.014em;">Beber</p>
+        <p style="margin:8px 0 0 0; font-size:14px; line-height:1.6; color:var(--soft);">La de cada día, para toda la familia.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px; background:linear-gradient(180deg, rgba(64,96,116,0) 30%, rgba(64,96,116,0.08) 100%);">
+        <p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">pH 11,5</p>
+        <p style="margin:12px 0 0 0; font-family:var(--display); font-size:clamp(1.2rem,1.9vw,1.65rem); font-weight:500; letter-spacing:-0.014em;">Cocinar</p>
+        <p style="margin:8px 0 0 0; font-size:14px; line-height:1.6; color:var(--soft);">Lava la verdura y saca el sabor de verdad.</p>
+      </div>
+    </div>
+    <p style="margin:18px 0 0 0; font-size:12.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Se conecta en minutos · Sin obra · 15–20 años de vida útil</p>
+  </div>
+</section>
+
+<section data-screen-label="03 Lo que ya gastas" style="padding:0 var(--gut) clamp(58px,8vh,96px);">
+  <div style="max-width:1240px; margin:0 auto;">
+    <div style="border-top:1px solid var(--hair); padding-top:28px; display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:10px 32px;">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:16px;">
+          <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">03</span>
+          <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">La comparación honesta</span>
+        </div>
+        <h2 style="margin:0; font-family:var(--display); font-size:clamp(1.9rem,3.6vw,3.4rem); font-weight:500; letter-spacing:-0.018em;">Esto ya lo estás gastando</h2>
+      </div>
+      <p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">Familia de 4 · 8 litros al día</p>
+    </div>
+    <div style="overflow-x:auto; margin-top:26px;">
+      <div data-table="1" style="min-width:600px;">
+        <div data-trow="1" style="display:grid; grid-template-columns:1.3fr 0.8fr 1fr 1.2fr; gap:24px; padding-bottom:12px; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">
+          <span>Marca</span><span>€ / litro</span><span>Al año</span><span>En 20 años</span>
+        </div>
+        <div data-reveal="1" data-trow="1" style="display:grid; grid-template-columns:1.3fr 0.8fr 1fr 1.2fr; gap:24px; align-items:baseline; border-top:1px solid var(--hair); padding:19px 0;">
+          <span style="font-size:16.5px; font-weight:500;">AquaBona</span>
+          <span style="font-size:14px; color:var(--soft);">0,26 €</span>
+          <span style="font-size:15px;">759 €</span>
+          <span data-count="15180" style="font-size:17.5px; font-weight:600; color:var(--accent); font-variant-numeric:tabular-nums;">15.180 €</span>
+        </div>
+        <div data-reveal="1" data-trow="1" style="display:grid; grid-template-columns:1.3fr 0.8fr 1fr 1.2fr; gap:24px; align-items:baseline; border-top:1px solid var(--hair); padding:19px 0;">
+          <span style="font-size:16.5px; font-weight:500;">Lanjarón</span>
+          <span style="font-size:14px; color:var(--soft);">0,35 €</span>
+          <span style="font-size:15px;">1.022 €</span>
+          <span data-count="20440" style="font-size:17.5px; font-weight:600; color:var(--accent); font-variant-numeric:tabular-nums;">20.440 €</span>
+        </div>
+        <div data-reveal="1" data-trow="1" style="display:grid; grid-template-columns:1.3fr 0.8fr 1fr 1.2fr; gap:24px; align-items:baseline; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:19px 0;">
+          <span style="font-size:16.5px; font-weight:500;">Font Vella</span>
+          <span style="font-size:14px; color:var(--soft);">0,49 €</span>
+          <span style="font-size:15px;">1.430 €</span>
+          <span data-count="28600" style="font-size:17.5px; font-weight:600; color:var(--accent); font-variant-numeric:tabular-nums;">28.600 €</span>
+        </div>
+      </div>
+    </div>
+    <p style="margin:14px 0 0 0; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Precios medios de garrafa de supermercado · Y esto es solo el agua de beber</p>
+  </div>
+</section>
+
+<section id="precio" data-screen-label="04 La inversión" style="padding:0 var(--gut) clamp(58px,8vh,96px); scroll-margin-top:84px;">
+  <div data-reveal="1" style="max-width:1240px; margin:0 auto; border:1px solid var(--hair); border-radius:26px; padding:clamp(30px,4.4vw,58px); display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:clamp(26px,4vw,58px); align-items:center; background:linear-gradient(160deg, rgba(20,17,16,0.035) 0%, rgba(20,17,16,0) 62%);">
+    <div>
+      <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:16px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">04</span>
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">La inversión</span>
+      </div>
+      <p data-count="5600" style="margin:0; font-family:var(--display); font-size:clamp(3.3rem,7vw,6rem); font-weight:500; letter-spacing:-0.022em; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums;">5.600 €</p>
+      <div style="margin-top:22px; display:flex; flex-direction:column; gap:9px; font-size:12.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#6B6560;">
+        <span>Pago único · 15–20 años de vida útil</span>
+        <span>Financiación directa del fabricante</span>
+        <span>Filtro: 95 € ≈ una vez al año</span>
+      </div>
+    </div>
+    <div>
+      <p style="margin:0 0 18px 0; font-size:clamp(16px,1.4vw,18.5px); line-height:1.65; color:var(--soft);">No es un gasto nuevo: es mover el que ya tienes a algo que se queda en tu casa dos décadas. Y súmale parte de lo que gastas en limpieza, que estas aguas también sustituyen.</p>
+      <p style="margin:0; font-size:clamp(16px,1.4vw,18.5px); line-height:1.65; font-weight:600;">Es caro. No voy a fingir que no. Por eso lo lees aquí y no escondido detrás de una llamada.</p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="05 Qué incluye" style="padding:0 var(--gut) clamp(58px,8vh,96px);">
+  <div style="max-width:1240px; margin:0 auto;">
+    <div style="border-top:1px solid var(--hair); padding-top:28px;">
+      <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:16px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">05</span>
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">Qué incluye</span>
+      </div>
+      <h2 style="margin:0; font-family:var(--display); font-size:clamp(1.9rem,3.6vw,3.4rem); font-weight:500; letter-spacing:-0.018em;">Qué entra en ese precio</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:18px; margin-top:28px;">
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px;">
+        <p style="margin:0 0 10px 0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; color:var(--accent);">01</p>
+        <p style="margin:0 0 8px 0; font-size:16.5px; font-weight:500; letter-spacing:-0.015em;">El equipo completo</p>
+        <p style="margin:0; font-size:14px; line-height:1.6; color:var(--soft);">Aparato, filtro, mangueras y adaptadores de grifo. Nada que comprar aparte.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px;">
+        <p style="margin:0 0 10px 0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; color:var(--accent);">02</p>
+        <p style="margin:0 0 8px 0; font-size:16.5px; font-weight:500; letter-spacing:-0.015em;">Garantía oficial</p>
+        <p style="margin:0; font-size:14px; line-height:1.6; color:var(--soft);">Cobertura y servicio técnico del fabricante, una marca japonesa con más de cincuenta años.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px;">
+        <p style="margin:0 0 10px 0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; color:var(--accent);">03</p>
+        <p style="margin:0 0 8px 0; font-size:16.5px; font-weight:500; letter-spacing:-0.015em;">Yo, al otro lado</p>
+        <p style="margin:0; font-size:14px; line-height:1.6; color:var(--soft);">Te guío al conectarlo y te enseño a usar las cuatro aguas. Sin coste y sin fecha de caducidad.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:18px; padding:24px;">
+        <p style="margin:0 0 10px 0; font-size:12.5px; font-weight:500; letter-spacing:0.2em; color:var(--accent);">04</p>
+        <p style="margin:0 0 8px 0; font-size:16.5px; font-weight:500; letter-spacing:-0.015em;">14 días para pensarlo</p>
+        <p style="margin:0; font-size:14px; line-height:1.6; color:var(--soft);">Derecho de desistimiento, como en cualquier compra a distancia en España.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonios" data-screen-label="06 Testimonios" style="padding:0 var(--gut) clamp(58px,8vh,96px); scroll-margin-top:84px;">
+  <div style="max-width:1240px; margin:0 auto;">
+    <div style="border-top:1px solid var(--hair); padding-top:28px;">
+      <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:16px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">06</span>
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">Testimonios</span>
+      </div>
+      <h2 style="margin:0 0 14px 0; font-family:var(--display); font-size:clamp(1.9rem,3.6vw,3.4rem); font-weight:500; letter-spacing:-0.018em;">No solo yo</h2>
+      <p style="margin:0; font-size:15.5px; line-height:1.65; color:rgba(20,17,16,0.68); max-width:56ch;">Solo publico experiencias reales, con nombre y permiso por escrito. Ninguna dice que el agua cure nada, porque no lo hace.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr)); gap:18px; margin-top:28px;">
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:20px; overflow:hidden;">
+        <div style="aspect-ratio:4/3; background:repeating-linear-gradient(135deg, rgba(20,17,16,0.045) 0 1px, transparent 1px 13px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; border-bottom:1px solid var(--hair);">
+          <span style="width:48px; height:48px; border-radius:50%; border:1px solid rgba(20,17,16,0.3); display:flex; align-items:center; justify-content:center;"><span style="width:0; height:0; border-left:12px solid #141110; border-top:7.5px solid transparent; border-bottom:7.5px solid transparent; margin-left:3px;"></span></span>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Vídeo de clienta · 40 s</span>
+        </div>
+        <div style="padding:22px;">
+          <p style="margin:0; font-size:15.5px; line-height:1.6;">Aquí va, palabra por palabra, lo que ha cambiado en su casa desde que lo tiene.</p>
+          <p style="margin:16px 0 0 0; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Nombre · Ciudad</p>
+        </div>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:20px; overflow:hidden;">
+        <div style="aspect-ratio:4/3; background:repeating-linear-gradient(135deg, rgba(20,17,16,0.045) 0 1px, transparent 1px 13px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; border-bottom:1px solid var(--hair);">
+          <span style="width:48px; height:48px; border-radius:50%; border:1px solid rgba(20,17,16,0.3); display:flex; align-items:center; justify-content:center;"><span style="width:0; height:0; border-left:12px solid #141110; border-top:7.5px solid transparent; border-bottom:7.5px solid transparent; margin-left:3px;"></span></span>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Vídeo de clienta · 40 s</span>
+        </div>
+        <div style="padding:22px;">
+          <p style="margin:0; font-size:15.5px; line-height:1.6;">Qué esperaba antes de comprarlo y qué se ha encontrado después.</p>
+          <p style="margin:16px 0 0 0; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Nombre · Ciudad</p>
+        </div>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--hair); border-radius:20px; overflow:hidden;">
+        <div style="aspect-ratio:4/3; background:repeating-linear-gradient(135deg, rgba(20,17,16,0.045) 0 1px, transparent 1px 13px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; border-bottom:1px solid var(--hair);">
+          <span style="width:48px; height:48px; border-radius:50%; border:1px solid rgba(20,17,16,0.3); display:flex; align-items:center; justify-content:center;"><span style="width:0; height:0; border-left:12px solid #141110; border-top:7.5px solid transparent; border-bottom:7.5px solid transparent; margin-left:3px;"></span></span>
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Vídeo de clienta · 40 s</span>
+        </div>
+        <div style="padding:22px;">
+          <p style="margin:0; font-size:15.5px; line-height:1.6;">Mejor si es de alguien a quien al principio le pareció caro.</p>
+          <p style="margin:16px 0 0 0; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Nombre · Ciudad</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="negocio" data-screen-label="07 El negocio" style="padding:0 var(--gut) clamp(58px,8vh,96px); scroll-margin-top:84px;">
+  <div style="max-width:1240px; margin:0 auto;">
+    <div style="border-top:1px solid var(--hair); padding-top:28px;">
+      <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:16px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">07</span>
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">La otra puerta</span>
+      </div>
+      <h2 data-reveal="1" style="margin:0 0 14px 0; font-family:var(--display); font-size:clamp(1.9rem,3.8vw,3.5rem); font-weight:500; letter-spacing:-0.018em; line-height:1.04; max-width:22ch;">El mismo aparato que tienes en casa <span style="color:var(--accent);">puede ser tu negocio</span></h2>
+      <p style="margin:0; font-size:15.5px; line-height:1.65; color:rgba(20,17,16,0.68); max-width:52ch;">No todo el mundo llega hasta aquí, y está bien. Yo empecé siendo clienta; me hice distribuidora independiente en 2021 y hoy tengo equipo en varios países.</p>
+    </div>
+    <div style="margin-top:28px;">
+      <div data-reveal="1" style="border-top:1px solid var(--hair); padding:22px 0; display:grid; grid-template-columns:minmax(34px,42px) 1fr; gap:20px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.14em; color:#6B6560; padding-top:4px;">01</span>
+        <p style="margin:0; font-size:16.5px; line-height:1.65;"><strong style="font-weight:600;">Sin stock, sin local, sin inventario.</strong> <span style="color:var(--soft);">Todo se lleva desde el móvil.</span></p>
+      </div>
+      <div data-reveal="1" style="border-top:1px solid var(--hair); padding:22px 0; display:grid; grid-template-columns:minmax(34px,42px) 1fr; gap:20px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.14em; color:#6B6560; padding-top:4px;">02</span>
+        <p style="margin:0; font-size:16.5px; line-height:1.65;"><strong style="font-weight:600;">Recomiendas algo que ya usas.</strong> <span style="color:var(--soft);">El aparato está en tu cocina y lo usas cada día. No vendes nada que no conozcas.</span></p>
+      </div>
+      <div data-reveal="1" style="border-top:1px solid var(--hair); padding:22px 0; display:grid; grid-template-columns:minmax(34px,42px) 1fr; gap:20px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.14em; color:#6B6560; padding-top:4px;">03</span>
+        <p style="margin:0; font-size:16.5px; line-height:1.65;"><strong style="font-weight:600;">Un modelo de más de cincuenta años.</strong> <span style="color:var(--soft);">La marca funciona igual desde los años setenta. No es la moda de este trimestre.</span></p>
+      </div>
+      <div data-reveal="1" style="border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:22px 0; display:grid; grid-template-columns:minmax(34px,42px) 1fr; gap:20px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.14em; color:#6B6560; padding-top:4px;">04</span>
+        <p style="margin:0; font-size:16.5px; line-height:1.65;"><strong style="font-weight:600;">Te acompaño yo.</strong> <span style="color:var(--soft);">Con lo que aprendí montando mi propio equipo. Los errores caros ya los cometí yo.</span></p>
+      </div>
+    </div>
+    <div data-reveal="1" style="margin-top:28px; border:1px solid var(--accent); border-radius:18px; padding:clamp(22px,3vw,32px);">
+      <p style="margin:0 0 12px 0; font-size:11.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">Lo que no te voy a prometer</p>
+      <p style="margin:0; font-size:16.5px; line-height:1.65; max-width:62ch;">Ni una cifra de ingresos, ni un plazo, ni que dejes tu trabajo. Esto es vender, y vender es un oficio que se tarda en aprender. Si buscas algo rápido o pasivo, esto no lo es.</p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="08 Preguntas" style="padding:0 var(--gut) clamp(66px,9vh,110px);">
+  <div style="max-width:1240px; margin:0 auto;">
+    <div style="border-top:1px solid var(--hair); padding-top:28px;">
+      <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:16px;">
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">08</span>
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">Preguntas</span>
+      </div>
+      <h2 style="margin:0 0 24px 0; font-family:var(--display); font-size:clamp(1.9rem,3.6vw,3.4rem); font-weight:500; letter-spacing:-0.018em;">Las de siempre, de frente</h2>
+    </div>
+    <div style="max-width:900px;">
+      <div data-faq="1" style="border-top:1px solid var(--hair);">
+        <button type="button" data-faq-q="1" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px; text-align:left; padding:21px 0;">
+          <span style="font-size:clamp(15.5px,1.4vw,17.5px); font-weight:600; letter-spacing:-0.015em;">¿Cómo funciona la financiación?</span>
+          <span data-faq-plus="1" style="font-size:24px; font-weight:300; color:var(--accent); flex:none; line-height:1; transition:transform 400ms cubic-bezier(0.22,1,0.36,1);">+</span>
+        </button>
+        <div data-faq-a="1" style="display:grid; grid-template-rows:0fr; transition:grid-template-rows 400ms cubic-bezier(0.22,1,0.36,1);">
+          <div style="overflow:hidden; min-height:0;"><p style="margin:0 0 22px 0; font-size:15.5px; line-height:1.65; color:rgba(20,17,16,0.68); max-width:64ch;">Directa del fabricante, en cuotas mensuales y sin pasar por un banco. Las condiciones dependen del plazo: te las enseño con números reales en la llamada.</p></div>
+        </div>
+      </div>
+      <div data-faq="1" style="border-top:1px solid var(--hair);">
+        <button type="button" data-faq-q="1" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px; text-align:left; padding:21px 0;">
+          <span style="font-size:clamp(15.5px,1.4vw,17.5px); font-weight:600; letter-spacing:-0.015em;">¿Qué mantenimiento tiene de verdad?</span>
+          <span data-faq-plus="1" style="font-size:24px; font-weight:300; color:var(--accent); flex:none; line-height:1; transition:transform 400ms cubic-bezier(0.22,1,0.36,1);">+</span>
+        </button>
+        <div data-faq-a="1" style="display:grid; grid-template-rows:0fr; transition:grid-template-rows 400ms cubic-bezier(0.22,1,0.36,1);">
+          <div style="overflow:hidden; min-height:0;"><p style="margin:0 0 22px 0; font-size:15.5px; line-height:1.65; color:rgba(20,17,16,0.68); max-width:64ch;">Un filtro de unos 6.600 litros —en una familia, más o menos un año— que cuesta 95 €, y una limpieza profunda ocasional. Nada más.</p></div>
+        </div>
+      </div>
+      <div data-faq="1" style="border-top:1px solid var(--hair);">
+        <button type="button" data-faq-q="1" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px; text-align:left; padding:21px 0;">
+          <span style="font-size:clamp(15.5px,1.4vw,17.5px); font-weight:600; letter-spacing:-0.015em;">¿Puedo probar el agua antes?</span>
+          <span data-faq-plus="1" style="font-size:24px; font-weight:300; color:var(--accent); flex:none; line-height:1; transition:transform 400ms cubic-bezier(0.22,1,0.36,1);">+</span>
+        </button>
+        <div data-faq-a="1" style="display:grid; grid-template-rows:0fr; transition:grid-template-rows 400ms cubic-bezier(0.22,1,0.36,1);">
+          <div style="overflow:hidden; min-height:0;"><p style="margin:0 0 22px 0; font-size:15.5px; line-height:1.65; color:rgba(20,17,16,0.68); max-width:64ch;">Si vives cerca, te llevo unos cinco litros a casa. No la envío lejos porque pierde propiedades con el tiempo y prefiero decírtelo antes.</p></div>
+        </div>
+      </div>
+      <div data-faq="1" style="border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);">
+        <button type="button" data-faq-q="1" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px; text-align:left; padding:21px 0;">
+          <span style="font-size:clamp(15.5px,1.4vw,17.5px); font-weight:600; letter-spacing:-0.015em;">¿Esto sustituye ir al médico?</span>
+          <span data-faq-plus="1" style="font-size:24px; font-weight:300; color:var(--accent); flex:none; line-height:1; transition:transform 400ms cubic-bezier(0.22,1,0.36,1);">+</span>
+        </button>
+        <div data-faq-a="1" style="display:grid; grid-template-rows:0fr; transition:grid-template-rows 400ms cubic-bezier(0.22,1,0.36,1);">
+          <div style="overflow:hidden; min-height:0;"><p style="margin:0 0 22px 0; font-size:15.5px; line-height:1.65; color:rgba(20,17,16,0.68); max-width:64ch;">No, en absoluto. Nada de esta página es consejo médico. Si tienes una condición de salud, tu médico. Esto es un electrodoméstico.</p></div>
+        </div>
+      </div>
+    </div>
+    <div data-reveal="1" style="margin-top:clamp(44px,7vh,72px); text-align:center;">
+      <h2 style="margin:0; font-family:var(--display); font-size:clamp(2.5rem,6vw,5.2rem); font-weight:500; letter-spacing:-0.02em; line-height:1;">¿Hablamos?</h2>
+      <p style="margin:18px auto 0; font-size:clamp(16px,1.5vw,19px); line-height:1.55; color:rgba(20,17,16,0.68); max-width:30ch;">Veinte minutos, sin guion y sin compromiso. Si no es para ti, seré la primera en decírtelo.</p>
+      <button type="button" onClick="{{ openChat }}" style="display:inline-block; margin-top:28px; background:#141110; color:#FBF9F6; font-size:15.5px; font-weight:600; padding:15px 32px; border-radius:999px;">Reservar una llamada</button>
+      <p style="margin:16px 0 0 0; font-size:12.5px; color:var(--faint);">O escríbeme por <a href="{{ waHref }}" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(20,17,16,0.25); padding-bottom:1px;">WhatsApp</a>.</p>
+    </div>
+    <p style="margin:clamp(48px,7vh,76px) 0 0 0; border-top:1px solid var(--hair); padding-top:20px; font-size:11.5px; line-height:1.65; color:var(--faint); max-width:86ch;">Nada de esta página es consejo médico ni una promesa de ingresos. Los precios de referencia pueden variar. Sitio de una distribuidora independiente; no representa oficialmente al fabricante.</p>
+  </div>
+</section>
+
+<div data-screen-label="Asistente" style="position:fixed; bottom:22px; right:22px; z-index:96; display:flex; flex-direction:column; align-items:flex-end; gap:12px; max-width:calc(100vw - 44px);">
+  <div data-chat-panel="1" style="{{ panelStyle }}">
+    <div style="display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid rgba(20,17,16,0.1);">
+      <img src="uploads/magnific_elegant-black-and-white-p_tCh5YqomZJ.png" alt="Raquel Rodríguez" style="width:36px; height:36px; border-radius:50%; object-fit:cover; flex:none;">
+      <div style="flex:1; min-width:0;">
+        <p style="margin:0; font-size:14px; font-weight:600;">Raquel Rodríguez</p>
+        <p style="margin:1px 0 0 0; font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#6B6560;">Asistente de agenda · En línea</p>
+      </div>
+      <button type="button" onClick="{{ closeChat }}" aria-label="Cerrar" style="width:30px; height:30px; border-radius:50%; background:rgba(20,17,16,0.06); font-size:15px; display:flex; align-items:center; justify-content:center;">×</button>
+    </div>
+    <div id="rr-chatbox" style="flex:1; min-height:0; overflow-y:auto; padding:18px 18px 10px; display:flex; flex-direction:column; gap:10px;">
+      <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="1">
+        <div style="{{ m.wrapStyle }}">
+          <sc-if value="{{ m.isText }}" hint-placeholder-val="{{ true }}">
+            <div style="{{ m.bubbleStyle }}">{{ m.text }}</div>
+          </sc-if>
+          <sc-if value="{{ m.isCard }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid rgba(20,17,16,0.14); border-radius:16px; padding:15px 17px; background:#FFFFFF; width:min(100%,300px);">
+              <p style="margin:0 0 8px 0; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#6B6560;">Resumen de tu reserva</p>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(20,17,16,0.1); font-size:13.5px;"><span style="color:var(--soft);">Día</span><span style="font-weight:600;">{{ m.dia }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(20,17,16,0.1); font-size:13.5px;"><span style="color:var(--soft);">Hora</span><span style="font-weight:600;">{{ m.hora }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(20,17,16,0.1); font-size:13.5px;"><span style="color:var(--soft);">Tema</span><span style="font-weight:600;">{{ m.tema }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(20,17,16,0.1); font-size:13.5px;"><span style="color:var(--soft);">Nombre</span><span style="font-weight:600;">{{ m.nombre }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(20,17,16,0.1); font-size:13.5px;"><span style="color:var(--soft);">WhatsApp</span><span style="font-weight:600;">{{ m.tel }}</span></div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; justify-content:flex-start;">
+          <div style="background:rgba(20,17,16,0.06); border-radius:18px 18px 18px 6px; padding:14px 16px; display:flex; gap:5px;">
+            <span style="width:6px; height:6px; border-radius:50%; background:#141110; animation:rrdot 1.1s infinite;"></span>
+            <span style="width:6px; height:6px; border-radius:50%; background:#141110; animation:rrdot 1.1s infinite; animation-delay:0.15s;"></span>
+            <span style="width:6px; height:6px; border-radius:50%; background:#141110; animation:rrdot 1.1s infinite; animation-delay:0.3s;"></span>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ hasChips }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-wrap:wrap; gap:8px; padding:2px 16px 12px;">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="1">
+          <button type="button" onClick="{{ c.onPick }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <form onSubmit="{{ onSend }}" style="display:flex; gap:10px; padding:11px 13px; border-top:1px solid rgba(20,17,16,0.1); align-items:center;">
+      <input value="{{ draft }}" onChange="{{ onDraft }}" placeholder="Escribe aquí…" aria-label="Mensaje para el asistente" style="flex:1; min-width:0; background:rgba(20,17,16,0.05); border:none; border-radius:999px; padding:11px 17px; font-size:14.5px;">
+      <button type="submit" aria-label="Enviar" style="width:40px; height:40px; flex:none; border-radius:50%; background:#141110; color:#FBF9F6; font-size:17px; display:flex; align-items:center; justify-content:center;">↑</button>
+    </form>
+    <p style="margin:0; padding:0 14px 11px; text-align:center; font-size:10.5px; font-weight:500; letter-spacing:0.13em; text-transform:uppercase; color:var(--faint);">Datos solo para organizar la llamada · RGPD</p>
+  </div>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <button type="button" data-teaser="1" onClick="{{ openChat }}" style="{{ teaserStyle }}">¿Te reservo 20 minutos?</button>
+    <button type="button" onClick="{{ toggleChat }}" aria-label="Abrir asistente de reservas" style="position:relative; width:54px; height:54px; border-radius:50%; flex:none; background:#FBF9F6; border:1px solid rgba(20,17,16,0.14); box-shadow:0 10px 30px rgba(20,17,16,0.10); overflow:hidden; transition:transform 260ms cubic-bezier(0.22,1,0.36,1), border-color 260ms ease;" style-hover="transform:translateY(-2px); border-color:rgba(20,17,16,0.4); opacity:1;">
+      <img src="uploads/magnific_elegant-black-and-white-p_tCh5YqomZJ.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.05);">
+      <span style="{{ fabIconStyle }}">×</span>
+      <sc-if value="{{ showBadge }}" hint-placeholder-val="{{ false }}">
+        <span style="position:absolute; top:4px; right:4px; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 2px #FBF9F6; display:block;"></span>
+      </sc-if>
+    </button>
+  </div>
+</div>
+
+<div id="inv-ring" style="position:fixed; top:0; left:0; width:36px; height:36px; margin:-18px 0 0 -18px; border-radius:50%; border:1px solid rgba(20,17,16,0.35); pointer-events:none; z-index:999; opacity:0; transition:opacity 300ms ease, width 220ms cubic-bezier(0.22,1,0.36,1), height 220ms cubic-bezier(0.22,1,0.36,1), margin 220ms cubic-bezier(0.22,1,0.36,1), background-color 220ms ease, border-color 220ms ease;"></div>
+<div id="inv-dot" style="position:fixed; top:0; left:0; width:5px; height:5px; margin:-2.5px 0 0 -2.5px; border-radius:50%; background:var(--accent); pointer-events:none; z-index:999; opacity:0; transition:opacity 300ms ease;"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;videoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Vídeo&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#4A6B7D&quot;,&quot;options&quot;:[&quot;#4A6B7D&quot;,&quot;#A8462E&quot;,&quot;#8A5A32&quot;,&quot;#4E4A43&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estilo&quot;},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;+34 600 000 000&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;},&quot;instagram&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;raquelrodriguez&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;},&quot;email&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;hola@raquelrodriguez.es&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;}}">
+class Component extends DCLogic {
+  state = { menu: false, msgs: [], chips: [], draft: '', typing: false, open: false, opened: false, nudge: false };
+
+  p(k, d) { return this.props[k] ?? d; }
+  waDigits() { return String(this.p('whatsapp', '34600000000')).replace(/[^\d]/g, ''); }
+
+  renderVals() {
+    const url = String(this.p('videoUrl', '')).trim();
+    const open = this.state.menu;
+    const bar = (flip) => ({
+      display: 'block', width: open ? '24px' : (flip ? '17px' : '26px'), height: '1.5px', background: '#141110',
+      transformOrigin: 'center', transition: 'transform 380ms cubic-bezier(0.22,1,0.36,1), width 380ms ease',
+      transform: open ? 'translateY(' + (flip ? -3.75 : 3.75) + 'px) rotate(' + (flip ? -45 : 45) + 'deg)' : 'none'
+    });
+    const ink = '#141110', bone = '#FBF9F6';
+    const bubble = (me) => ({
+      background: me ? '#1B1611' : 'rgba(20,17,16,0.06)',
+      color: me ? bone : ink,
+      borderRadius: me ? '18px 18px 6px 18px' : '18px 18px 18px 6px',
+      padding: '11px 15px', maxWidth: '84%', fontSize: '14.5px', lineHeight: 1.55
+    });
+    const msgs = this.state.msgs.map((m, i) => ({
+      ...m, key: 'm' + i, isText: !m.isCard, isCard: !!m.isCard,
+      wrapStyle: { display: 'flex', justifyContent: m.me ? 'flex-end' : 'flex-start' },
+      bubbleStyle: bubble(!!m.me)
+    }));
+    const chips = this.state.chips.map((c, i) => ({
+      key: 'c' + i, label: c.label,
+      style: {
+        background: c.primary ? '#1B1611' : 'transparent',
+        color: c.primary ? bone : ink,
+        border: c.primary ? '1px solid #1B1611' : '1px solid rgba(20,17,16,0.28)',
+        borderRadius: '999px', padding: '8px 15px', fontSize: '13.5px', fontWeight: 500, cursor: 'pointer'
+      },
+      onPick: () => this.pickChip(c)
+    }));
+    const chatOpen = this.state.open;
+    return {
+      hasVideo: !!url, noVideo: !url, videoUrl: url,
+      msgs, chips, hasChips: chips.length > 0,
+      typing: this.state.typing, draft: this.state.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      onSend: (e) => { e.preventDefault(); this.userText(); },
+      openChat: () => this.openChat(),
+      closeChat: () => this.setState({ open: false }),
+      toggleChat: () => chatOpen ? this.setState({ open: false }) : this.openChat(),
+      menuBook: () => { this.setState({ menu: false }); this.openChat(); },
+      showBadge: !this.state.opened,
+      panelStyle: {
+        width: 'min(376px, calc(100vw - 44px))', height: 'min(560px, calc(100dvh - 140px))',
+        display: 'flex', flexDirection: 'column', background: '#FFFFFF', color: ink,
+        borderRadius: '24px', overflow: 'hidden', boxShadow: '0 26px 70px rgba(20,17,16,0.16)',
+        border: '1px solid rgba(20,17,16,0.08)', transformOrigin: '100% 100%',
+        transform: chatOpen ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.96)',
+        opacity: chatOpen ? 1 : 0, pointerEvents: chatOpen ? 'auto' : 'none',
+        transition: 'transform 380ms cubic-bezier(0.22,1,0.36,1), opacity 300ms ease'
+      },
+      teaserStyle: {
+        background: '#FFFFFF', color: ink, fontSize: '13.5px', fontWeight: 500,
+        padding: '10px 17px', borderRadius: '999px', border: '1px solid rgba(20,17,16,0.12)',
+        boxShadow: '0 10px 28px rgba(20,17,16,0.10)', textAlign: 'left', whiteSpace: 'nowrap',
+        transform: this.state.nudge && !chatOpen ? 'translateY(0)' : 'translateY(8px)',
+        opacity: this.state.nudge && !chatOpen ? 1 : 0,
+        pointerEvents: this.state.nudge && !chatOpen ? 'auto' : 'none',
+        transition: 'transform 400ms cubic-bezier(0.22,1,0.36,1), opacity 350ms ease'
+      },
+      fabIconStyle: {
+        position: 'absolute', inset: '0', borderRadius: '50%',
+        background: 'rgba(251,249,246,0.92)', color: ink, fontSize: '22px', fontWeight: 300,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        opacity: chatOpen ? 1 : 0, transition: 'opacity 250ms ease',
+        transform: chatOpen ? 'rotate(0deg)' : 'rotate(-90deg)'
+      },
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      closeMenu: () => this.setState({ menu: false }),
+      burgerTop: bar(false), burgerBottom: bar(true),
+      menuStyle: {
+        position: 'fixed', inset: 0, zIndex: 90, overflowY: 'auto',
+        background: 'rgba(251,249,246,0.97)', backdropFilter: 'blur(22px) saturate(1.5)', WebkitBackdropFilter: 'blur(22px) saturate(1.5)',
+        opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none',
+        transform: open ? 'translateY(0)' : 'translateY(-12px)',
+        transition: 'opacity 420ms cubic-bezier(0.22,1,0.36,1), transform 480ms cubic-bezier(0.22,1,0.36,1)'
+      },
+      waHref: 'https://wa.me/' + String(this.p('whatsapp', '34600000000')).replace(/[^\d]/g, ''),
+      igHref: 'https://instagram.com/' + String(this.p('instagram', 'raquelrodriguez')).replace(/[^\w.]/g, ''),
+      mailHref: 'mailto:' + this.p('email', 'hola@raquelrodriguez.es')
+    };
+  }
+
+  openChat() {
+    this.setState({ open: true, opened: true, nudge: false });
+    this.start();
+  }
+
+  componentDidMount() {
+    const root = document.getElementById('inv-root');
+    if (root) root.style.setProperty('--accent', this.p('accent', '#4A6B7D'));
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.bk = { step: 'idle', interest: null, day: null, time: null, name: '', phone: '' };
+    this.started = false;
+    if (location.hash === '#reservar') setTimeout(() => this.openChat(), 300);
+    setTimeout(() => { if (!this.state.opened) this.setState({ nudge: true }); }, 6000);
+    setTimeout(() => { if (!this.state.opened) this.setState({ nudge: false }); }, 18000);
+    this.initFaq();
+    this.initCursor();
+    this.layout();
+    addEventListener('resize', () => this.layout());
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && this.state.menu) this.setState({ menu: false }); });
+    if (reduced) return;
+    this.initReveals();
+    this.initCounters();
+  }
+
+  componentDidUpdate() {
+    const root = document.getElementById('inv-root');
+    if (root) root.style.setProperty('--accent', this.p('accent', '#4A6B7D'));
+    const box = document.getElementById('rr-chatbox');
+    if (box && (this.state.msgs.length !== this._lastLen || this.state.typing)) { box.scrollTop = box.scrollHeight; this._lastLen = this.state.msgs.length; }
+  }
+
+  layout() {
+    const w = innerWidth, narrow = w < 760, tiny = w < 460;
+    document.querySelectorAll('[data-table]').forEach((t) => {
+      t.style.minWidth = narrow ? '0' : '600px';
+    });
+    document.querySelectorAll('[data-trow]').forEach((row) => {
+      row.style.gridTemplateColumns = narrow ? '1fr auto' : '1.3fr 0.8fr 1fr 1.2fr';
+      row.style.gap = narrow ? '14px' : '24px';
+      const cells = row.children;
+      for (let i = 1; i <= 2; i++) if (cells[i]) cells[i].style.display = narrow ? 'none' : '';
+      if (cells[3]) cells[3].style.textAlign = narrow ? 'right' : '';
+    });
+    const note = document.querySelector('[data-cta-note]');
+    if (note) { note.style.marginLeft = narrow ? '0' : '6px'; note.style.flexBasis = narrow ? '100%' : 'auto'; }
+    const teaser = document.querySelector('[data-teaser]');
+    if (teaser) teaser.style.display = tiny ? 'none' : 'block';
+    const agent = document.querySelector('[data-screen-label="Asistente"]');
+    if (agent) { agent.style.right = tiny ? '14px' : '22px'; agent.style.bottom = tiny ? '14px' : '22px'; }
+    const h1 = document.querySelector('header h1');
+    if (h1) h1.style.fontSize = narrow ? 'clamp(2.1rem,9vw,3.2rem)' : 'clamp(2.5rem,6.6vw,6.2rem)';
+  }
+
+  initReveals() {
+    const io = new IntersectionObserver((ents) => {
+      for (const e of ents) {
+        if (!e.isIntersecting) continue;
+        const el = e.target;
+        io.unobserve(el);
+        el.style.transition = 'opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1)';
+        requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+      }
+    }, { threshold: 0.12 });
+    for (const el of document.querySelectorAll('[data-reveal]')) {
+      if (el.getBoundingClientRect().top < innerHeight * 0.92) continue;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(22px)';
+      io.observe(el);
+    }
+  }
+
+  initCounters() {
+    const fmt = (v) => Math.round(v).toLocaleString('es-ES', { useGrouping: 'always' }) + ' €';
+    const io = new IntersectionObserver((ents) => {
+      for (const e of ents) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        const el = e.target, target = parseFloat(el.dataset.count), t0 = performance.now();
+        const tick = (t) => {
+          const p = Math.min(1, (t - t0) / 1100);
+          el.textContent = fmt(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.6 });
+    for (const el of document.querySelectorAll('[data-count]')) {
+      if (el.getBoundingClientRect().top < innerHeight) continue;
+      el.textContent = '0 €';
+      io.observe(el);
+    }
+  }
+
+  initFaq() {
+    const items = Array.from(document.querySelectorAll('[data-faq]'));
+    const openFaq = (idx) => {
+      items.forEach((it, i) => {
+        const a = it.querySelector('[data-faq-a]'), plus = it.querySelector('[data-faq-plus]'), q = it.querySelector('[data-faq-q]');
+        const on = i === idx;
+        a.style.gridTemplateRows = on ? '1fr' : '0fr';
+        plus.style.transform = on ? 'rotate(45deg)' : 'rotate(0deg)';
+        q.setAttribute('aria-expanded', String(on));
+      });
+    };
+    items.forEach((it, i) => {
+      it.querySelector('[data-faq-q]').addEventListener('click', () => {
+        const isOpen = it.querySelector('[data-faq-a]').style.gridTemplateRows === '1fr';
+        openFaq(isOpen ? -1 : i);
+      });
+    });
+    openFaq(0);
+  }
+
+  initCursor() {
+    if (matchMedia('(hover: none)').matches || innerWidth < 900) return;
+    const ring = document.getElementById('inv-ring'), dot = document.getElementById('inv-dot');
+    const root = document.getElementById('inv-root');
+    if (!ring || !dot || !root) return;
+    root.style.cursor = 'none';
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, on = false;
+    const soft = () => {
+      rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+      ring.style.transform = 'translate(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px)';
+      dot.style.transform = 'translate(' + mx.toFixed(1) + 'px,' + my.toFixed(1) + 'px)';
+      requestAnimationFrame(soft);
+    };
+    const grow = (v) => {
+      const a = this.p('accent', '#4A6B7D');
+      ring.style.width = ring.style.height = v ? '58px' : '36px';
+      ring.style.margin = v ? '-29px 0 0 -29px' : '-18px 0 0 -18px';
+      ring.style.borderColor = v ? a : 'rgba(20,17,16,0.35)';
+      ring.style.background = v ? 'color-mix(in srgb, ' + a + ' 12%, transparent)' : 'transparent';
+      dot.style.opacity = v ? '0' : '1';
+    };
+    addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      if (!on) { on = true; ring.style.opacity = '1'; dot.style.opacity = '1'; }
+      const t = e.target;
+      const native = t.closest && t.closest('[data-chat-panel], iframe, input, textarea');
+      root.style.cursor = native ? 'auto' : 'none';
+      ring.style.opacity = native ? '0' : '1';
+      dot.style.opacity = native ? '0' : '1';
+      if (!native) grow(!!(t.closest && t.closest('a, button')));
+    }, { passive: true });
+    addEventListener('mouseout', (e) => { if (!e.relatedTarget) { ring.style.opacity = '0'; dot.style.opacity = '0'; } });
+    requestAnimationFrame(soft);
+  }
+
+  // ---------- booking agent
+  push(m) { this.setState((s) => ({ msgs: [...s.msgs, m] })); }
+  setChips(chips) { this.setState({ chips }); }
+  wait(ms) { return new Promise((r) => setTimeout(r, ms)); }
+  async say(text, opts) {
+    opts = opts || {};
+    this.setState({ typing: true, chips: [] });
+    await this.wait(opts.fast ? 350 : Math.min(420 + text.length * 6, 1300));
+    this.setState({ typing: false });
+    this.push({ text });
+    if (opts.chips) this.setChips(opts.chips);
+  }
+  interestChips() { return [{ label: 'El dispositivo', v: 'i' }, { label: 'El negocio', v: 'i' }, { label: 'Las dos cosas', v: 'i' }]; }
+  consentChips() { return [{ label: 'Acepto y reservo', v: 'ok', primary: true }, { label: 'No, de momento no', v: 'no' }]; }
+  dayChips() { return this.days().map((d) => ({ label: d, v: 'd' })); }
+  timeChips() { return ['10:00', '12:30', '17:00', '19:30'].map((t) => ({ label: t, v: 't' })); }
+  days() {
+    const out = [], d = new Date();
+    const f = new Intl.DateTimeFormat('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+    while (out.length < 5) {
+      d.setDate(d.getDate() + 1);
+      const wd = d.getDay();
+      if (wd === 0 || wd === 6) continue;
+      out.push(f.format(d));
+    }
+    return out;
+  }
+  async start() {
+    if (this.started) return;
+    this.started = true;
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('rr-reserva-v1') || 'null'); } catch (e) { }
+    if (saved && saved.day && saved.time) {
+      this.bk = Object.assign({}, this.bk, saved, { step: 'saved' });
+      await this.say('Hola de nuevo. Tienes una llamada reservada: ' + saved.day + ', a las ' + saved.time + '.', {
+        chips: [{ label: 'La mantengo', v: 'keep' }, { label: 'Cambiar la cita', v: 'change' }]
+      });
+      return;
+    }
+    await this.say('Hola, soy el asistente de Raquel. Te reservo 20 minutos con ella en menos de un minuto.');
+    this.bk.step = 'interest';
+    await this.say('¿Qué te trae por aquí?', { chips: this.interestChips() });
+  }
+  pickChip(c) {
+    if (c.v === 'wa') { window.open(this.waMsgHref(), '_blank'); return; }
+    this.push({ me: true, text: c.label });
+    this.setChips([]);
+    this.route(c.label, c);
+  }
+  userText() {
+    const t = this.state.draft.trim();
+    if (!t) return;
+    this.push({ me: true, text: t });
+    this.setState({ draft: '' });
+    if (!this.started) { this.started = true; this.bk.step = 'interest'; }
+    this.route(t, null);
+  }
+  async route(text, chip) {
+    const st = this.bk.step;
+    if (st === 'saved') {
+      if (chip && chip.v === 'change') return this.askDay(true);
+      if (chip) return this.say('Genial. Raquel te escribirá por WhatsApp para confirmar. Cualquier duda, déjamela aquí.');
+      return this.freeChat(text);
+    }
+    if (st === 'idle' || st === 'interest') {
+      this.bk.step = 'interest';
+      if (chip) return this.handleInterest(text);
+      const s = text.toLowerCase();
+      const biz = /negoc|ingres|dinero|equipo|distribu|vender|trabajo extra/.test(s);
+      const dev = /aparato|dispositivo|agua|casa|salud|filtr|beber|grifo|precio/.test(s);
+      if (biz && dev) return this.handleInterest('Las dos cosas');
+      if (biz) return this.handleInterest('El negocio');
+      if (dev) return this.handleInterest('El dispositivo');
+      await this.ackFree(text);
+      return this.say('Para orientar la llamada: ¿qué encaja más contigo?', { chips: this.interestChips() });
+    }
+    if (st === 'day') {
+      if (chip) { this.bk.day = text; this.bk.step = 'time'; return this.say(text + '. ¿A qué hora?', { fast: true, chips: this.timeChips() }); }
+      return this.say('Mejor elige uno de los días de abajo, así no nos bailan las fechas.', { chips: this.dayChips() });
+    }
+    if (st === 'time') {
+      if (chip) { this.bk.time = text; this.bk.step = 'name'; return this.say('Apuntado. ¿Cómo te llamas?', { fast: true }); }
+      return this.say('Elige una de las horas de abajo y seguimos.', { chips: this.timeChips() });
+    }
+    if (st === 'name') {
+      if (text.length < 2) return this.say('Creo que eso no es un nombre. ¿Cómo te llamas?');
+      this.bk.name = text.replace(/\s+/g, ' ').slice(0, 60);
+      this.bk.step = 'phone';
+      return this.say('Encantado, ' + this.bk.name.split(' ')[0] + '. ¿Tu número de WhatsApp? Raquel te escribe ahí para confirmar.', { fast: true });
+    }
+    if (st === 'phone') {
+      const digits = text.replace(/[^\d+]/g, '');
+      if (!/^\+?\d{9,15}$/.test(digits)) return this.say('Ese número no me cuadra. Escríbelo con prefijo si no es de España: por ejemplo, +34 600 123 456.');
+      this.bk.phone = digits;
+      this.bk.step = 'consent';
+      return this.say('Última cosa, y es obligatoria: tus datos se usan solo para organizar esta llamada. Ni listas, ni publicidad. ¿Aceptas la política de privacidad?', { chips: this.consentChips() });
+    }
+    if (st === 'consent') {
+      if (chip && chip.v === 'ok') return this.finish();
+      if (chip) {
+        this.bk.step = 'interest';
+        return this.say('Sin problema: no guardo nada. Si algún día lo prefieres, escríbele directamente por WhatsApp.', { chips: [{ label: 'Abrir WhatsApp', v: 'wa' }] });
+      }
+      if (/acept|s[ií]|vale|ok|claro/.test(text.toLowerCase())) return this.finish();
+      return this.say('Necesito un sí explícito para guardar la reserva. ¿Aceptas la política de privacidad?', { chips: this.consentChips() });
+    }
+    if (st === 'done') {
+      if (chip && chip.v === 'change') return this.askDay(true);
+      return this.freeChat(text);
+    }
+  }
+  askDay(changing) {
+    this.bk.step = 'day';
+    return this.say(changing ? 'Sin problema. ¿Qué día te viene mejor?' : '¿Qué día te viene bien? Son unos 20 minutos, sin compromiso.', { chips: this.dayChips() });
+  }
+  async handleInterest(label) {
+    this.bk.interest = label;
+    const ack = label === 'El negocio'
+      ? 'Bien. Sin promesas de cifras: Raquel te contará cómo funciona el modelo y qué implica de verdad.'
+      : label === 'Las dos cosas'
+        ? 'Como dice Raquel: las dos van juntas.'
+        : 'Perfecto. Qué hace en tu casa, qué no hace y todo lo que quieras preguntarle, sin compromiso.';
+    await this.say(ack, { fast: true });
+    return this.askDay(false);
+  }
+  async finish() {
+    this.bk.step = 'done';
+    const b = this.bk;
+    try { localStorage.setItem('rr-reserva-v1', JSON.stringify({ interest: b.interest, day: b.day, time: b.time, name: b.name, phone: b.phone, ts: Date.now() })); } catch (e) { }
+    this.setState({ typing: true, chips: [] });
+    await this.wait(500);
+    this.setState({ typing: false });
+    this.push({ isCard: true, dia: b.day, hora: b.time, tema: b.interest || 'Por decidir', nombre: b.name, tel: b.phone });
+    await this.say('Reservada. Raquel te confirma por WhatsApp en menos de 24 horas. Si te surge algo antes, escríbele directamente.', {
+      chips: [{ label: 'Escribir a Raquel por WhatsApp', v: 'wa', primary: true }, { label: 'Cambiar la cita', v: 'change' }]
+    });
+  }
+  waMsgHref() {
+    const b = this.bk || {};
+    const txt = b.day
+      ? 'Hola Raquel, soy ' + (b.name || '') + '. He reservado una llamada el ' + b.day + ' a las ' + b.time + '.'
+      : 'Hola Raquel, vengo de tu web.';
+    return 'https://wa.me/' + this.waDigits() + '?text=' + encodeURIComponent(txt.trim());
+  }
+  async ackFree(text) {
+    this.bk.motivo = text;
+    let reply = 'Gracias por contármelo. Eso, mejor de viva voz: es justo lo que Raquel prefiere hablar sin guiones.';
+    if (window.claude && typeof window.claude.complete === 'function') {
+      try {
+        const p = window.claude.complete('Eres el asistente de reservas de la web de Raquel Rodríguez, asesora española que trabaja con un dispositivo japonés de tratamiento de agua para casa. Un visitante ha escrito esto: "' + text.slice(0, 300) + '". Responde en español de España, máximo 2 frases cortas, tono cercano, honesto y sobrio. Prohibido: prometer beneficios de salud o de ingresos, usar emojis, sonar comercial. No hagas preguntas; solo reconoce con naturalidad lo que ha dicho.');
+        const r = await Promise.race([p, this.wait(6000).then(() => null)]);
+        if (r && typeof r === 'string' && r.trim()) reply = r.trim().slice(0, 260);
+      } catch (e) { }
+    }
+    return this.say(reply);
+  }
+  async freeChat(text) {
+    await this.ackFree(text);
+    return this.say('Se lo paso a Raquel tal cual, para que lo tenga antes de la llamada.', { fast: true });
+  }
+}
+</script>
+</body>
+</html>

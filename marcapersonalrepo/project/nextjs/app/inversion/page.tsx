@@ -1,0 +1,194 @@
+import type { Metadata } from 'next';
+import Faq from '@/components/Faq';
+import BookLink from '@/components/BookLink';
+import { t, kicker, waHref } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'La inversión — Raquel Rodríguez',
+  description: 'El precio, la financiación, los testimonios y el negocio. Escrito, sin llamadas.',
+};
+
+const wrap = { maxWidth: 1180, margin: '0 auto' } as const;
+const hair = '1px solid ' + t.hair;
+const h2: React.CSSProperties = { margin: 0, fontSize: 'clamp(1.5rem,2.8vw,2.3rem)', fontWeight: 600, letterSpacing: '-0.03em' };
+const micro: React.CSSProperties = { fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase' };
+
+const MARCAS = [
+  { m: 'AquaBona', l: '0,26 €', y: '759 €', k: '15.180 €' },
+  { m: 'Lanjarón', l: '0,35 €', y: '1.022 €', k: '20.440 €' },
+  { m: 'Font Vella', l: '0,49 €', y: '1.430 €', k: '28.600 €' },
+];
+
+const INCLUYE: [string, string, string][] = [
+  ['01', 'El equipo completo', 'Aparato, filtro, mangueras y adaptadores de grifo. Nada que comprar aparte.'],
+  ['02', 'Garantía oficial', 'Cobertura y servicio técnico del fabricante, una marca japonesa con más de cincuenta años.'],
+  ['03', 'Yo, al otro lado', 'Te guío al conectarlo y te enseño a usar las cuatro aguas. Sin coste y sin fecha de caducidad.'],
+  ['04', '14 días para pensarlo', 'Derecho de desistimiento, como en cualquier compra a distancia en España.'],
+];
+
+const NEGOCIO: [string, string, string][] = [
+  ['01', 'Sin stock, sin local, sin inventario.', 'Todo se lleva desde el móvil.'],
+  ['02', 'Recomiendas algo que ya usas.', 'El aparato está en tu cocina y lo usas cada día. No vendes nada que no conozcas.'],
+  ['03', 'Un modelo de más de cincuenta años.', 'La marca funciona igual desde los años setenta. No es la moda de este trimestre.'],
+  ['04', 'Te formo yo.', 'Con lo que aprendí montando mi propio equipo. Los errores caros ya los cometí yo.'],
+];
+
+export default function Inversion() {
+  return (
+    <main style={{ background: t.bg, color: t.ink }}>
+      <header style={{ padding: 'clamp(118px,17vh,185px) 5vw clamp(46px,7vh,78px)' }}>
+        <div style={wrap}>
+          <p style={kicker()}>La página escondida</p>
+          <h1 style={{ margin: '26px 0 0', fontSize: 'clamp(2.6rem,6.4vw,5.6rem)', fontWeight: 600, letterSpacing: '-0.042em', lineHeight: 0.98, maxWidth: '15ch' }}>
+            Los números, sin rodeos.
+          </h1>
+          <p style={{ margin: '30px 0 0', fontSize: 'clamp(16px,1.4vw,18.5px)', lineHeight: 1.65, color: t.soft, maxWidth: '48ch' }}>
+            Todo lo que normalmente te hacen preguntar en una llamada: qué cuesta, qué incluye, cómo se paga, qué dice quien ya lo tiene y cómo funciona si además quieres convertirlo en tu negocio.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 36 }}>
+            <a href="#precio" style={{ background: t.ink, color: t.bg, borderRadius: 999, padding: '12px 24px', fontSize: 14.5, fontWeight: 600 }}>Ver el precio</a>
+            <a href="#negocio" style={{ border: hair, borderRadius: 999, padding: '12px 24px', fontSize: 14.5, fontWeight: 500 }}>Y si quiero venderlo</a>
+          </div>
+        </div>
+      </header>
+
+      <section style={{ padding: '0 5vw clamp(58px,8vh,94px)' }}>
+        <div style={wrap}>
+          <div style={{ borderTop: hair, paddingTop: 28, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'baseline', gap: '10px 32px' }}>
+            <h2 style={h2}>Primero, lo que ya gastas</h2>
+            <p style={{ ...micro, margin: 0, letterSpacing: '0.18em', color: t.soft }}>Familia de 4 · 8 litros al día</p>
+          </div>
+          <div style={{ overflowX: 'auto', marginTop: 24 }}>
+            <div style={{ minWidth: 600 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.3fr .8fr 1fr 1.2fr', gap: 24, paddingBottom: 12, ...micro, color: 'rgba(20,17,16,0.42)' }}>
+                <span>Marca</span><span>€ / litro</span><span>Al año</span><span>En 20 años</span>
+              </div>
+              {MARCAS.map((r, i) => (
+                <div key={r.m} style={{ display: 'grid', gridTemplateColumns: '1.3fr .8fr 1fr 1.2fr', gap: 24, alignItems: 'baseline', borderTop: hair, borderBottom: i === MARCAS.length - 1 ? hair : undefined, padding: '19px 0' }}>
+                  <span style={{ fontSize: 16.5, fontWeight: 500 }}>{r.m}</span>
+                  <span style={{ fontSize: 14, color: t.soft }}>{r.l}</span>
+                  <span style={{ fontSize: 15 }}>{r.y}</span>
+                  <span style={{ fontSize: 17, fontWeight: 600, color: t.accent }}>{r.k}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p style={{ ...micro, margin: '14px 0 0', color: 'rgba(20,17,16,0.38)' }}>
+            Precios medios de garrafa de supermercado · Y esto es solo el agua de beber
+          </p>
+        </div>
+      </section>
+
+      <section id="precio" style={{ padding: '0 5vw clamp(58px,8vh,94px)', scrollMarginTop: 74 }}>
+        <div style={{ ...wrap, border: hair, borderRadius: 26, padding: 'clamp(30px,4.4vw,56px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 'clamp(26px,4vw,56px)', alignItems: 'center', background: 'linear-gradient(160deg, rgba(20,17,16,0.03) 0%, rgba(20,17,16,0) 60%)' }}>
+          <div>
+            <p style={{ ...micro, margin: '0 0 14px', letterSpacing: '0.2em', color: 'rgba(20,17,16,0.45)' }}>El equipo con el que trabajo</p>
+            <p style={{ margin: 0, fontSize: 'clamp(3.2rem,7vw,5.6rem)', fontWeight: 600, letterSpacing: '-0.045em', lineHeight: 1, color: t.accent, fontVariantNumeric: 'tabular-nums' }}>5.600 €</p>
+            <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 9, ...micro, letterSpacing: '0.14em', color: t.soft }}>
+              <span>Pago único · 15–20 años de vida útil</span>
+              <span>Financiación directa del fabricante</span>
+              <span>Filtro: 95 € ≈ una vez al año</span>
+            </div>
+          </div>
+          <div>
+            <p style={{ margin: '0 0 18px', fontSize: 'clamp(16px,1.4vw,18.5px)', lineHeight: 1.65, color: 'rgba(20,17,16,0.75)' }}>
+              No es un gasto nuevo: es mover el que ya tienes a algo que se queda en tu casa dos décadas. Y súmale parte de lo que gastas en limpieza, que estas aguas también sustituyen.
+            </p>
+            <p style={{ margin: 0, fontSize: 'clamp(16px,1.4vw,18.5px)', lineHeight: 1.65, fontWeight: 600 }}>
+              Es caro. No voy a fingir que no. Por eso lo lees aquí y no escondido detrás de una llamada.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 5vw clamp(58px,8vh,94px)' }}>
+        <div style={wrap}>
+          <h2 style={{ ...h2, borderTop: hair, paddingTop: 28, marginBottom: 26 }}>Qué entra en ese precio</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,220px),1fr))', gap: 18 }}>
+            {INCLUYE.map(([n, ti, body]) => (
+              <div key={n} style={{ border: hair, borderRadius: 18, padding: 24 }}>
+                <p style={{ ...micro, margin: '0 0 10px', letterSpacing: '0.2em', color: t.accent }}>{n}</p>
+                <p style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 600 }}>{ti}</p>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: t.soft }}>{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonios" style={{ padding: '0 5vw clamp(58px,8vh,94px)', scrollMarginTop: 74 }}>
+        <div style={wrap}>
+          <div style={{ borderTop: hair, paddingTop: 28 }}>
+            <h2 style={{ ...h2, marginBottom: 12 }}>Lo que dicen quienes ya lo tienen</h2>
+            <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.65, color: t.soft, maxWidth: '56ch' }}>
+              Solo publico experiencias reales, con nombre y permiso por escrito. Ninguna dice que el agua cure nada, porque no lo hace.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,250px),1fr))', gap: 18, marginTop: 30 }}>
+            {[1, 2, 3].map((n) => (
+              <div key={n} style={{ border: hair, borderRadius: 20, overflow: 'hidden' }}>
+                <div style={{ aspectRatio: '4 / 3', background: 'repeating-linear-gradient(135deg, rgba(20,17,16,0.05) 0 1px, transparent 1px 11px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, borderBottom: hair }}>
+                  <span style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(20,17,16,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <span style={{ width: 0, height: 0, borderLeft: '11px solid ' + t.ink, borderTop: '7px solid transparent', borderBottom: '7px solid transparent', marginLeft: 3 }} />
+                  </span>
+                  <span style={{ ...micro, color: 'rgba(20,17,16,0.45)' }}>Vídeo de clienta · 40 s</span>
+                </div>
+                <div style={{ padding: 22 }}>
+                  <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6 }}>Aquí va, palabra por palabra, lo que ha cambiado en su casa desde que lo tiene.</p>
+                  <p style={{ ...micro, margin: '16px 0 0', color: 'rgba(20,17,16,0.42)' }}>Nombre · Ciudad</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="negocio" style={{ padding: '0 5vw clamp(58px,8vh,94px)', scrollMarginTop: 74 }}>
+        <div style={wrap}>
+          <div style={{ borderTop: hair, paddingTop: 28 }}>
+            <p style={{ ...kicker(), marginBottom: 14 }}>La otra puerta</p>
+            <h2 style={{ margin: '0 0 14px', fontSize: 'clamp(1.7rem,3.6vw,3.1rem)', fontWeight: 600, letterSpacing: '-0.035em', lineHeight: 1.08, maxWidth: '22ch' }}>
+              El mismo aparato que tienes en casa puede ser tu negocio
+            </h2>
+            <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.65, color: t.soft, maxWidth: '52ch' }}>
+              No todo el mundo llega hasta aquí, y está bien. Yo empecé siendo clienta; me hice distribuidora independiente en 2021 y hoy tengo equipo en varios países.
+            </p>
+          </div>
+          <div style={{ marginTop: 30 }}>
+            {NEGOCIO.map(([n, ti, body], i) => (
+              <div key={n} style={{ borderTop: hair, borderBottom: i === NEGOCIO.length - 1 ? hair : undefined, padding: '22px 0', display: 'grid', gridTemplateColumns: 'minmax(34px,42px) 1fr', gap: 20 }}>
+                <span style={{ ...micro, letterSpacing: '0.14em', color: 'rgba(20,17,16,0.4)', paddingTop: 4 }}>{n}</span>
+                <p style={{ margin: 0, fontSize: 16.5, lineHeight: 1.65 }}>
+                  <strong style={{ fontWeight: 600 }}>{ti}</strong> <span style={{ color: t.soft }}>{body}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 30, border: '1px solid ' + t.accent, borderRadius: 18, padding: 'clamp(22px,3vw,32px)' }}>
+            <p style={{ ...kicker(), marginBottom: 12 }}>Lo que no te voy a prometer</p>
+            <p style={{ margin: 0, fontSize: 16.5, lineHeight: 1.65, maxWidth: '62ch' }}>
+              Ni una cifra de ingresos, ni un plazo, ni que dejes tu trabajo. Esto es vender, y vender es un oficio que se tarda en aprender. Si buscas algo rápido o pasivo, esto no lo es.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 5vw clamp(66px,9vh,104px)' }}>
+        <div style={wrap}>
+          <h2 style={{ ...h2, borderTop: hair, paddingTop: 28, marginBottom: 24 }}>Las preguntas del dinero</h2>
+          <Faq />
+          <div style={{ marginTop: 'clamp(38px,6vh,60px)', textAlign: 'center' }}>
+            <p style={{ margin: '0 0 20px', fontSize: 'clamp(16.5px,1.8vw,21px)', fontWeight: 500, letterSpacing: '-0.015em' }}>
+              ¿Te cuadran los números? Hablemos de lo importante.
+            </p>
+            <BookLink />
+            <p style={{ margin: '18px 0 0', fontSize: 12, color: 'rgba(20,17,16,0.4)' }}>
+              O escríbeme por{' '}
+              <a href={waHref('Hola Raquel, vengo de la página de la inversión.')} target="_blank" rel="noopener" style={{ borderBottom: '1px solid rgba(20,17,16,0.25)' }}>WhatsApp</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

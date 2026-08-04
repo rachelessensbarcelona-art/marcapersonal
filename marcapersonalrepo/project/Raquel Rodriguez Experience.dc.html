@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:#FBF9F6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:rgba(74,107,125,0.3)}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit;opacity:0.75}
+button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer}
+input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@keyframes rrdot{0%,60%,100%{opacity:0.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+@keyframes rrscroll{0%{transform:translateY(-100%)}55%,100%{transform:translateY(100%)}}
+@keyframes rrslide{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+@keyframes rrpulse{0%{transform:scale(1);opacity:0.55}70%{transform:scale(1.55);opacity:0}100%{transform:scale(1.55);opacity:0}}
+</style>
+</helmet>
+<div id="xp-root" style="--accent:#4A6B7D; --accent-soft:#C4674A; --display:'Schibsted Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif; --gut:clamp(26px,6.2vw,104px); background:#FBF9F6; color:#141110; font-family:'Schibsted Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif; overflow-x:clip;">
+
+<nav id="xp-nav" style="position:fixed; top:0; left:0; right:0; z-index:80; display:flex; justify-content:space-between; align-items:center; padding:16px var(--gut); color:#141110; backdrop-filter:blur(14px) saturate(1.4); -webkit-backdrop-filter:blur(14px) saturate(1.4); background:rgba(251,249,246,0.6); border-bottom:1px solid rgba(20,17,16,0.07);">
+  <span style="font-size:14px; font-weight:600; letter-spacing:0.02em;">Raquel Rodríguez</span>
+  <button type="button" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="width:44px; height:44px; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:6px;">
+    <span style="{{ burgerTop }}"></span>
+    <span style="{{ burgerBottom }}"></span>
+  </button>
+</nav>
+
+<div style="{{ menuStyle }}">
+  <button type="button" onClick="{{ toggleMenu }}" aria-label="Cerrar menú" style="position:absolute; top:14px; right:var(--gut); width:46px; height:46px; border-radius:50%; border:1px solid rgba(20,17,16,0.16); display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:300; line-height:1; color:#141110; transition:border-color 250ms ease, background-color 250ms ease;" style-hover="border-color:rgba(20,17,16,0.5); background:rgba(20,17,16,0.04); opacity:1;">×</button>
+  <div style="max-width:1200px; margin:0 auto; padding:clamp(96px,14vh,150px) var(--gut) clamp(36px,6vh,64px); min-height:100%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; gap:40px;">
+    <nav style="display:flex; flex-direction:column; align-items:flex-start; gap:clamp(8px,1.8vh,18px);">
+      <button type="button" onClick="{{ goHome }}" style="font-family:var(--display); font-size:clamp(2.4rem,7vw,5rem); font-weight:500; letter-spacing:-0.014em; line-height:1.05; text-align:left;" style-hover="color:var(--accent); opacity:1;">Inicio</button>
+      <a href="Inversion.dc.html" style="font-family:var(--display); font-size:clamp(2.4rem,7vw,5rem); font-weight:500; letter-spacing:-0.014em; line-height:1.05;" style-hover="color:var(--accent); opacity:1;">Cómo te quiero ayudar</a>
+      <button type="button" onClick="{{ menuBook }}" style="margin-top:clamp(14px,2.6vh,26px); font-size:clamp(15px,1.5vw,18px); font-weight:500; border-bottom:1px solid var(--accent); padding-bottom:3px; color:var(--accent); text-align:left;">Reservar una llamada conmigo →</button>
+    </nav>
+    <div style="display:flex; flex-wrap:wrap; gap:14px 26px; align-items:center; border-top:1px solid rgba(20,17,16,0.12); padding-top:20px; font-size:12.5px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase;">
+      <a href="{{ waHref }}" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="{{ igHref }}" target="_blank" rel="noopener">Instagram</a>
+      <a href="{{ mailHref }}">Correo</a>
+      <span style="margin-left:auto; color:#6B6560;">© 2026 Raquel Rodríguez</span>
+    </div>
+  </div>
+</div>
+<div id="rr-ring" style="position:fixed; top:0; left:0; width:36px; height:36px; margin:-18px 0 0 -18px; border-radius:50%; border:1px solid rgba(20,17,16,0.35); pointer-events:none; z-index:999; opacity:0; transition:opacity 300ms ease, width 220ms cubic-bezier(0.22,1,0.36,1), height 220ms cubic-bezier(0.22,1,0.36,1), margin 220ms cubic-bezier(0.22,1,0.36,1), background-color 220ms ease, border-color 220ms ease;"></div>
+<div id="rr-dot" style="position:fixed; top:0; left:0; width:5px; height:5px; margin:-2.5px 0 0 -2.5px; border-radius:50%; background:var(--accent); pointer-events:none; z-index:999; opacity:0; transition:opacity 300ms ease, transform 180ms ease;"></div>
+
+<div id="xp-rail" style="position:fixed; left:calc(var(--gut) / 2 - 13px); top:50%; transform:translateY(-50%); z-index:70; display:flex; flex-direction:column; align-items:flex-start; gap:14px;">
+  <button type="button" data-rail="0" aria-label="Capítulo 1" style="width:26px; height:8px; display:flex; align-items:center;"><span style="display:block; height:2px; width:100%; background:#141110; opacity:0.9; transition:opacity 300ms, transform 300ms;"></span></button>
+  <button type="button" data-rail="1" aria-label="Capítulo 2" style="width:26px; height:8px; display:flex; align-items:center;"><span style="display:block; height:2px; width:100%; background:#141110; opacity:0.3; transition:opacity 300ms, transform 300ms;"></span></button>
+  <button type="button" data-rail="2" aria-label="Capítulo 3" style="width:26px; height:8px; display:flex; align-items:center;"><span style="display:block; height:2px; width:100%; background:#141110; opacity:0.3; transition:opacity 300ms, transform 300ms;"></span></button>
+  <button type="button" data-rail="3" aria-label="Capítulo 4" style="width:26px; height:8px; display:flex; align-items:center;"><span style="display:block; height:2px; width:100%; background:#141110; opacity:0.3; transition:opacity 300ms, transform 300ms;"></span></button>
+  <button type="button" data-rail="4" aria-label="Capítulo 5" style="width:26px; height:8px; display:flex; align-items:center;"><span style="display:block; height:2px; width:100%; background:#141110; opacity:0.3; transition:opacity 300ms, transform 300ms;"></span></button>
+</div>
+
+<div style="position:fixed; left:0; right:0; bottom:0; height:2px; z-index:82; background:rgba(20,17,16,0.08);">
+  <div id="xp-progress" style="height:100%; width:0%; background:var(--accent); transform-origin:left;"></div>
+</div>
+<div id="xp-slidenum" style="position:fixed; left:calc(var(--gut) / 2 - 13px); top:50%; margin-top:-96px; z-index:82; display:flex; flex-direction:column; align-items:flex-start; gap:2px; font-size:12.5px; font-weight:500; letter-spacing:0.18em; color:#6B6560;">
+  <span id="xp-slidenow" style="font-size:16px; font-weight:600; letter-spacing:-0.01em; color:#141110;">01</span>
+  <span style="font-size:12px; letter-spacing:0.12em; color:#6B6560;">/ 05</span>
+</div>
+
+<div id="xp-track" style="position:relative; height:900vh;">
+  <div id="xp-stage" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#FBF9F6;">
+    <canvas id="xp-canvas" style="position:absolute; inset:0; width:100%; height:100%;"></canvas>
+    <div style="position:absolute; inset:0; z-index:5; pointer-events:none; background:radial-gradient(120% 90% at 50% 45%, rgba(20,17,16,0) 55%, rgba(20,17,16,0.05) 78%, rgba(20,17,16,0.12) 100%);"></div>
+
+    <div data-ch="0" data-screen-label="C1 Portada" style="position:absolute; inset:0; overflow:hidden;">
+      <div data-hero-split="1" style="position:absolute; inset:0; display:grid; grid-template-columns:52% 48%;">
+        <div data-hero-text="1" style="position:relative; z-index:2; display:flex; flex-direction:column; justify-content:safe center; padding:clamp(72px,10vh,112px) clamp(28px,3.5vw,64px) clamp(76px,10vh,100px) 7vw; box-sizing:border-box; min-height:0;">
+          <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:clamp(10px,1.8vh,26px);">
+            <span style="font-size:12.5px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent);">01</span>
+            <span style="font-size:12.5px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#6B6560;">La pregunta</span>
+          </div>
+          <h1 data-hero-h1="1" style="margin:0; font-weight:500; font-size:clamp(2.2rem,min(7.4vw,8.6vh),7.6rem); letter-spacing:-0.042em; line-height:0.92; color:#141110;">
+            <span style="overflow:hidden; display:block; padding:0.02em 0;"><span data-hline="1" style="display:block;">¿Cuándo</span></span>
+            <span style="overflow:hidden; display:block; padding:0.02em 0;"><span data-hline="2" style="display:block;">decidiste algo</span></span>
+            <span style="overflow:hidden; display:block; padding:0.02em 0;"><span data-hline="3" style="display:block; color:var(--accent);">solo para ti?</span></span>
+          </h1>
+          <div data-hero-sub="1" style="margin:clamp(12px,2.2vh,32px) 0 0 0;">
+            <span style="display:block; width:52px; height:1px; background:rgba(20,17,16,0.28); margin-bottom:clamp(9px,1.4vh,22px);"></span>
+            <p style="margin:0; font-size:clamp(17px,1.6vw,22px); line-height:1.45; color:#141110; max-width:19em; font-weight:500; letter-spacing:-0.012em;">Soy Raquel Rodríguez.</p>
+            <p style="margin:8px 0 0 0; font-size:clamp(15px,1.35vw,18px); line-height:1.6; color:rgba(20,17,16,0.7); max-width:25em; font-weight:400;">Yo tardé cuarenta años en contestar esa pregunta. Te cuento en un minuto lo que pasó después.</p>
+          </div>
+          <div data-hero-sub="2" style="margin-top:clamp(14px,2.8vh,42px); display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px;">
+            <button type="button" onClick="{{ openChat }}" style="background:#141110; color:#FBF9F6; font-size:15px; font-weight:500; letter-spacing:-0.01em; padding:14px 26px; border-radius:999px; transition:transform 250ms ease;" style-hover="transform:translateY(-2px); opacity:1;">Empezar por el principio</button>
+            <button type="button" onClick="{{ openChat }}" style="font-size:14.5px; font-weight:400; color:rgba(20,17,16,0.7); border-bottom:1px solid rgba(20,17,16,0.22); padding-bottom:2px;">O hablamos directamente</button>
+          </div>
+        </div>
+        <div data-hero-img="1" style="position:relative; overflow:hidden; will-change:transform;">
+          <img data-hero-photo="1" src="uploads/magnific_sophisticated-monochrome-_nTh0HKHYQD.png" alt="Raquel Rodríguez" style="width:100%; height:100%; object-fit:cover; object-position:42% 8%; display:block; filter:contrast(1.06) saturate(0.5);">
+          <div style="position:absolute; top:0; bottom:0; left:0; width:14%; background:linear-gradient(90deg, #FBF9F6 0%, rgba(251,249,246,0) 100%); pointer-events:none;"></div>
+          <div style="position:absolute; left:0; right:0; bottom:0; height:16%; background:linear-gradient(180deg, rgba(251,249,246,0) 0%, #FBF9F6 100%); pointer-events:none;"></div>
+        </div>
+      </div>
+      <div data-hero-bar="1" style="position:absolute; left:var(--gut); right:var(--gut); bottom:clamp(18px,2.6vh,32px); z-index:3; display:flex; flex-wrap:nowrap; align-items:center; justify-content:space-between; gap:24px; border-top:1px solid rgba(20,17,16,0.12); padding-top:clamp(10px,1.6vh,16px);">
+        <p style="margin:0; font-size:13px; font-weight:400; letter-spacing:0.01em; color:#6B6560; white-space:nowrap;">Empresaria · Desde 2021</p>
+        <div style="display:flex; align-items:center; gap:12px; flex:none;">
+          <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">Desliza</span>
+          <span style="display:block; width:52px; height:1px; background:rgba(20,17,16,0.16); overflow:hidden;"><span style="display:block; width:100%; height:1px; background:var(--accent); animation:rrslide 1.9s cubic-bezier(0.65,0,0.35,1) infinite;"></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div data-ch="1" data-screen-label="C2 Conciencia" style="position:absolute; inset:0; opacity:0; color:#141110;">
+      <div style="position:absolute; inset:0; background:radial-gradient(80% 70% at 22% 50%, rgba(251,249,246,0.94) 0%, rgba(251,249,246,0.7) 45%, rgba(251,249,246,0.1) 100%);"></div>
+      <div style="position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:center; padding:0 var(--gut);">
+        <div style="display:flex; align-items:baseline; gap:12px;">
+          <span style="font-size:12.5px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);">02</span>
+          <span style="font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">Lo que no contaba</span>
+        </div>
+        <p data-big="botellas" style="margin:1.4vh 0 0 0; font-family:var(--display); font-size:clamp(5rem,15vw,14rem); font-weight:500; letter-spacing:-0.02em; line-height:0.86; font-variant-numeric:tabular-nums; color:#141110;">0</p>
+        <p data-ch1-q="1" style="margin:1.6vh 0 0 0; font-family:var(--display); font-size:clamp(1.7rem,3.6vw,3.2rem); font-weight:500; letter-spacing:-0.012em; line-height:1.16; max-width:15em;">días viviendo el plan de otros.<br><span style="color:var(--accent);">Cuarenta años. Ni uno mío.</span></p>
+        <p data-ch1-d="1" style="margin:2.4vh 0 0 0; font-size:clamp(14px,1.4vw,17px); line-height:1.6; color:rgba(20,17,16,0.72); max-width:24em;">Buen sueldo, buenos resultados, todos contentos. Y una sensación que no se iba: estaba esperando que alguien me diera permiso para hacer algo mío.</p>
+      </div>
+    </div>
+
+    <div data-ch="2" data-screen-label="C3 El giro" style="position:absolute; inset:0; opacity:0; color:#141110; display:flex; align-items:safe center; padding:0 var(--gut) clamp(20px,3vh,36px); gap:5vw; box-sizing:border-box; overflow:hidden;">
+      <div style="flex:1.4 1 0; min-width:0;">
+        <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:3vh;">
+          <span style="font-size:12.5px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);">03</span>
+          <span style="font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">El giro</span>
+        </div>
+        <p data-wseq="1" style="margin:0; font-family:var(--display); font-size:clamp(2.2rem,5vw,4.6rem); font-weight:500; letter-spacing:-0.014em; line-height:1.12; max-width:15em;"><span>Nadie</span> <span>me</span> <span>dio</span> <span>ese</span> <span>permiso.</span> <span>Me</span> <span>lo</span> <span>di</span> <span>yo.</span> <span>Empecé</span> <span>en</span> <span>mi</span> <span>casa,</span> <span>sin</span> <span>dejar</span> <span>mi</span> <span>trabajo</span> <span>y</span> <span>sin</span> <span>contárselo</span> <span>a</span> <span>nadie.</span></p>
+        <p data-disclaimer="1" style="margin:3.5vh 0 0 0; font-size:clamp(14px,1.4vw,16px); line-height:1.6; color:rgba(20,17,16,0.68); max-width:40ch; opacity:0;">No fue un salto ni una apuesta: fueron meses de constancia con mucha gente diciéndome que estaba loca. No hay atajos, y a mí me llevó tiempo.</p>
+      </div>
+      <figure data-portrait="1" style="flex:1 1 0; min-width:0; margin:0; max-width:420px; display:block;">
+        <div style="border-radius:24px; overflow:hidden; aspect-ratio:4/5;">
+          <img src="uploads/magnific_elegant-black-and-white-p_tCh5YqomZJ.png" alt="Raquel Rodríguez" style="width:100%; height:118%; object-fit:cover; object-position:50% 15%; display:block;">
+        </div>
+        <figcaption style="margin:12px 0 0 0; font-size:12.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Raquel Rodríguez · Empresaria desde 2021</figcaption>
+      </figure>
+    </div>
+
+    <div data-ch="3" data-screen-label="C4 Lo que cambió" style="position:absolute; inset:0; opacity:0; color:#141110;">
+      <div data-bands-grid="1" style="position:absolute; inset:0; display:grid; grid-template-columns:repeat(4,1fr);">
+        <div style="position:relative; overflow:hidden; border-right:1px solid rgba(20,17,16,0.08);"><div data-band="0" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(168,70,46,0) 20%, rgba(168,70,46,0.34) 100%); transform:scaleY(0); transform-origin:bottom;"></div><div data-bandlabel="0" style="position:absolute; left:0; right:0; bottom:6vh; text-align:center; opacity:0; padding:0 12px;"><p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">01</p><p style="margin:10px 0 0 0; font-size:clamp(1.15rem,2vw,1.75rem); font-weight:650; letter-spacing:-0.02em; line-height:1.12;">Mi mañana</p><p style="margin:8px 0 0 0; font-size:clamp(12.5px,1.15vw,14.5px); line-height:1.5; color:rgba(20,17,16,0.74);">La abro yo, no la agenda.</p></div></div>
+        <div style="position:relative; overflow:hidden; border-right:1px solid rgba(20,17,16,0.08);"><div data-band="1" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(206,155,122,0) 20%, rgba(206,155,122,0.3) 100%); transform:scaleY(0); transform-origin:bottom;"></div><div data-bandlabel="1" style="position:absolute; left:0; right:0; bottom:6vh; text-align:center; opacity:0; padding:0 12px;"><p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">02</p><p style="margin:10px 0 0 0; font-size:clamp(1.15rem,2vw,1.75rem); font-weight:650; letter-spacing:-0.02em; line-height:1.12;">Mi techo</p><p style="margin:8px 0 0 0; font-size:clamp(12.5px,1.15vw,14.5px); line-height:1.5; color:rgba(20,17,16,0.74);">Lo pongo yo, no un puesto.</p></div></div>
+        <div style="position:relative; overflow:hidden; border-right:1px solid rgba(20,17,16,0.08);"><div data-band="2" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(122,153,180,0) 20%, rgba(122,153,180,0.32) 100%); transform:scaleY(0); transform-origin:bottom;"></div><div data-bandlabel="2" style="position:absolute; left:0; right:0; bottom:6vh; text-align:center; opacity:0; padding:0 12px;"><p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">03</p><p style="margin:10px 0 0 0; font-size:clamp(1.15rem,2vw,1.75rem); font-weight:650; letter-spacing:-0.02em; line-height:1.12;">Mi gente</p><p style="margin:8px 0 0 0; font-size:clamp(12.5px,1.15vw,14.5px); line-height:1.5; color:rgba(20,17,16,0.74);">Mujeres que ya se dieron permiso.</p></div></div>
+        <div style="position:relative; overflow:hidden;"><div data-band="3" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(74,117,140,0) 20%, rgba(74,117,140,0.32) 100%); transform:scaleY(0); transform-origin:bottom;"></div><div data-bandlabel="3" style="position:absolute; left:0; right:0; bottom:6vh; text-align:center; opacity:0; padding:0 12px;"><p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">04</p><p style="margin:10px 0 0 0; font-size:clamp(1.15rem,2vw,1.75rem); font-weight:650; letter-spacing:-0.02em; line-height:1.12;">Mi nombre</p><p style="margin:8px 0 0 0; font-size:clamp(12.5px,1.15vw,14.5px); line-height:1.5; color:rgba(20,17,16,0.74);">Trabajo con el mío, por fin.</p></div></div>
+      </div>
+      <div data-ch2-head="1" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:10vh 5vw 0; text-align:center; pointer-events:none; box-sizing:border-box;">
+        <div style="display:flex; align-items:baseline; gap:12px;">
+          <span style="font-size:12.5px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);">04</span>
+          <span style="font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">Lo que cambió</span>
+        </div>
+        <h2 style="margin:2.2vh 0 0 0; font-family:var(--display); font-size:clamp(2.7rem,6.4vw,6.4rem); font-weight:500; letter-spacing:-0.018em; line-height:0.98;">Cinco años después,<br><span style="color:var(--accent); font-weight:500;">esto es lo que es distinto.</span></h2>
+      </div>
+    </div>
+
+    <div data-ch="4" data-screen-label="C5 Y ahora tú" style="position:absolute; inset:0; opacity:0; color:#141110; display:flex; flex-direction:column; justify-content:center; padding:0 var(--gut); box-sizing:border-box;">
+      <div style="display:flex; align-items:baseline; gap:12px;">
+        <span style="font-size:12.5px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);">05</span>
+        <span style="font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">Y ahora tú</span>
+      </div>
+      <h2 style="margin:2.2vh 0 0 0; font-family:var(--display); font-size:clamp(2.5rem,5.6vw,5.4rem); font-weight:500; letter-spacing:-0.018em; line-height:1; max-width:14em;">Tu permiso.<br><span style="color:var(--accent); font-weight:500;">Tres pasos, y lo firmas tú.</span></h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr)); gap:clamp(18px,2.4vw,34px); margin-top:clamp(24px,4vh,46px); max-width:1100px;">
+        <div data-step="0" style="border-top:1px solid rgba(20,17,16,0.16); padding-top:16px;">
+          <p style="margin:0; font-size:12.5px; font-weight:600; letter-spacing:0.18em; color:var(--accent);">01</p>
+          <p style="margin:10px 0 0 0; font-size:clamp(17px,1.6vw,21px); font-weight:600; letter-spacing:-0.02em;">Hablamos 20 minutos</p>
+          <p style="margin:8px 0 0 0; font-size:clamp(13.5px,1.25vw,15.5px); line-height:1.6; color:rgba(20,17,16,0.7);">Me cuentas dónde estás y qué te gustaría cambiar. Yo te digo con sinceridad si puedo ayudarte.</p>
+        </div>
+        <div data-step="1" style="border-top:1px solid rgba(20,17,16,0.16); padding-top:16px;">
+          <p style="margin:0; font-size:12.5px; font-weight:600; letter-spacing:0.18em; color:var(--accent);">02</p>
+          <p style="margin:10px 0 0 0; font-size:clamp(17px,1.6vw,21px); font-weight:600; letter-spacing:-0.02em;">Empiezas pequeño</p>
+          <p style="margin:8px 0 0 0; font-size:clamp(13.5px,1.25vw,15.5px); line-height:1.6; color:rgba(20,17,16,0.7);">Sin dejar lo que ya tienes. Como empecé yo: en casa y a mi ritmo.</p>
+        </div>
+        <div data-step="2" style="border-top:1px solid rgba(20,17,16,0.16); padding-top:16px;">
+          <p style="margin:0; font-size:12.5px; font-weight:600; letter-spacing:0.18em; color:var(--accent);">03</p>
+          <p style="margin:10px 0 0 0; font-size:clamp(17px,1.6vw,21px); font-weight:600; letter-spacing:-0.02em;">Decides hasta dónde</p>
+          <p style="margin:8px 0 0 0; font-size:clamp(13.5px,1.25vw,15.5px); line-height:1.6; color:rgba(20,17,16,0.7);">Si te encaja, te acompaño con todo lo que aprendí. Si no, nos hemos conocido y ya está.</p>
+        </div>
+      </div>
+      <p style="margin:clamp(22px,3.4vh,38px) 0 0 0; font-size:clamp(13.5px,1.3vw,16px); line-height:1.6; color:rgba(20,17,16,0.56); max-width:34em;">Si antes de hablar prefieres verlo todo escrito —qué es, cuánto cuesta y qué dicen quienes ya lo tienen—, lo tienes <a href="Inversion.dc.html" style="border-bottom:1px solid rgba(20,17,16,0.3); padding-bottom:1px;">aquí</a>.</p>
+    </div>
+  </div>
+</div>
+
+<section id="cierre" data-screen-label="Cierre" style="position:relative; background:#FBF9F6; color:#141110; padding:clamp(100px,16vh,180px) var(--gut) clamp(56px,7vh,90px); overflow:hidden;">
+  <div style="position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 30%, rgba(206,122,87,0.09) 0%, rgba(206,122,87,0) 70%);"></div>
+  <div style="position:relative; max-width:1200px; margin:0 auto;">
+    <div style="text-align:center;">
+      <p style="margin:0; font-size:12.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#6B6560;">06 — Tu turno</p>
+      <h2 style="margin:2vh 0 0 0; font-family:var(--display); font-size:clamp(3.4rem,9vw,8rem); font-weight:500; letter-spacing:-0.015em; line-height:1;">¿Hablamos?</h2>
+      <p style="margin:3vh auto 0; font-size:clamp(17px,1.7vw,21px); line-height:1.5; color:rgba(20,17,16,0.7); max-width:26ch; font-weight:450; letter-spacing:-0.018em;">Veinte minutos, sin guion y sin compromiso. Si no es para ti, seré la primera en decírtelo.</p>
+      <button type="button" onClick="{{ openChat }}" style="margin-top:4vh; background:#141110; color:#FBF9F6; font-size:16.5px; font-weight:600; padding:16px 34px; border-radius:999px; transition:transform 250ms ease;" style-hover="transform:scale(1.04);">Hablar con Raquel</button>
+      <p style="margin:14px 0 0 0; font-size:12.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#6B6560;">Mi asistente te encuentra hueco en un minuto</p>
+    </div>
+    </div>
+</section>
+
+<div data-screen-label="Asistente" style="position:fixed; bottom:22px; right:22px; z-index:96; display:flex; flex-direction:column; align-items:flex-end; gap:12px;">
+  <div style="{{ panelStyle }}">
+    <div style="display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid rgba(25,21,16,0.1);">
+      <img src="uploads/magnific_elegant-black-and-white-p_tCh5YqomZJ.png" alt="Raquel Rodríguez" style="width:36px; height:36px; border-radius:50%; object-fit:cover; flex:none;">
+      <div style="flex:1; min-width:0;">
+        <p style="margin:0; font-size:14px; font-weight:600;">Raquel Rodríguez</p>
+        <p style="margin:1px 0 0 0; font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#6B6560;">Asistente de agenda · En línea</p>
+      </div>
+      <button type="button" onClick="{{ closeChat }}" aria-label="Cerrar" style="width:30px; height:30px; border-radius:50%; background:rgba(25,21,16,0.06); font-size:15px; display:flex; align-items:center; justify-content:center;">×</button>
+    </div>
+    <div id="rr-chatbox" style="flex:1; min-height:0; overflow-y:auto; padding:18px 18px 10px; display:flex; flex-direction:column; gap:10px;">
+      <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="1">
+        <div style="{{ m.wrapStyle }}">
+          <sc-if value="{{ m.isText }}" hint-placeholder-val="{{ true }}">
+            <div style="{{ m.bubbleStyle }}">{{ m.text }}</div>
+          </sc-if>
+          <sc-if value="{{ m.isCard }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid rgba(25,21,16,0.14); border-radius:16px; padding:15px 17px; background:#FFFFFF; width:min(100%,300px);">
+              <p style="margin:0 0 8px 0; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#6B6560;">Resumen de tu reserva</p>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(25,21,16,0.1); font-size:13.5px;"><span style="color:rgba(25,21,16,0.55);">Día</span><span style="font-weight:600;">{{ m.dia }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(25,21,16,0.1); font-size:13.5px;"><span style="color:rgba(25,21,16,0.55);">Hora</span><span style="font-weight:600;">{{ m.hora }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(25,21,16,0.1); font-size:13.5px;"><span style="color:rgba(25,21,16,0.55);">Tema</span><span style="font-weight:600;">{{ m.tema }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(25,21,16,0.1); font-size:13.5px;"><span style="color:rgba(25,21,16,0.55);">Nombre</span><span style="font-weight:600;">{{ m.nombre }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:7px 0; border-top:1px solid rgba(25,21,16,0.1); font-size:13.5px;"><span style="color:rgba(25,21,16,0.55);">WhatsApp</span><span style="font-weight:600;">{{ m.tel }}</span></div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; justify-content:flex-start;">
+          <div style="background:rgba(25,21,16,0.06); border-radius:18px 18px 18px 6px; padding:14px 16px; display:flex; gap:5px;">
+            <span style="width:6px; height:6px; border-radius:50%; background:#191510; animation:rrdot 1.1s infinite;"></span>
+            <span style="width:6px; height:6px; border-radius:50%; background:#191510; animation:rrdot 1.1s infinite; animation-delay:0.15s;"></span>
+            <span style="width:6px; height:6px; border-radius:50%; background:#191510; animation:rrdot 1.1s infinite; animation-delay:0.3s;"></span>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ hasChips }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-wrap:wrap; gap:8px; padding:2px 16px 12px;">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="1">
+          <button type="button" onClick="{{ c.onPick }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <form onSubmit="{{ onSend }}" style="display:flex; gap:10px; padding:11px 13px; border-top:1px solid rgba(25,21,16,0.1); align-items:center;">
+      <input value="{{ draft }}" onChange="{{ onDraft }}" placeholder="Escribe aquí…" aria-label="Mensaje para el asistente" style="flex:1; min-width:0; background:rgba(25,21,16,0.05); border:none; border-radius:999px; padding:11px 17px; font-size:14.5px;">
+      <button type="submit" aria-label="Enviar" style="width:40px; height:40px; flex:none; border-radius:50%; background:#191510; color:#F6F3EE; font-size:17px; display:flex; align-items:center; justify-content:center;">↑</button>
+    </form>
+    <p style="margin:0; padding:0 14px 11px; text-align:center; font-size:10.5px; font-weight:500; letter-spacing:0.13em; text-transform:uppercase; color:rgba(25,21,16,0.45);">Datos solo para organizar la llamada · RGPD</p>
+  </div>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <button type="button" onClick="{{ openChat }}" style="{{ teaserStyle }}">¿Hablamos 20 minutos?</button>
+    <button type="button" onClick="{{ toggleChat }}" aria-label="Abrir asistente de reservas" style="position:relative; width:54px; height:54px; border-radius:50%; flex:none; background:#FBF9F6; border:1px solid rgba(20,17,16,0.14); box-shadow:0 10px 30px rgba(20,17,16,0.10); overflow:hidden; transition:transform 260ms cubic-bezier(0.22,1,0.36,1), border-color 260ms ease;" style-hover="transform:translateY(-2px); border-color:rgba(20,17,16,0.4); opacity:1;">
+      <img src="uploads/magnific_elegant-black-and-white-p_tCh5YqomZJ.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.05);">
+      <span style="{{ fabIconStyle }}">×</span>
+      <sc-if value="{{ showBadge }}" hint-placeholder-val="{{ false }}">
+        <span style="position:absolute; top:4px; right:4px; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 2px #FBF9F6; display:block;"></span>
+      </sc-if>
+    </button>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#4A6B7D&quot;,&quot;options&quot;:[&quot;#4A6B7D&quot;,&quot;#A8462E&quot;,&quot;#8A5A32&quot;,&quot;#4E4A43&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estilo&quot;},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;+34 600 000 000&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;},&quot;instagram&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;raquelrodriguez&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;},&quot;email&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;hola@raquelrodriguez.es&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;}}">
+class Component extends DCLogic {
+  state = { msgs: [], chips: [], draft: '', typing: false, open: false, opened: false, nudge: false, menu: false };
+
+  p(k, d) { return this.props[k] ?? d; }
+  waDigits() { return String(this.p('whatsapp', '34600000000')).replace(/[^\d]/g, ''); }
+
+  renderVals() {
+    const ink = '#191510', bone = '#F3EFE9';
+    const bubble = (me) => ({
+      background: me ? '#1B1611' : 'rgba(25,21,16,0.06)',
+      color: me ? bone : ink,
+      borderRadius: me ? '18px 18px 6px 18px' : '18px 18px 18px 6px',
+      padding: '11px 15px', maxWidth: '84%', fontSize: '14.5px', lineHeight: 1.55
+    });
+    const msgs = this.state.msgs.map((m, i) => ({
+      ...m, key: 'm' + i, isText: !m.isCard, isCard: !!m.isCard,
+      wrapStyle: { display: 'flex', justifyContent: m.me ? 'flex-end' : 'flex-start' },
+      bubbleStyle: bubble(!!m.me)
+    }));
+    const chips = this.state.chips.map((c, i) => ({
+      key: 'c' + i, label: c.label,
+      style: {
+        background: c.primary ? '#1B1611' : 'transparent',
+        color: c.primary ? bone : ink,
+        border: c.primary ? '1px solid #1B1611' : '1px solid rgba(25,21,16,0.28)',
+        borderRadius: '999px', padding: '8px 15px', fontSize: '13.5px', fontWeight: 500, cursor: 'pointer'
+      },
+      onPick: () => this.pickChip(c)
+    }));
+    const open = this.state.open;
+    return {
+      msgs, chips, hasChips: chips.length > 0,
+      typing: this.state.typing, draft: this.state.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      onSend: (e) => { e.preventDefault(); this.userText(); },
+      waHref: 'https://wa.me/' + this.waDigits(),
+      igHref: 'https://instagram.com/' + String(this.p('instagram', 'raquelrodriguez')).replace(/[^\w.]/g, ''),
+      mailHref: 'mailto:' + this.p('email', 'hola@raquelrodriguez.es'),
+      openChat: () => this.openChat(),
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      goHome: () => { this.setState({ menu: false }); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+      menuBook: () => { this.setState({ menu: false }); this.openChat(); },
+      menuStyle: {
+        position: 'fixed', inset: 0, zIndex: 90, overflowY: 'auto',
+        background: 'rgba(251,249,246,0.97)', backdropFilter: 'blur(22px) saturate(1.5)', WebkitBackdropFilter: 'blur(22px) saturate(1.5)',
+        color: '#141110',
+        opacity: this.state.menu ? 1 : 0,
+        pointerEvents: this.state.menu ? 'auto' : 'none',
+        transform: this.state.menu ? 'translateY(0)' : 'translateY(-12px)',
+        transition: 'opacity 420ms cubic-bezier(0.22,1,0.36,1), transform 480ms cubic-bezier(0.22,1,0.36,1)'
+      },
+      burgerTop: {
+        display: 'block', width: this.state.menu ? '24px' : '26px', height: '1.5px', background: '#141110',
+        transformOrigin: 'center', transition: 'transform 380ms cubic-bezier(0.22,1,0.36,1), width 380ms ease',
+        transform: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none'
+      },
+      burgerBottom: {
+        display: 'block', width: this.state.menu ? '24px' : '17px', height: '1.5px', background: '#141110',
+        transformOrigin: 'center', transition: 'transform 380ms cubic-bezier(0.22,1,0.36,1), width 380ms ease',
+        transform: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none'
+      },
+      closeChat: () => this.setState({ open: false }),
+      toggleChat: () => this.state.open ? this.setState({ open: false }) : this.openChat(),
+      showBadge: !this.state.opened,
+      panelStyle: {
+        width: 'min(376px, calc(100vw - 44px))', height: 'min(560px, calc(100dvh - 140px))',
+        display: 'flex', flexDirection: 'column', background: '#FFFFFF', color: ink,
+        borderRadius: '24px', overflow: 'hidden', boxShadow: '0 26px 70px rgba(20,17,16,0.16)',
+        border: '1px solid rgba(25,21,16,0.08)',
+        transformOrigin: '100% 100%',
+        transform: open ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.96)',
+        opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none',
+        transition: 'transform 380ms cubic-bezier(0.22,1,0.36,1), opacity 300ms ease'
+      },
+      teaserStyle: {
+        background: '#FFFFFF', color: ink, fontSize: '13.5px', fontWeight: 500,
+        padding: '10px 17px', borderRadius: '999px', border: '1px solid rgba(20,17,16,0.12)',
+        boxShadow: '0 10px 28px rgba(20,17,16,0.10)', textAlign: 'left', whiteSpace: 'nowrap',
+        transform: this.state.nudge && !open ? 'translateY(0)' : 'translateY(8px)',
+        opacity: this.state.nudge && !open ? 1 : 0,
+        pointerEvents: this.state.nudge && !open ? 'auto' : 'none',
+        transition: 'transform 400ms cubic-bezier(0.22,1,0.36,1), opacity 350ms ease'
+      },
+      fabIconStyle: {
+        position: 'absolute', inset: '0', borderRadius: '50%',
+        background: 'rgba(251,249,246,0.92)', color: ink, fontSize: '22px', fontWeight: 300,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        opacity: open ? 1 : 0, transition: 'opacity 250ms ease',
+        transform: open ? 'rotate(0deg)' : 'rotate(-90deg)'
+      }
+    };
+  }
+
+  openChat() {
+    this.setState({ open: true, opened: true, nudge: false });
+    this.start();
+  }
+
+  componentDidMount() {
+    this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.bk = { step: 'idle', interest: null, day: null, time: null, name: '', phone: '' };
+    this.started = false;
+    this.$ = (s) => document.querySelector(s);
+    this.track = this.$('#xp-track'); this.stage = this.$('#xp-stage');
+    this.chs = Array.from(document.querySelectorAll('[data-ch]'));
+    this.hlines = Array.from(document.querySelectorAll('[data-hline]'));
+    this.bands = Array.from(document.querySelectorAll('[data-band]'));
+    this.bandLabels = Array.from(document.querySelectorAll('[data-bandlabel]'));
+    this.railBtns = Array.from(document.querySelectorAll('[data-rail]'));
+    this.words = Array.from(document.querySelectorAll('[data-wseq] span'));
+    this.canvas = this.$('#xp-canvas');
+    this.applyAccent();
+    this.initCursor();
+    if (location.hash === '#reservar') setTimeout(() => this.openChat(), 300);
+    setTimeout(() => { if (!this.state.opened) this.setState({ nudge: true }); }, 5000);
+    setTimeout(() => { if (!this.state.opened) this.setState({ nudge: false }); }, 17000);
+    if (this.reduced) { this.staticLayout(); return; }
+    this.words.forEach((w) => { w.style.display = 'inline-block'; w.style.opacity = '0.16'; w.style.transform = 'translateY(0.3em)'; });
+    this.railBtns.forEach((b, i) => b.addEventListener('click', () => {
+      const seg = (this.track.offsetHeight - innerHeight) / 5;
+      window.scrollTo({ top: this.track.offsetTop + seg * i + (i ? seg * 0.42 : 0), behavior: 'smooth' });
+    }));
+    this.introPlayed = false;
+    this.initParticles();
+    this.lastS = scrollY; this.energy = 1;
+    this.layout();
+    this.onResize = () => { this.sizeCanvas(); this.layout(); };
+    window.addEventListener('resize', this.onResize);
+    this.sizeCanvas();
+    this.t0 = performance.now();
+    this.loop = this.loop.bind(this);
+    this._raf = requestAnimationFrame(this.loop);
+    this.playIntro();
+  }
+
+  componentDidUpdate() {
+    this.applyAccent();
+    const box = document.getElementById('rr-chatbox');
+    if (box && (this.state.msgs.length !== this._lastLen || this.state.typing)) { box.scrollTop = box.scrollHeight; this._lastLen = this.state.msgs.length; }
+  }
+  componentWillUnmount() { cancelAnimationFrame(this._raf); window.removeEventListener('resize', this.onResize); }
+
+  applyAccent() {
+    const r = document.getElementById('xp-root');
+    if (!r) return;
+    const a = this.p('accent', '#4A6B7D');
+    r.style.setProperty('--accent', a);
+    r.style.setProperty('--accent-soft', 'color-mix(in srgb, ' + a + ' 72%, #141110)');
+  }
+
+  layout() {
+    const narrow = innerWidth < 860;
+    const g = (sel) => document.querySelector(sel);
+    const nav = document.getElementById('xp-nav');
+    const safe = Math.round((nav ? nav.getBoundingClientRect().height : 60) + 22);
+    this.chs.forEach((el) => {
+      el.style.boxSizing = 'border-box';
+      el.style.paddingTop = safe + 'px';
+      const cs = getComputedStyle(el);
+      if (cs.display === 'flex') {
+        if (cs.flexDirection === 'column') el.style.justifyContent = 'safe center';
+        else el.style.alignItems = 'safe center';
+      }
+    });
+    const head2 = g('[data-ch2-head]');
+    if (head2) { head2.style.boxSizing = 'border-box'; head2.style.paddingTop = (safe + 18) + 'px'; }
+    const split = g('[data-hero-split]'), txt = g('[data-hero-text]'), h1 = g('[data-hero-h1]'), img = g('[data-hero-photo]');
+    if (split && txt && h1 && img) {
+      split.style.gridTemplateColumns = narrow ? '1fr' : '52% 48%';
+      split.style.gridTemplateRows = narrow ? '1fr' : 'none';
+      txt.style.padding = narrow ? 'clamp(72px,10vh,112px) var(--gut) 17vh' : 'clamp(72px,10vh,112px) clamp(28px,3.5vw,64px) clamp(76px,10vh,100px) 7vw';
+      txt.style.gridArea = narrow ? '1 / 1' : 'auto';
+      h1.style.fontSize = narrow ? 'clamp(2rem,min(12vw,7.4vh),4.2rem)' : 'clamp(2.2rem,min(7.4vw,8.6vh),7.6rem)';
+      const wrapImg = g('[data-hero-img]');
+      if (wrapImg) {
+        wrapImg.style.gridArea = narrow ? '1 / 1' : 'auto';
+        wrapImg.style.opacity = narrow ? '0.3' : '1';
+      }
+      img.style.objectPosition = narrow ? '60% 6%' : '42% 8%';
+      const bar = g('[data-hero-bar]');
+      if (bar) bar.style.right = narrow ? 'var(--gut)' : 'calc(48vw + 28px)';
+    }
+    const c2 = g('[data-ch="3"]'), head = g('[data-ch2-head]'), grid = g('[data-bands-grid]');
+    if (c2 && head && grid) {
+      if (narrow) {
+        c2.style.display = 'flex'; c2.style.flexDirection = 'column'; c2.style.justifyContent = 'safe center'; c2.style.padding = safe + 'px var(--gut) 5vh'; c2.style.boxSizing = 'border-box';
+        head.style.position = 'relative'; head.style.inset = 'auto'; head.style.padding = '0'; head.style.flex = 'none';
+        grid.style.position = 'relative'; grid.style.inset = 'auto'; grid.style.gridTemplateColumns = 'repeat(2,1fr)'; grid.style.marginTop = '3.5vh'; grid.style.minHeight = '42vh'; grid.style.borderRadius = '14px'; grid.style.overflow = 'hidden';
+      } else {
+        c2.style.display = ''; c2.style.flexDirection = ''; c2.style.justifyContent = ''; c2.style.padding = safe + 'px 0 0';
+        head.style.position = 'absolute'; head.style.inset = '0'; head.style.padding = (safe + 18) + 'px var(--gut) 0'; head.style.flex = '';
+        grid.style.position = 'absolute'; grid.style.inset = '0'; grid.style.gridTemplateColumns = 'repeat(4,1fr)'; grid.style.marginTop = '0'; grid.style.minHeight = ''; grid.style.borderRadius = '0';
+      }
+    }
+    const por = g('[data-portrait]'), wseq = g('[data-wseq]');
+    if (por && wseq) {
+      por.style.display = narrow ? 'none' : 'block';
+      wseq.style.fontSize = narrow ? 'clamp(1.35rem,6vw,2rem)' : 'clamp(2.2rem,5vw,4.6rem)';
+      wseq.style.maxWidth = narrow ? '100%' : '15em';
+    }
+    const short = innerHeight < 640;
+    const sub2 = g('[data-hero-sub="1"] p + p');
+    if (sub2) sub2.style.display = short ? 'none' : 'block';
+    const q1 = g('[data-ch1-q]'), d1 = g('[data-ch1-d]');
+    if (q1 && d1) { q1.style.maxWidth = narrow ? '18em' : '15em'; d1.style.maxWidth = narrow ? '30em' : '24em'; }
+  }
+
+  staticLayout() {
+    this.track.style.height = 'auto';
+    this.stage.style.position = 'relative'; this.stage.style.height = 'auto'; this.stage.style.overflow = 'visible';
+    this.canvas.style.display = 'none';
+    const rail = this.$('#xp-rail'); if (rail) rail.style.display = 'none';
+    const bgs = ['#FBF9F6', '#F8F6F2', '#F5F3EF', '#FBF9F6', '#F8F6F2'];
+    this.chs.forEach((c, i) => {
+      c.style.position = 'relative'; c.style.opacity = '1'; c.style.minHeight = '100vh'; c.style.background = bgs[i];
+    });
+    this.hlines.forEach((l) => { l.style.transform = 'none'; });
+    this.bands.forEach((b) => { b.style.transform = 'scaleY(1)'; });
+    this.bandLabels.forEach((b) => { b.style.opacity = '1'; });
+    const big = document.querySelector('[data-big="botellas"]'); if (big) big.textContent = '14.600';
+    const dis = document.querySelector('[data-disclaimer="1"]'); if (dis) dis.style.opacity = '1';
+    document.querySelectorAll('[data-step]').forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; });
+  }
+
+  playIntro() {
+    this.hlines.forEach((l, i) => {
+      l.style.transform = 'translateY(112%)';
+      l.animate([{ transform: 'translateY(112%)' }, { transform: 'translateY(0)' }], { duration: 1050, delay: 200 + i * 130, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'forwards' });
+    });
+    document.querySelectorAll('[data-hero-sub]').forEach((sub, i) => {
+      sub.style.opacity = '0';
+      sub.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 800, delay: 900 + i * 240, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'forwards' });
+    });
+    setTimeout(() => { this.introPlayed = true; }, 1700);
+  }
+
+  initCursor() {
+    if (matchMedia('(hover: none)').matches || innerWidth < 900) return;
+    const ring = document.getElementById('rr-ring'), dot = document.getElementById('rr-dot');
+    if (!ring || !dot) return;
+    const root = document.getElementById('xp-root');
+    if (root) root.style.cursor = 'none';
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, on = false, raf = 0;
+    const soft = () => {
+      rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+      ring.style.transform = 'translate(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px)';
+      dot.style.transform = 'translate(' + mx.toFixed(1) + 'px,' + my.toFixed(1) + 'px)';
+      raf = requestAnimationFrame(soft);
+    };
+    const grow = (v) => {
+      const a = this.p('accent', '#4A6B7D');
+      ring.style.width = ring.style.height = v ? '62px' : '36px';
+      ring.style.margin = v ? '-31px 0 0 -31px' : '-18px 0 0 -18px';
+      ring.style.borderColor = v ? a : 'rgba(20,17,16,0.35)';
+      ring.style.background = v ? 'color-mix(in srgb, ' + a + ' 12%, transparent)' : 'transparent';
+      dot.style.transform += ' scale(' + (v ? 0 : 1) + ')';
+      dot.style.opacity = v ? '0' : '1';
+    };
+    addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      if (!on) { on = true; ring.style.opacity = '1'; dot.style.opacity = '1'; }
+      const t = e.target;
+      const inChat = t.closest && t.closest('[data-chat-panel], input, textarea');
+      if (inChat) { ring.style.opacity = '0'; dot.style.opacity = '0'; if (root) root.style.cursor = 'auto'; }
+      else if (root) { root.style.cursor = 'none'; ring.style.opacity = '1'; }
+      grow(!!(t.closest && t.closest('a, button')) && !inChat);
+    }, { passive: true });
+    addEventListener('mouseout', (e) => { if (!e.relatedTarget) { ring.style.opacity = '0'; dot.style.opacity = '0'; } });
+    addEventListener('mousedown', () => { ring.style.borderColor = this.p('accent', '#4A6B7D'); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && this.state.menu) this.setState({ menu: false }); });
+    raf = requestAnimationFrame(soft);
+    this._cursorRaf = raf;
+  }
+
+  // ---------- particles
+  initParticles() {
+    this.ps = [];
+    const n = 96;
+    for (let i = 0; i < n; i++) {
+      this.ps.push({
+        hx: Math.random(), hy: Math.random(),
+        x: Math.random(), y: Math.random(),
+        r: 0.9 + Math.random() * 1.6, ph: Math.random() * Math.PI * 2,
+        big: 70 + Math.random() * 190,
+        sp: 0.5 + Math.random(), a: 0, rot: 0
+      });
+    }
+    this.spr = {};
+    const A = this.accentRgb || (this.accentRgb = this.hexRgb(this.p('accent', '#4A6B7D')));
+    const cols = { bone: [20, 17, 16], terra: A, ink: [20, 17, 16], ph0: [168, 70, 46], ph1: [176, 120, 86], ph2: [92, 120, 148], ph3: [64, 96, 116] };
+    for (const k in cols) this.spr[k] = this.makeDrop(cols[k]);
+  }
+  makeDrop(c) { // gota con brillo especular
+    const s = 64, cv = document.createElement('canvas');
+    cv.width = s; cv.height = s;
+    const g = cv.getContext('2d');
+    const grad = g.createRadialGradient(s * 0.42, s * 0.38, s * 0.04, s * 0.5, s * 0.5, s * 0.5);
+    grad.addColorStop(0, 'rgba(255,255,255,0.95)');
+    grad.addColorStop(0.22, 'rgba(' + c.join(',') + ',0.62)');
+    grad.addColorStop(0.6, 'rgba(' + c.join(',') + ',0.26)');
+    grad.addColorStop(1, 'rgba(' + c.join(',') + ',0)');
+    g.fillStyle = grad;
+    g.beginPath(); g.arc(s / 2, s / 2, s / 2, 0, 6.2832); g.fill();
+    g.fillStyle = 'rgba(255,255,255,0.85)';
+    g.beginPath(); g.arc(s * 0.4, s * 0.34, s * 0.07, 0, 6.2832); g.fill();
+    return cv;
+  }
+  sizeCanvas() {
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    this.cw = this.stage.clientWidth; this.chh = this.stage.clientHeight;
+    this.canvas.width = this.cw * dpr; this.canvas.height = this.chh * dpr;
+    this.ctx = this.canvas.getContext('2d');
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  hexRgb(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+
+  formation(p, i, mode, time, hold) {
+    const w = this.cw, h = this.chh;
+    const off = { x: -120, y: -120, kind: 'dot', key: 'bone', a: 0, r: p.r };
+
+    if (mode === 0) { // LA PREGUNTA · un iris que respira y unas pocas ascuas subiendo
+      if (i === 0) {
+        const breathe = 1 + Math.sin(time * 0.24) * 0.07;
+        return { x: w * 0.33, y: h * 0.5, kind: 'ring', key: 'bone', a: 0.13, rr: Math.min(w, h) * 0.34 * breathe };
+      }
+      if (i === 1) {
+        const breathe = 1 + Math.sin(time * 0.24 + 1.2) * 0.09;
+        return { x: w * 0.33, y: h * 0.5, kind: 'ring', key: 'terra', a: 0.1, rr: Math.min(w, h) * 0.52 * breathe };
+      }
+      if (i > 12) return off;
+      const rise = (p.hy + time * 0.014 * p.sp) % 1;
+      return { x: (0.06 + p.hx * 0.4) * w + Math.sin(time * 0.5 + p.ph) * 12, y: (1.05 - rise * 1.14) * h, kind: 'dot', key: i % 4 === 0 ? 'terra' : 'bone', a: 0.34 * Math.min(1, rise * 4), r: p.r * 1.1 };
+    }
+
+    if (mode === 1) { // MI PUNTO DE PARTIDA · la rejilla de horas; casi todas apagadas
+      const n = this.ps.length, cols = 12, rows = Math.ceil(n / cols);
+      const ci = i % cols, ri = Math.floor(i / cols);
+      const d = ((i * 7919) % n) / n;
+      const e = Math.min(1, Math.max(0, (hold * 1.35 - d) / 0.26));
+      const eo = 1 - Math.pow(1 - e, 3);
+      const gx = 0.5 + (ci - (cols - 1) / 2) * (Math.min(w, h) * 0.052) / w;
+      const gy = 0.52 + (ri - (rows - 1) / 2) * (Math.min(w, h) * 0.052) / h;
+      const mine = i % 9 === 0;
+      return { x: gx * w, y: (gy - (1 - eo) * 0.1) * h, kind: 'dot', key: mine ? 'terra' : 'bone', a: e <= 0 ? 0 : (mine ? 0.6 : 0.13) * eo, r: mine ? p.r * 1.5 : p.r * 0.85 };
+    }
+
+    if (mode === 2) { // EL GIRO · la trayectoria que se dobla hacia arriba
+      if (i > 33) return off;
+      const u = i / 34;
+      const bend = Math.min(1, Math.max(0, (hold - 0.12) / 0.55));
+      const flat = 0.72;
+      const turn = flat - Math.pow(Math.max(0, u - 0.42) / 0.58, 1.7) * 0.46 * bend;
+      const wob = Math.sin(time * 0.7 + u * 5) * 3;
+      const past = u < 0.42;
+      return { x: (0.07 + u * 0.86) * w, y: turn * h + wob, kind: 'dot', key: past ? 'bone' : 'terra', a: past ? 0.2 : 0.24 + 0.4 * bend, r: past ? p.r * 0.85 : p.r * 1.25 };
+    }
+
+    if (mode === 3) { // LO QUE CAMBIÓ · cuatro columnas, una por cosa
+      const col = i % 4, cx = (col + 0.5) / 4;
+      if (i < 4) {
+        const rise = ((0.2 + p.hy * 0.5 - time * 0.03) % 1 + 1) % 1;
+        return { x: cx * w, y: (0.15 + rise * 0.7) * h, kind: 'ring', key: 'ph' + col, a: 0.26, rr: Math.min(w / 4.6, 150) };
+      }
+      if (i > 27) return off;
+      const rise = ((p.hy - time * 0.022 * p.sp) % 1 + 1) % 1;
+      return { x: (cx + (p.hx - 0.5) * 0.14) * w + Math.sin(time * 0.7 + p.ph) * 5, y: rise * h, kind: 'dot', key: 'ph' + col, a: 0.45, r: p.r * 1.1 };
+    }
+
+    // Y AHORA TÚ · tres nodos y el camino entre ellos
+    if (i < 3) {
+      const on = Math.min(1, Math.max(0, (hold - 0.1 - i * 0.16) / 0.3));
+      const pulse = 1 + Math.sin(time * 0.8 + i * 1.6) * 0.06;
+      return { x: (0.2 + i * 0.3) * w, y: h * 0.5, kind: 'ring', key: i === 2 ? 'terra' : 'bone', a: 0.1 + 0.12 * on, rr: Math.min(w, h) * 0.15 * pulse * (0.75 + 0.25 * on) };
+    }
+    if (i > 26) return off;
+    const u = (i - 3) / 24;
+    const flow = (u + time * 0.045) % 1;
+    return { x: (0.2 + flow * 0.6) * w, y: h * 0.5 + Math.sin(flow * 6.2832 + time * 0.5) * h * 0.035, kind: 'dot', key: flow > 0.66 ? 'terra' : 'bone', a: 0.16 + 0.3 * Math.sin(flow * 3.14), r: p.r * 1.1 };
+  }
+
+  // ---------- main loop
+  loop(now) {
+    this._raf = requestAnimationFrame(this.loop);
+    const time = (now - this.t0) / 1000;
+    const vh = innerHeight;
+    const rect = this.track.getBoundingClientRect();
+    const total = this.track.offsetHeight - vh;
+    const s = Math.min(Math.max(-rect.top, 0), total);
+    const v = Math.abs(s - this.lastS); this.lastS = s;
+    this.energy += ((1 + Math.min(2.4, v / 30)) - this.energy) * 0.06;
+    const t = s / (total / 5); // 0..5
+    const sm = (x) => x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x);
+    const eo = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+    if (rect.bottom <= 0 || rect.top > vh) {
+      if (!this._cleared) { this.ctx.clearRect(0, 0, this.cw, this.chh); this._cleared = true; }
+      return;
+    }
+    const moved = Math.abs(t - (this._pt == null ? -9 : this._pt)) > 0.0004;
+    this._pt = t;
+    this.$$ = this.$$ || {};
+    const q = (sel) => (this.$$[sel] = this.$$[sel] || document.querySelector(sel));
+
+    if (moved) {
+      const bgs = [[251, 249, 246], [248, 246, 242], [245, 243, 239], [251, 249, 246], [248, 246, 242]];
+      const bi = Math.min(4, Math.floor(t)), bp = t - bi;
+      const nb = Math.min(4, bi + 1);
+      const mix = sm((bp - 0.62) / 0.38);
+      const bg = bgs[bi].map((c, j) => Math.round(c + (bgs[nb][j] - c) * mix));
+      this.stage.style.background = 'rgb(' + bg.join(',') + ')';
+      const prog = document.getElementById('xp-progress');
+      if (prog) prog.style.width = (Math.min(1, Math.max(0, t / 5)) * 100).toFixed(2) + '%';
+      const active = Math.max(0, Math.min(4, Math.round(t - 0.2)));
+      const num = document.getElementById('xp-slidenow');
+      if (num) num.textContent = '0' + (active + 1);
+      if (active !== this._active) {
+        this._active = active;
+        this.railBtns.forEach((b, i) => { const bar = b.firstChild; bar.style.opacity = i === active ? '0.95' : '0.3'; bar.style.transform = i === active ? 'scaleX(1.35)' : 'scaleX(1)'; });
+      }
+    }
+
+    const holds = [0, 0, 0, 0, 0];
+    this.chs.forEach((ch, i) => {
+      const a = t - i;
+      const inP = i === 0 ? 1 : sm((a + 0.13) / 0.2);
+      const outP = i === 4 ? sm((a - 0.86) / 0.14) : sm((a - 0.67) / 0.2);
+      const vis = inP * (1 - outP);
+      const hold = Math.min(1, Math.max(0, a / 0.62));
+      holds[i] = i === 0 ? Math.min(1, Math.max(0, t / 0.7)) : hold;
+      if (!moved) return;
+      if (vis <= 0.001) { ch.style.opacity = '0'; ch.style.visibility = 'hidden'; return; }
+      ch.style.visibility = 'visible';
+      ch.style.opacity = String(vis);
+      const inX = (1 - inP) * 62, outX = outP * 42;
+      const sc = 1 - outP * 0.05;
+      ch.style.transformOrigin = '50% 50%';
+      ch.style.transform = 'translate3d(' + (inX - outX) + 'vw,0,0) scale(' + sc + ')';
+      ch.style.clipPath = 'inset(0 ' + (inX * 0.5).toFixed(2) + 'vw 0 0)';
+      ch.style.filter = outP > 0.02 ? 'blur(' + (outP * 5).toFixed(2) + 'px)' : '';
+    });
+
+    if (this.introPlayed) {
+      this.hlines.forEach((l, i) => {
+        l.style.transform = 'translateY(' + (Math.sin(time * 0.9 + i * 1.4) * 3) + 'px)';
+      });
+    }
+
+    if (moved) {
+      const big = q('[data-big="botellas"]');
+      if (big) big.textContent = Math.round(14600 * eo(holds[1])).toLocaleString('es-ES');
+      this.bands.forEach((b, i) => { b.style.transform = 'scaleY(' + sm((holds[3] - 0.1 - i * 0.14) / 0.5) + ')'; });
+      this.bandLabels.forEach((b, i) => { const o = sm((holds[3] - 0.22 - i * 0.14) / 0.35); b.style.opacity = String(o); b.style.transform = 'translateY(' + ((1 - o) * 14) + 'px)'; });
+      const wp = holds[2];
+      const n = this.words.length;
+      this.words.forEach((w, i) => {
+        const o = sm((wp * 1.15 - i / n) / 0.12);
+        w.style.opacity = String(0.16 + 0.84 * o);
+        w.style.transform = 'translateY(' + ((1 - o) * 0.3) + 'em)';
+        w.style.color = o > 0.5 && /permiso\.|yo\.|Nadie/.test(w.textContent) ? this.p('accent', '#4A6B7D') : '';
+      });
+      const dis = q('[data-disclaimer="1"]');
+      if (dis) dis.style.opacity = String(sm((wp - 0.82) / 0.18));
+      const sp = holds[4];
+      document.querySelectorAll('[data-step]').forEach((el, i) => {
+        const o = sm((sp - 0.12 - i * 0.14) / 0.4);
+        el.style.opacity = String(o);
+        el.style.transform = 'translateY(' + ((1 - o) * 16) + 'px)';
+      });
+      const por = q('[data-portrait="1"] img');
+      if (por) por.style.transform = 'translateY(' + (-wp * 14) + '%)';
+      const hp = q('[data-hero-photo]');
+      if (hp) hp.style.transform = 'translateY(' + (t * 22) + 'px) scale(' + (1 + t * 0.06) + ')';
+    }
+
+    this._cleared = false;
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.cw, this.chh);
+    const mA = Math.min(4, Math.floor(t + 0.5));
+    const prev = Math.max(0, mA - 1);
+    const bl = sm(((t - prev) - 0.5) / 0.4);
+    const dip = 1 - 0.45 * Math.sin(bl * Math.PI);
+    for (let i = 0; i < this.ps.length; i++) {
+      const p = this.ps[i];
+      const fa = this.formation(p, i, prev, time, holds[prev]);
+      const fb = mA === prev ? fa : this.formation(p, i, mA, time, holds[mA]);
+      const tx = fa.x + (fb.x - fa.x) * bl, ty = fa.y + (fb.y - fa.y) * bl;
+      p.x += (tx - p.x) * 0.08 * this.energy;
+      p.y += (ty - p.y) * 0.08 * this.energy;
+      const f = bl < 0.5 ? fa : fb;
+      const ta = (fa.a + (fb.a - fa.a) * bl) * dip;
+      p.a += (ta - p.a) * 0.1;
+      p.rot += ((f.rot || 0) - p.rot) * 0.12;
+      const rr = (fa.r || 2) + ((fb.r || 2) - (fa.r || 2)) * bl;
+      if (p.a < 0.012) continue;
+      const A = this.accentRgb || (this.accentRgb = this.hexRgb(this.p('accent', '#4A6B7D')));
+    const cols = { bone: '20,17,16', terra: A.join(','), ph0: '168,70,46', ph1: '176,120,86', ph2: '92,120,148', ph3: '64,96,116' };
+      if (f.kind === 'ring') {
+        const rad = (fa.rr || 100) + ((fb.rr || fa.rr || 100) - (fa.rr || 100)) * bl;
+        ctx.strokeStyle = 'rgba(' + (cols[f.key] || cols.bone) + ',' + p.a.toFixed(3) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, 6.2832); ctx.stroke();
+      } else if (f.kind === 'dot') {
+        ctx.fillStyle = 'rgba(' + (cols[f.key] || cols.bone) + ',' + p.a.toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(p.x, p.y, rr, 0, 6.2832); ctx.fill();
+      } else if (f.kind === 'bottle') {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = Math.min(1, p.a);
+        ctx.scale(1.7, 1.7);
+        ctx.strokeStyle = 'rgba(20,17,16,0.72)';
+        ctx.lineWidth = 0.75;
+        ctx.strokeRect(-2.4, -3.4, 4.8, 9);
+        ctx.beginPath(); ctx.moveTo(-0.9, -3.4); ctx.lineTo(-0.9, -6.1); ctx.lineTo(0.9, -6.1); ctx.lineTo(0.9, -3.4); ctx.stroke();
+        ctx.fillStyle = this.p('accent', '#4A6B7D');
+        ctx.fillRect(-1.3, -7.1, 2.6, 1.1);
+        ctx.restore();
+        ctx.globalAlpha = 1;
+      }
+    }
+  }
+
+  // ---------- booking agent
+  push(m) { this.setState((s) => ({ msgs: [...s.msgs, m] })); }
+  setChips(chips) { this.setState({ chips }); }
+  wait(ms) { return new Promise((r) => setTimeout(r, ms)); }
+  async say(text, opts) {
+    opts = opts || {};
+    this.setState({ typing: true, chips: [] });
+    await this.wait(opts.fast ? 350 : Math.min(420 + text.length * 6, 1300));
+    this.setState({ typing: false });
+    this.push({ text });
+    if (opts.chips) this.setChips(opts.chips);
+  }
+  interestChips() { return [{ label: 'El dispositivo', v: 'i' }, { label: 'El negocio', v: 'i' }, { label: 'Las dos cosas', v: 'i' }]; }
+  consentChips() { return [{ label: 'Acepto y reservo', v: 'ok', primary: true }, { label: 'No, de momento no', v: 'no' }]; }
+  dayChips() { return this.days().map((d) => ({ label: d, v: 'd' })); }
+  timeChips() { return ['10:00', '12:30', '17:00', '19:30'].map((t) => ({ label: t, v: 't' })); }
+  days() {
+    const out = [], d = new Date();
+    const f = new Intl.DateTimeFormat('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+    while (out.length < 5) {
+      d.setDate(d.getDate() + 1);
+      const wd = d.getDay();
+      if (wd === 0 || wd === 6) continue;
+      out.push(f.format(d));
+    }
+    return out;
+  }
+  async start() {
+    if (this.started) return;
+    this.started = true;
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('rr-reserva-v1') || 'null'); } catch (e) { }
+    if (saved && saved.day && saved.time) {
+      this.bk = Object.assign({}, this.bk, saved, { step: 'saved' });
+      await this.say('Hola de nuevo. Tienes una llamada reservada: ' + saved.day + ', a las ' + saved.time + '.', {
+        chips: [{ label: 'La mantengo', v: 'keep' }, { label: 'Cambiar la cita', v: 'change' }]
+      });
+      return;
+    }
+    await this.say('Hola, soy el asistente de Raquel. Te reservo 20 minutos con ella en menos de un minuto.');
+    this.bk.step = 'interest';
+    await this.say('¿Qué te trae por aquí?', { chips: this.interestChips() });
+  }
+  pickChip(c) {
+    if (c.v === 'wa') { window.open(this.waMsgHref(), '_blank'); return; }
+    this.push({ me: true, text: c.label });
+    this.setChips([]);
+    this.route(c.label, c);
+  }
+  userText() {
+    const t = this.state.draft.trim();
+    if (!t) return;
+    this.push({ me: true, text: t });
+    this.setState({ draft: '' });
+    if (!this.started) { this.started = true; this.bk.step = 'interest'; }
+    this.route(t, null);
+  }
+  async route(text, chip) {
+    const st = this.bk.step;
+    if (st === 'saved') {
+      if (chip && chip.v === 'change') return this.askDay(true);
+      if (chip) return this.say('Genial. Raquel te escribirá por WhatsApp para confirmar. Cualquier duda, déjamela aquí.');
+      return this.freeChat(text);
+    }
+    if (st === 'idle' || st === 'interest') {
+      this.bk.step = 'interest';
+      if (chip) return this.handleInterest(text);
+      const s = text.toLowerCase();
+      const biz = /negoc|ingres|dinero|equipo|distribu|vender|trabajo extra/.test(s);
+      const dev = /aparato|dispositivo|agua|casa|salud|filtr|beber|grifo|precio/.test(s);
+      if (biz && dev) return this.handleInterest('Las dos cosas');
+      if (biz) return this.handleInterest('El negocio');
+      if (dev) return this.handleInterest('El dispositivo');
+      await this.ackFree(text);
+      return this.say('Para orientar la llamada: ¿qué encaja más contigo?', { chips: this.interestChips() });
+    }
+    if (st === 'day') {
+      if (chip) { this.bk.day = text; this.bk.step = 'time'; return this.say(text + '. ¿A qué hora?', { fast: true, chips: this.timeChips() }); }
+      return this.say('Mejor elige uno de los días de abajo, así no nos bailan las fechas.', { chips: this.dayChips() });
+    }
+    if (st === 'time') {
+      if (chip) { this.bk.time = text; this.bk.step = 'name'; return this.say('Apuntado. ¿Cómo te llamas?', { fast: true }); }
+      return this.say('Elige una de las horas de abajo y seguimos.', { chips: this.timeChips() });
+    }
+    if (st === 'name') {
+      if (text.length < 2) return this.say('Creo que eso no es un nombre. ¿Cómo te llamas?');
+      this.bk.name = text.replace(/\s+/g, ' ').slice(0, 60);
+      this.bk.step = 'phone';
+      return this.say('Encantado, ' + this.bk.name.split(' ')[0] + '. ¿Tu número de WhatsApp? Raquel te escribe ahí para confirmar.', { fast: true });
+    }
+    if (st === 'phone') {
+      const digits = text.replace(/[^\d+]/g, '');
+      if (!/^\+?\d{9,15}$/.test(digits)) return this.say('Ese número no me cuadra. Escríbelo con prefijo si no es de España: por ejemplo, +34 600 123 456.');
+      this.bk.phone = digits;
+      this.bk.step = 'consent';
+      return this.say('Última cosa, y es obligatoria: tus datos se usan solo para organizar esta llamada. Ni listas, ni publicidad. ¿Aceptas la política de privacidad?', { chips: this.consentChips() });
+    }
+    if (st === 'consent') {
+      if (chip && chip.v === 'ok') return this.finish();
+      if (chip) {
+        this.bk.step = 'interest';
+        return this.say('Sin problema: no guardo nada. Si algún día lo prefieres, escríbele directamente por WhatsApp.', { chips: [{ label: 'Abrir WhatsApp', v: 'wa' }] });
+      }
+      if (/acept|s[ií]|vale|ok|claro/.test(text.toLowerCase())) return this.finish();
+      return this.say('Necesito un sí explícito para guardar la reserva. ¿Aceptas la política de privacidad?', { chips: this.consentChips() });
+    }
+    if (st === 'done') {
+      if (chip && chip.v === 'change') return this.askDay(true);
+      return this.freeChat(text);
+    }
+  }
+  askDay(changing) {
+    this.bk.step = 'day';
+    return this.say(changing ? 'Sin problema. ¿Qué día te viene mejor?' : '¿Qué día te viene bien? Son unos 20 minutos, sin compromiso.', { chips: this.dayChips() });
+  }
+  async handleInterest(label) {
+    this.bk.interest = label;
+    const ack = label === 'El negocio'
+      ? 'Bien. Sin promesas de cifras: Raquel te contará cómo funciona el modelo y qué implica de verdad.'
+      : label === 'Las dos cosas'
+        ? 'Como dice Raquel: las dos van juntas.'
+        : 'Perfecto. Qué hace en tu casa, qué no hace y todo lo que quieras preguntarle, sin compromiso.';
+    await this.say(ack, { fast: true });
+    return this.askDay(false);
+  }
+  async finish() {
+    this.bk.step = 'done';
+    const b = this.bk;
+    try { localStorage.setItem('rr-reserva-v1', JSON.stringify({ interest: b.interest, day: b.day, time: b.time, name: b.name, phone: b.phone, ts: Date.now() })); } catch (e) { }
+    this.setState({ typing: true, chips: [] });
+    await this.wait(500);
+    this.setState({ typing: false });
+    this.push({ isCard: true, dia: b.day, hora: b.time, tema: b.interest || 'Por decidir', nombre: b.name, tel: b.phone });
+    await this.say('Reservada. Raquel te confirma por WhatsApp en menos de 24 horas. Si te surge algo antes, escríbele directamente.', {
+      chips: [{ label: 'Escribir a Raquel por WhatsApp', v: 'wa', primary: true }, { label: 'Cambiar la cita', v: 'change' }]
+    });
+  }
+  waMsgHref() {
+    const b = this.bk || {};
+    const txt = b.day
+      ? 'Hola Raquel, soy ' + (b.name || '') + '. He reservado una llamada el ' + b.day + ' a las ' + b.time + '.'
+      : 'Hola Raquel, vengo de tu web.';
+    return 'https://wa.me/' + this.waDigits() + '?text=' + encodeURIComponent(txt.trim());
+  }
+  async ackFree(text) {
+    this.bk.motivo = text;
+    let reply = 'Gracias por contármelo. Eso, mejor de viva voz: es justo lo que Raquel prefiere hablar sin guiones.';
+    if (window.claude && typeof window.claude.complete === 'function') {
+      try {
+        const p = window.claude.complete('Eres el asistente de reservas de la web de Raquel Rodríguez, asesora española que trabaja con un dispositivo japonés de tratamiento de agua para casa. Un visitante ha escrito esto: "' + text.slice(0, 300) + '". Responde en español de España, máximo 2 frases cortas, tono cercano, honesto y sobrio. Prohibido: prometer beneficios de salud o de ingresos, usar emojis, sonar comercial. No hagas preguntas; solo reconoce con naturalidad lo que ha dicho.');
+        const r = await Promise.race([p, this.wait(6000).then(() => null)]);
+        if (r && typeof r === 'string' && r.trim()) reply = r.trim().slice(0, 260);
+      } catch (e) { }
+    }
+    return this.say(reply);
+  }
+  async freeChat(text) {
+    await this.ackFree(text);
+    return this.say('Se lo paso a Raquel tal cual, para que lo tenga antes de la llamada.', { fast: true });
+  }
+}
+</script>
+</body>
+</html>
