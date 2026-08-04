@@ -25,3 +25,12 @@ export const kicker = (color = t.accent) => ({
   margin: 0, fontSize: 11.5, fontWeight: 500, letterSpacing: '0.24em',
   textTransform: 'uppercase' as const, color,
 });
+
+/**
+ * El vídeo de arriba de la página "Los números, sin rodeos".
+ * Pega aquí el enlace para insertar (embed) y aparecerá solo.
+ *   YouTube  → https://www.youtube.com/embed/CODIGO
+ *   Vimeo    → https://player.vimeo.com/video/CODIGO
+ * Déjalo vacío y se ve el marcador con el botón de play.
+ */
+export const videoUrl = '';

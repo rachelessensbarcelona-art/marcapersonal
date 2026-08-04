@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Faq from '@/components/Faq';
 import BookLink from '@/components/BookLink';
-import { t, kicker, waHref } from '@/lib/site';
+import { t, waHref, videoUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'La inversión — Raquel Rodríguez',
@@ -36,18 +36,46 @@ const NEGOCIO: [string, string, string][] = [
 export default function Inversion() {
   return (
     <main style={{ background: t.bg, color: t.ink }}>
-      <header style={{ padding: 'clamp(118px,17vh,185px) 5vw clamp(46px,7vh,78px)' }}>
+      <header style={{ padding: `clamp(104px,15vh,168px) ${t.gut} clamp(40px,6vh,72px)` }}>
         <div style={wrap}>
-          <p style={kicker()}>La página escondida</p>
-          <h1 style={{ margin: '26px 0 0', fontSize: 'clamp(2.6rem,6.4vw,5.6rem)', fontWeight: 600, letterSpacing: '-0.042em', lineHeight: 0.98, maxWidth: '15ch' }}>
-            Los números, sin rodeos.
-          </h1>
-          <p style={{ margin: '30px 0 0', fontSize: 'clamp(16px,1.4vw,18.5px)', lineHeight: 1.65, color: t.soft, maxWidth: '48ch' }}>
-            Todo lo que normalmente te hacen preguntar en una llamada: qué cuesta, qué incluye, cómo se paga, qué dice quien ya lo tiene y cómo funciona si además quieres convertirlo en tu negocio.
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 36 }}>
-            <a href="#precio" style={{ background: t.ink, color: t.bg, borderRadius: 999, padding: '12px 24px', fontSize: 14.5, fontWeight: 600 }}>Ver el precio</a>
-            <a href="#negocio" style={{ border: hair, borderRadius: 999, padding: '12px 24px', fontSize: 14.5, fontWeight: 500 }}>Y si quiero venderlo</a>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 'clamp(14px,2.4vh,26px)' }}>
+            <span style={{ ...micro, letterSpacing: '0.2em', color: t.accent }}>01</span>
+            <span style={{ ...micro, letterSpacing: '0.2em', color: '#6B6560' }}>Lo que uso en mi casa</span>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: '24px 48px' }}>
+            <h1 style={{ margin: 0, fontSize: 'clamp(2.3rem,6vw,5.4rem)', fontWeight: 500, letterSpacing: '-0.022em', lineHeight: 0.98, maxWidth: '17ch' }}>
+              Míralo antes<br /><span style={{ color: t.accent }}>de decidir nada.</span>
+            </h1>
+            <p style={{ margin: 0, fontSize: 'clamp(15.5px,1.4vw,18px)', lineHeight: 1.6, color: t.soft, maxWidth: '34ch' }}>
+              Dos minutos de vídeo, sin efectos: qué es, cómo se conecta y qué hace en una cocina normal. Debajo, los números completos.
+            </p>
+          </div>
+
+          {/* El vídeo. Pon el enlace en VIDEO_URL (lib/site.ts) y se sustituye solo. */}
+          <figure style={{ margin: 'clamp(28px,4.5vh,56px) 0 0', position: 'relative', borderRadius: 22, overflow: 'hidden', border: hair, background: 'rgba(20,17,16,0.035)', aspectRatio: '16 / 9' }}>
+            {videoUrl ? (
+              <iframe
+                src={videoUrl}
+                title="Vídeo de presentación"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                allowFullScreen
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, display: 'block' }}
+              />
+            ) : (
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, background: 'repeating-linear-gradient(135deg, rgba(20,17,16,0.045) 0 1px, transparent 1px 13px)' }}>
+                <span style={{ width: 76, height: 76, borderRadius: '50%', border: '1px solid rgba(20,17,16,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(251,249,246,0.7)' }}>
+                  <span style={{ width: 0, height: 0, borderLeft: `18px solid ${t.ink}`, borderTop: '11px solid transparent', borderBottom: '11px solid transparent', marginLeft: 5 }} />
+                </span>
+                <span style={{ ...micro, letterSpacing: '0.2em', color: '#6B6560', textAlign: 'center', padding: '0 24px', lineHeight: 1.7 }}>
+                  Aquí va tu vídeo · 16:9<br />pega el enlace en lib/site.ts
+                </span>
+              </div>
+            )}
+          </figure>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 'clamp(22px,3.4vh,38px)', alignItems: 'center' }}>
+            <a href="#precio" style={{ background: t.ink, color: t.bg, borderRadius: 999, padding: '14px 26px', fontSize: 15, fontWeight: 600 }}>Ver el precio</a>
+            <a href="#negocio" style={{ border: hair, borderRadius: 999, padding: '14px 26px', fontSize: 15, fontWeight: 500 }}>Y si quiero venderlo</a>
           </div>
         </div>
       </header>
@@ -146,7 +174,7 @@ export default function Inversion() {
       <section id="negocio" style={{ padding: '0 5vw clamp(58px,8vh,94px)', scrollMarginTop: 74 }}>
         <div style={wrap}>
           <div style={{ borderTop: hair, paddingTop: 28 }}>
-            <p style={{ ...kicker(), marginBottom: 14 }}>La otra puerta</p>
+            <p style={{ ...micro, letterSpacing: "0.2em", color: t.accent, margin: "0 0 14px" }}>La otra puerta</p>
             <h2 style={{ margin: '0 0 14px', fontSize: 'clamp(1.7rem,3.6vw,3.1rem)', fontWeight: 600, letterSpacing: '-0.035em', lineHeight: 1.08, maxWidth: '22ch' }}>
               El mismo aparato que tienes en casa puede ser tu negocio
             </h2>
@@ -165,7 +193,7 @@ export default function Inversion() {
             ))}
           </div>
           <div style={{ marginTop: 30, border: '1px solid ' + t.accent, borderRadius: 18, padding: 'clamp(22px,3vw,32px)' }}>
-            <p style={{ ...kicker(), marginBottom: 12 }}>Lo que no te voy a prometer</p>
+            <p style={{ ...micro, letterSpacing: "0.2em", color: t.accent, margin: "0 0 12px" }}>Lo que no te voy a prometer</p>
             <p style={{ margin: 0, fontSize: 16.5, lineHeight: 1.65, maxWidth: '62ch' }}>
               Ni una cifra de ingresos, ni un plazo, ni que dejes tu trabajo. Esto es vender, y vender es un oficio que se tarda en aprender. Si buscas algo rápido o pasivo, esto no lo es.
             </p>

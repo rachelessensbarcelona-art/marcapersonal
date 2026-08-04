@@ -87,6 +87,19 @@ export default function Experience() {
           bar.style.display = narrow ? 'none' : 'flex';
         }
       }
+      // Capitulo 5: en movil el titular baja de tamano, los pasos se aprietan y
+      // se reserva sitio abajo para que la burbuja del chat no pise el texto.
+      const ch5 = document.querySelector<HTMLElement>('[data-ch="4"]');
+      const t5 = document.querySelector<HTMLElement>('[data-ch5-title]');
+      const g5 = document.querySelector<HTMLElement>('[data-ch5-grid]');
+      if (ch5 && t5 && g5) {
+        t5.style.fontSize = narrow ? 'clamp(1.55rem,6.4vw,2.1rem)' : 'clamp(2rem,3.8vw,3.6rem)';
+        t5.style.margin = narrow ? '1.4vh 0 0 0' : '2.2vh 0 0 0';
+        g5.style.gap = narrow ? '16px' : 'clamp(18px,2.4vw,34px)';
+        g5.style.marginTop = narrow ? '2.4vh' : 'clamp(24px,4vh,46px)';
+        ch5.style.paddingBottom = narrow ? '108px' : '';
+      }
+
       // Los indicadores de capitulo estorban en movil: fuera. Queda la barra de abajo.
       const rail = document.getElementById('xp-rail');
       const num = document.getElementById('xp-slidenum');
@@ -506,10 +519,10 @@ export default function Experience() {
               <span style={kicker}>05</span>
               <span style={kickerSoft}>Y ahora tú</span>
             </div>
-            <h2 style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2.5rem,5.6vw,5.4rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1, maxWidth: '14em' }}>
+            <h2 data-ch5-title style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
               Tu permiso.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Tres pasos, y lo firmas tú.</span>
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
+            <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
               {[
                 ['Hablamos 20 minutos', 'Me cuentas dónde estás y qué te gustaría cambiar. Yo te digo con sinceridad si puedo ayudarte.'],
                 ['Empiezas pequeño', 'Sin dejar lo que ya tienes. Como empecé yo: en casa y a mi ritmo.'],

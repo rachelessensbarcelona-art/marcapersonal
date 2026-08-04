@@ -16,8 +16,18 @@ const big = {
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [bajado, setBajado] = useState(false);
 
   useEffect(() => { setMenuOpen(open); }, [open]);
+
+  // Arriba del todo la barra es transparente: si no, el cristal esmerilado
+  // le corta la frente a la foto del hero.
+  useEffect(() => {
+    const onScroll = () => setBajado(scrollY > 24);
+    onScroll();
+    addEventListener('scroll', onScroll, { passive: true });
+    return () => removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
@@ -37,7 +47,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav id="xp-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 80, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: `16px ${t.gut}`, color: t.ink, backdropFilter: 'blur(14px) saturate(1.4)', WebkitBackdropFilter: 'blur(14px) saturate(1.4)', background: 'rgba(251,249,246,0.6)', borderBottom: '1px solid rgba(20,17,16,0.07)' }}>
+      <nav id="xp-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 80, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: `16px ${t.gut}`, color: t.ink, backdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', WebkitBackdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', background: bajado ? 'rgba(251,249,246,0.72)' : 'transparent', borderBottom: bajado ? '1px solid rgba(20,17,16,0.07)' : '1px solid transparent', transition: 'background-color 300ms ease, border-color 300ms ease' }}>
         <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '0.02em' }}>{site.name}</span>
         <button type="button" aria-label="Abrir menú" onClick={() => setOpen((v) => !v)} style={{ width: 44, height: 44, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', gap: 6 }}>
           <span style={bar(false)} />
