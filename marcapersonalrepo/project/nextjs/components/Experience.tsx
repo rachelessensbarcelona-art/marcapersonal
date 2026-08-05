@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { t } from '@/lib/site';
-import { openChat } from '@/lib/chatBus';
 
 type Formation = { x: number; y: number; kind: 'dot' | 'ring'; key: string; a: number; r?: number; rr?: number; rot?: number };
 type P = { hx: number; hy: number; x: number; y: number; r: number; ph: number; sp: number; a: number; rot: number };
@@ -12,14 +11,14 @@ const sm = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
 const eo = (x: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
 
 const BANDS = [
-  { title: 'Mi mañana', body: 'La abro yo, no la agenda.', rgb: '168,70,46' },
-  { title: 'Mi techo', body: 'Lo pongo yo, no un puesto.', rgb: '206,155,122' },
-  { title: 'Mi gente', body: 'Mujeres que ya se dieron permiso.', rgb: '122,153,180' },
-  { title: 'Mi nombre', body: 'Trabajo con el mío, por fin.', rgb: '74,117,140' },
+  { title: 'Mi tiempo', body: 'Mi propio negocio.', rgb: '168,70,46' },
+  { title: 'Mi gente', body: 'Mujeres que han cambiado y evolucionado conmigo.', rgb: '206,155,122' },
+  { title: 'Mi familia', body: 'Mi prioridad.', rgb: '122,153,180' },
+  { title: 'Mi vida', body: 'Como yo la quiero vivir.', rgb: '74,117,140' },
 ];
 
-const STORY_WORDS = 'Nadie me dio ese permiso. Me lo di yo. Empecé en mi casa, sin dejar mi trabajo y sin contárselo a nadie.'.split(' ');
-const ACCENT_WORDS = /permiso\.|yo\.|Nadie/;
+const STORY_WORDS = 'Hasta que todo cambió. Empecé pensando en mí, en mi casa, sin contárselo a nadie. Fueron meses de constancia, presentaciones hasta altas horas de la madrugada con equipos del otro lado del mundo.'.split(' ');
+const ACCENT_WORDS = /cambió\.|mí,|Hasta/;
 
 const kicker: React.CSSProperties = { fontSize: 12.5, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: t.accent };
 const kickerSoft: React.CSSProperties = { fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' };
@@ -144,7 +143,7 @@ export default function Experience() {
       hlines.forEach((l) => { l.style.transform = 'none'; });
       bands.forEach((b) => { b.style.transform = 'scaleY(1)'; });
       bandLabels.forEach((b) => { b.style.opacity = '1'; });
-      const big = document.querySelector<HTMLElement>('[data-big="dias"]'); if (big) big.textContent = '14.600';
+      const big = document.querySelector<HTMLElement>('[data-big="dias"]'); if (big) big.textContent = '7.300';
       const dis = document.querySelector<HTMLElement>('[data-disclaimer="1"]'); if (dis) dis.style.opacity = '1';
       document.querySelectorAll<HTMLElement>('[data-step]').forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; });
       layout();
@@ -258,7 +257,8 @@ export default function Experience() {
       const total = track.offsetHeight - vh;
       const s = Math.min(Math.max(-rect.top, 0), total);
       const v = Math.abs(s - lastS); lastS = s;
-      energy += ((1 + Math.min(2.4, v / 30)) - energy) * 0.06;
+      // Movimiento constante: no depende de lo rapido que hagas scroll.
+      energy = 1;
       const tt = s / (total / 5);
 
       if (rect.bottom <= 0 || rect.top > vh) {
@@ -312,7 +312,7 @@ export default function Experience() {
 
       if (moved) {
         const big = q('[data-big="dias"]');
-        if (big) big.textContent = Math.round(14600 * eo(holds[1])).toLocaleString('es-ES');
+        if (big) big.textContent = Math.round(7300 * eo(holds[1])).toLocaleString('es-ES');
         bands.forEach((b, i) => { b.style.transform = `scaleY(${sm((holds[3] - 0.1 - i * 0.14) / 0.5)})`; });
         bandLabels.forEach((b, i) => { const o = sm((holds[3] - 0.22 - i * 0.14) / 0.35); b.style.opacity = String(o); b.style.transform = `translateY(${(1 - o) * 14}px)`; });
         const wp = holds[2];
@@ -422,11 +422,13 @@ export default function Experience() {
                 <div data-hero-sub="1" style={{ margin: 'clamp(12px,2.2vh,32px) 0 0 0' }}>
                   <span style={{ display: 'block', width: 52, height: 1, background: 'rgba(20,17,16,0.28)', marginBottom: 'clamp(9px,1.4vh,22px)' }} />
                   <p style={{ margin: 0, fontSize: 'clamp(17px,1.6vw,22px)', lineHeight: 1.45, color: t.ink, maxWidth: '19em', fontWeight: 500, letterSpacing: '-0.012em' }}>Soy Raquel Rodríguez.</p>
-                  <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(15px,1.35vw,18px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.7)', maxWidth: '25em', fontWeight: 400 }}>Yo tardé cuarenta años en contestar esa pregunta. Te cuento en un minuto lo que pasó después.</p>
+                  <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(15px,1.35vw,18px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.7)', maxWidth: '25em', fontWeight: 400 }}>Yo tardé más de 20 años en contestar esta pregunta.</p>
                 </div>
-                <div data-hero-sub="2" style={{ marginTop: 'clamp(14px,2.8vh,42px)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px 20px' }}>
-                  <button type="button" onClick={openChat} style={{ background: t.ink, color: t.bg, fontSize: 15, fontWeight: 500, letterSpacing: '-0.01em', padding: '14px 26px', borderRadius: 999, transition: 'transform 250ms ease' }}>Empezar por el principio</button>
-                  <button type="button" onClick={openChat} style={{ fontSize: 14.5, fontWeight: 400, color: 'rgba(20,17,16,0.7)', borderBottom: '1px solid rgba(20,17,16,0.22)', paddingBottom: 2 }}>O hablamos directamente</button>
+                <div data-hero-sub="2" style={{ marginTop: 'clamp(20px,4vh,52px)', display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <span aria-hidden style={{ position: 'relative', display: 'block', width: 1, height: 56, background: 'rgba(20,17,16,0.14)', overflow: 'hidden', flex: 'none' }}>
+                    <span style={{ position: 'absolute', left: 0, top: 0, width: 1, height: 22, background: t.accent, animation: 'rrgota 2.4s cubic-bezier(0.65,0,0.35,1) infinite' }} />
+                  </span>
+                  <span style={{ fontSize: 12.5, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#6B6560' }}>Sigue bajando</span>
                 </div>
               </div>
               <div data-hero-img style={{ position: 'relative', overflow: 'hidden', willChange: 'transform' }}>
@@ -437,13 +439,7 @@ export default function Experience() {
               </div>
             </div>
             <div data-hero-bar style={{ position: 'absolute', left: t.gut, right: t.gut, bottom: 'clamp(18px,2.6vh,32px)', zIndex: 3, display: 'flex', flexWrap: 'nowrap', alignItems: 'center', justifyContent: 'space-between', gap: 24, borderTop: '1px solid rgba(20,17,16,0.12)', paddingTop: 'clamp(10px,1.6vh,16px)' }}>
-              <p style={{ margin: 0, fontSize: 13, fontWeight: 400, letterSpacing: '0.01em', color: '#6B6560', whiteSpace: 'nowrap' }}>Empresaria · Desde 2021</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 'none' }}>
-                <span style={{ fontSize: 12, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>Desliza</span>
-                <span style={{ display: 'block', width: 52, height: 1, background: 'rgba(20,17,16,0.16)', overflow: 'hidden' }}>
-                  <span style={{ display: 'block', width: '100%', height: 1, background: t.accent, animation: 'rrslide 1.9s cubic-bezier(0.65,0,0.35,1) infinite' }} />
-                </span>
-              </div>
+              <p style={{ margin: 0, fontSize: 13, fontWeight: 400, letterSpacing: '0.01em', color: '#6B6560', whiteSpace: 'nowrap' }}>Empresaria · Desde 2008</p>
             </div>
           </div>
 
@@ -457,10 +453,10 @@ export default function Experience() {
               </div>
               <p data-big="dias" style={{ margin: '1.4vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(5rem,15vw,14rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 0.86, fontVariantNumeric: 'tabular-nums', color: t.ink }}>0</p>
               <p data-ch1-q style={{ margin: '1.6vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(1.7rem,3.6vw,3.2rem)', fontWeight: 500, letterSpacing: '-0.012em', lineHeight: 1.16, maxWidth: '15em' }}>
-                días viviendo el plan de otros.<br /><span style={{ color: t.accent }}>Cuarenta años. Ni uno mío.</span>
+                días ayudando a vivir el plan de otros.<br /><span style={{ color: t.accent }}>¿Y yo? ¿Para cuándo?</span>
               </p>
               <p data-ch1-d style={{ margin: '2.4vh 0 0 0', fontSize: 'clamp(14px,1.4vw,17px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.72)', maxWidth: '24em' }}>
-                Buen sueldo, buenos resultados, todos contentos. Y una sensación que no se iba: estaba esperando que alguien me diera permiso para hacer algo mío.
+                Tenía todo lo que pintan como una buena vida: buen sueldo, buenos resultados. Pero tenía la sensación de que no era lo que yo quería. Pasaban los días y nunca me preocupé por mí.
               </p>
             </div>
           </div>
@@ -476,7 +472,7 @@ export default function Experience() {
                 {STORY_WORDS.flatMap((w, i) => [<span key={`w${i}`}>{w}</span>, i < STORY_WORDS.length - 1 ? ' ' : null])}
               </p>
               <p data-disclaimer="1" style={{ margin: '3.5vh 0 0 0', fontSize: 'clamp(14px,1.4vw,16px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.68)', maxWidth: '40ch', opacity: 0 }}>
-                No fue un salto ni una apuesta: fueron meses de constancia con mucha gente diciéndome que estaba loca. No hay atajos, y a mí me llevó tiempo.
+                No fue un salto ni una apuesta. No hay atajos: a mí me llevó tiempo, y hubo mucha gente que me dijo que estaba loca.
               </p>
             </div>
             <figure data-portrait="1" style={{ flex: '1 1 0', minWidth: 0, margin: 0, maxWidth: 420, display: 'block' }}>
@@ -484,7 +480,7 @@ export default function Experience() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/raquel-retrato.webp" alt="Raquel Rodríguez" style={{ width: '100%', height: '118%', objectFit: 'cover', objectPosition: '50% 15%', display: 'block' }} />
               </div>
-              <figcaption style={{ margin: '12px 0 0 0', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>Raquel Rodríguez · Empresaria desde 2021</figcaption>
+              <figcaption style={{ margin: '12px 0 0 0', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>Raquel Rodríguez · Empresaria desde 2008</figcaption>
             </figure>
           </div>
 
@@ -508,7 +504,7 @@ export default function Experience() {
                 <span style={kickerSoft}>Lo que cambió</span>
               </div>
               <h2 style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2.7rem,6.4vw,6.4rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 0.98 }}>
-                Cinco años después,<br /><span style={{ color: t.accent, fontWeight: 500 }}>esto es lo que es distinto.</span>
+                Pasó el tiempo,<br /><span style={{ color: t.accent, fontWeight: 500 }}>y esto cambió.</span>
               </h2>
             </div>
           </div>
@@ -520,7 +516,7 @@ export default function Experience() {
               <span style={kickerSoft}>Y ahora tú</span>
             </div>
             <h2 data-ch5-title style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
-              Tu permiso.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Tres pasos, y lo firmas tú.</span>
+              Piensa en ti.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Transfórmate en 3 pasos. Tú decides.</span>
             </h2>
             <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
               {[

@@ -19,3 +19,10 @@ input { font: inherit; color: inherit; }
 
 @keyframes rrdot { 0%,60%,100% { opacity:.25; transform:translateY(0) } 30% { opacity:1; transform:translateY(-3px) } }
 @keyframes rrslide { 0% { transform:translateX(-100%) } 55%,100% { transform:translateX(100%) } }
+
+/* La gota que baja por el hilo del hero: invita a seguir bajando. */
+@keyframes rrgota {
+  0%        { transform: translateY(-100%); opacity: 0 }
+  15%, 60%  { opacity: 1 }
+  100%      { transform: translateY(260%); opacity: 0 }
+}

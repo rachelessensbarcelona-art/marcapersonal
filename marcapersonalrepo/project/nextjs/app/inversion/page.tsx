@@ -14,9 +14,9 @@ const h2: React.CSSProperties = { margin: 0, fontSize: 'clamp(1.5rem,2.8vw,2.3re
 const micro: React.CSSProperties = { fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase' };
 
 const MARCAS = [
-  { m: 'AquaBona', l: '0,26 €', y: '759 €', k: '15.180 €' },
-  { m: 'Lanjarón', l: '0,35 €', y: '1.022 €', k: '20.440 €' },
-  { m: 'Font Vella', l: '0,49 €', y: '1.430 €', k: '28.600 €' },
+  { m: 'Bezoya', l: '0,72 €', y: '2.102 €', k: '42.048 €' },
+  { m: 'Font Vella', l: '0,74 €', y: '2.161 €', k: '43.216 €' },
+  { m: 'Lanjarón', l: '0,76 €', y: '2.219 €', k: '44.384 €' },
 ];
 
 const INCLUYE: [string, string, string][] = [
@@ -102,7 +102,7 @@ export default function Inversion() {
             </div>
           </div>
           <p style={{ ...micro, margin: '14px 0 0', color: 'rgba(20,17,16,0.38)' }}>
-            Precios medios de garrafa de supermercado · Y esto es solo el agua de beber
+            Precio de botella de litro en supermercado · Y esto es solo el agua de beber
           </p>
         </div>
       </section>
