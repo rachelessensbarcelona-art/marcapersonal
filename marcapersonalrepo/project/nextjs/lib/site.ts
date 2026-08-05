@@ -11,7 +11,11 @@ export const t = {
   soft: 'rgba(20,17,16,0.66)',
   faint: 'rgba(20,17,16,0.45)',
   hair: 'rgba(20,17,16,0.12)',
-  accent: '#4A6B7D',
+  accent: '#2C3E5A',      // azul profundo — el acento principal
+  accentSoft: '#4A6178',  // azul pizarra
+  rose: '#C9A4AB',        // rosa empolvado
+  roseSoft: '#E8D4D8',    // rosa claro, para el cristal
+  deep: '#1E2D42',        // el más oscuro de la paleta
   gut: 'clamp(26px,6.2vw,104px)',
   font: 'var(--font-display), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif',
 } as const;

@@ -11,10 +11,10 @@ const sm = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
 const eo = (x: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
 
 const BANDS = [
-  { title: 'Mi tiempo', body: 'Mi propio negocio.', rgb: '168,70,46' },
-  { title: 'Mi gente', body: 'Mujeres que han cambiado y evolucionado conmigo.', rgb: '206,155,122' },
-  { title: 'Mi familia', body: 'Mi prioridad.', rgb: '122,153,180' },
-  { title: 'Mi vida', body: 'Como yo la quiero vivir.', rgb: '74,117,140' },
+  { title: 'Mi tiempo', body: 'Mi propio negocio.', rgb: '30,45,66', a: 0.34 },
+  { title: 'Mi gente', body: 'Mujeres que han cambiado y evolucionado conmigo.', rgb: '74,97,120', a: 0.34 },
+  { title: 'Mi familia', body: 'Mi prioridad.', rgb: '201,164,171', a: 0.46 },
+  { title: 'Mi vida', body: 'Como yo la quiero vivir.', rgb: '232,212,216', a: 0.62 },
 ];
 
 const STORY_WORDS = 'Hasta que todo cambió. Empecé pensando en mí, en mi casa, sin contárselo a nadie. Fueron meses de constancia, presentaciones hasta altas horas de la madrugada con equipos del otro lado del mundo.'.split(' ');
@@ -121,9 +121,14 @@ export default function Experience() {
       const por = document.querySelector<HTMLElement>('[data-portrait]');
       const wseq = document.querySelector<HTMLElement>('[data-wseq]');
       if (por && wseq) {
+        // La historia es larga: la letra se ata tambien al alto de la ventana,
+        // que si no en portatiles se sale por abajo.
         por.style.display = narrow ? 'none' : 'block';
-        wseq.style.fontSize = narrow ? 'clamp(1.35rem,6vw,2rem)' : 'clamp(2.2rem,5vw,4.6rem)';
-        wseq.style.maxWidth = narrow ? '100%' : '15em';
+        wseq.style.fontSize = narrow ? 'clamp(1.15rem,4.8vw,1.6rem)' : 'clamp(1.3rem,min(2.9vw,3.9vh),2.7rem)';
+        wseq.style.maxWidth = narrow ? '100%' : '17em';
+        wseq.style.lineHeight = '1.18';
+        const dis = document.querySelector<HTMLElement>('[data-disclaimer="1"]');
+        if (dis) dis.style.margin = narrow ? '2vh 0 0 0' : '2.4vh 0 0 0';
       }
       const short = innerHeight < 640;
       const sub2 = document.querySelector<HTMLElement>('[data-hero-sub="1"] p + p');
@@ -174,7 +179,7 @@ export default function Experience() {
 
     // ---------- particles
     const accentRgb = hexRgb(t.accent);
-    const cols: Record<string, string> = { bone: '20,17,16', terra: accentRgb.join(','), ph0: '168,70,46', ph1: '176,120,86', ph2: '92,120,148', ph3: '74,117,140' };
+    const cols: Record<string, string> = { bone: '20,17,16', terra: accentRgb.join(','), ph0: '30,45,66', ph1: '74,97,120', ph2: '201,164,171', ph3: '201,164,171' };
     const N = 96;
     const ps: P[] = Array.from({ length: N }, () => ({
       hx: Math.random(), hy: Math.random(), x: Math.random(), y: Math.random(),
@@ -489,7 +494,7 @@ export default function Experience() {
             <div data-bands-grid style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }}>
               {BANDS.map((b, i) => (
                 <div key={b.title} style={{ position: 'relative', overflow: 'hidden', borderRight: i < 3 ? '1px solid rgba(20,17,16,0.08)' : undefined }}>
-                  <div data-band style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(${b.rgb},0) 20%, rgba(${b.rgb},0.32) 100%)`, transform: 'scaleY(0)', transformOrigin: 'bottom' }} />
+                  <div data-band style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(${b.rgb},0) 20%, rgba(${b.rgb},${b.a}) 100%)`, transform: 'scaleY(0)', transformOrigin: 'bottom' }} />
                   <div data-bandlabel style={{ position: 'absolute', left: 0, right: 0, bottom: '6vh', textAlign: 'center', opacity: 0, padding: '0 12px' }}>
                     <p style={{ margin: 0, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>0{i + 1}</p>
                     <p style={{ margin: '10px 0 0 0', fontSize: 'clamp(1.15rem,2vw,1.75rem)', fontWeight: 650, letterSpacing: '-0.02em', lineHeight: 1.12 }}>{b.title}</p>

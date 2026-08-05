@@ -6,7 +6,7 @@ import { openChat } from '@/lib/chatBus';
 export default function Closing() {
   return (
     <section id="cierre" style={{ position: 'relative', background: t.bg, color: t.ink, padding: `clamp(100px,16vh,180px) ${t.gut} clamp(56px,7vh,90px)`, overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(60% 50% at 50% 30%, rgba(206,122,87,0.09) 0%, rgba(206,122,87,0) 70%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(60% 50% at 50% 30%, rgba(201,164,171,0.22) 0%, rgba(201,164,171,0) 70%)' }} />
       <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', textAlign: 'center' }}>
         <p style={{ margin: 0, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>06 — Tu turno</p>
         <h2 style={{ margin: '2vh 0 0', fontFamily: t.font, fontSize: 'clamp(3.4rem,9vw,8rem)', fontWeight: 500, letterSpacing: '-0.015em', lineHeight: 1 }}>¿Hablamos?</h2>
