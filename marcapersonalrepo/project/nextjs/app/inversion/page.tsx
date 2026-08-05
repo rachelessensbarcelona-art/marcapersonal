@@ -4,6 +4,7 @@ import BookLink from '@/components/BookLink';
 import Reveal from '@/components/Reveal';
 import Contador from '@/components/Contador';
 import Testimonios from '@/components/Testimonios';
+import { BarrasCoste, Amortizacion, ComoFunciona } from '@/components/Graficos';
 import { t, waHref, videoUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -107,6 +108,23 @@ export default function Inversion() {
           <p style={{ ...micro, margin: '14px 0 0', color: 'rgba(20,17,16,0.38)' }}>
             Precio de botella de litro en supermercado · Y esto es solo el agua de beber
           </p>
+
+          <Reveal delay={120} style={{ marginTop: 'clamp(38px,6vh,64px)' }}>
+            <h3 style={{ ...h2, fontSize: 'clamp(1.3rem,2.2vw,1.8rem)', marginBottom: 22 }}>
+              Verlo de un vistazo
+            </h3>
+            <BarrasCoste />
+          </Reveal>
+
+          <Reveal delay={120} style={{ marginTop: 'clamp(38px,6vh,64px)' }}>
+            <h3 style={{ ...h2, fontSize: 'clamp(1.3rem,2.2vw,1.8rem)', marginBottom: 8 }}>
+              ¿Cuándo deja de costarte dinero?
+            </h3>
+            <p style={{ margin: '0 0 24px', fontSize: 15, lineHeight: 1.65, color: t.soft, maxWidth: '52ch' }}>
+              Las dos líneas son lo que llevas gastado. Donde se cruzan, el equipo ya se ha pagado solo.
+            </p>
+            <Amortizacion />
+          </Reveal>
         </div>
       </section>
 
@@ -173,7 +191,14 @@ export default function Inversion() {
               No todo el mundo llega hasta aquí, y está bien. Yo empecé siendo clienta; me hice distribuidora independiente en 2021 y hoy tengo equipo en varios países.
             </p>
           </div>
-          <div style={{ marginTop: 30 }}>
+          <Reveal delay={100} style={{ marginTop: 'clamp(34px,5vh,54px)' }}>
+            <h3 style={{ ...h2, fontSize: 'clamp(1.3rem,2.2vw,1.8rem)', marginBottom: 26 }}>
+              Cómo funciona, paso a paso
+            </h3>
+            <ComoFunciona />
+          </Reveal>
+
+          <div style={{ marginTop: 'clamp(34px,5vh,54px)' }}>
             {NEGOCIO.map(([n, ti, body], i) => (
               <Reveal key={n} delay={i * 80} y={14} style={{ borderTop: hair, borderBottom: i === NEGOCIO.length - 1 ? hair : undefined, padding: '22px 0', display: 'grid', gridTemplateColumns: 'minmax(34px,42px) 1fr', gap: 20 }}>
                 <span style={{ ...micro, letterSpacing: '0.14em', color: 'rgba(20,17,16,0.4)', paddingTop: 4 }}>{n}</span>
