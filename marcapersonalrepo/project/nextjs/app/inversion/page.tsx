@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import Faq from '@/components/Faq';
 import BookLink from '@/components/BookLink';
+import Reveal from '@/components/Reveal';
+import Contador from '@/components/Contador';
+import Testimonios from '@/components/Testimonios';
 import { t, waHref, videoUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -92,12 +95,12 @@ export default function Inversion() {
                 <span>Marca</span><span>€ / litro</span><span>Al año</span><span>En 20 años</span>
               </div>
               {MARCAS.map((r, i) => (
-                <div key={r.m} style={{ display: 'grid', gridTemplateColumns: '1.3fr .8fr 1fr 1.2fr', gap: 24, alignItems: 'baseline', borderTop: hair, borderBottom: i === MARCAS.length - 1 ? hair : undefined, padding: '19px 0' }}>
+                <Reveal key={r.m} delay={i * 90} y={16} style={{ display: 'grid', gridTemplateColumns: '1.3fr .8fr 1fr 1.2fr', gap: 24, alignItems: 'baseline', borderTop: hair, borderBottom: i === MARCAS.length - 1 ? hair : undefined, padding: '19px 0' }}>
                   <span style={{ fontSize: 16.5, fontWeight: 500 }}>{r.m}</span>
                   <span style={{ fontSize: 14, color: t.soft }}>{r.l}</span>
                   <span style={{ fontSize: 15 }}>{r.y}</span>
                   <span style={{ fontSize: 17, fontWeight: 600, color: t.accent }}>{r.k}</span>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -107,25 +110,28 @@ export default function Inversion() {
         </div>
       </section>
 
-      <section id="precio" style={{ padding: '0 5vw clamp(58px,8vh,94px)', scrollMarginTop: 74 }}>
-        <div style={{ ...wrap, border: hair, borderRadius: 26, padding: 'clamp(30px,4.4vw,56px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 'clamp(26px,4vw,56px)', alignItems: 'center', background: 'linear-gradient(160deg, rgba(20,17,16,0.03) 0%, rgba(20,17,16,0) 60%)' }}>
-          <div>
-            <p style={{ ...micro, margin: '0 0 14px', letterSpacing: '0.2em', color: 'rgba(20,17,16,0.45)' }}>El equipo con el que trabajo</p>
-            <p style={{ margin: 0, fontSize: 'clamp(3.2rem,7vw,5.6rem)', fontWeight: 600, letterSpacing: '-0.045em', lineHeight: 1, color: t.accent, fontVariantNumeric: 'tabular-nums' }}>5.600 €</p>
-            <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 9, ...micro, letterSpacing: '0.14em', color: t.soft }}>
+      <section id="precio" style={{ background: t.deep, color: '#F4EBED', padding: `clamp(64px,10vh,120px) ${t.gut}`, scrollMarginTop: 74, position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(70% 60% at 78% 30%, rgba(201,164,171,0.20) 0%, rgba(201,164,171,0) 70%)' }} />
+        <div style={{ ...wrap, position: 'relative', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,300px),1fr))', gap: 'clamp(30px,4.5vw,64px)', alignItems: 'center' }}>
+          <Reveal>
+            <p style={{ ...micro, margin: '0 0 16px', letterSpacing: '0.22em', color: 'rgba(244,235,237,0.6)' }}>El equipo con el que trabajo</p>
+            <p style={{ margin: 0, fontSize: 'clamp(3.4rem,8vw,6.4rem)', fontWeight: 500, letterSpacing: '-0.045em', lineHeight: 0.95, color: '#F4EBED' }}>
+              <Contador hasta={5600} sufijo=" €" />
+            </p>
+            <div style={{ marginTop: 26, display: 'flex', flexDirection: 'column', gap: 10, ...micro, letterSpacing: '0.14em', color: 'rgba(244,235,237,0.65)' }}>
               <span>Pago único · 15–20 años de vida útil</span>
               <span>Financiación directa del fabricante</span>
               <span>Filtro: 95 € ≈ una vez al año</span>
             </div>
-          </div>
-          <div>
-            <p style={{ margin: '0 0 18px', fontSize: 'clamp(16px,1.4vw,18.5px)', lineHeight: 1.65, color: 'rgba(20,17,16,0.75)' }}>
+          </Reveal>
+          <Reveal delay={140}>
+            <p style={{ margin: '0 0 20px', fontSize: 'clamp(16px,1.4vw,18.5px)', lineHeight: 1.7, color: 'rgba(244,235,237,0.78)' }}>
               No es un gasto nuevo: es mover el que ya tienes a algo que se queda en tu casa dos décadas. Y súmale parte de lo que gastas en limpieza, que estas aguas también sustituyen.
             </p>
-            <p style={{ margin: 0, fontSize: 'clamp(16px,1.4vw,18.5px)', lineHeight: 1.65, fontWeight: 600 }}>
+            <p style={{ margin: 0, fontSize: 'clamp(17px,1.5vw,20px)', lineHeight: 1.6, fontWeight: 600, color: t.roseSoft }}>
               Es caro. No voy a fingir que no. Por eso lo lees aquí y no escondido detrás de una llamada.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -133,41 +139,26 @@ export default function Inversion() {
         <div style={wrap}>
           <h2 style={{ ...h2, borderTop: hair, paddingTop: 28, marginBottom: 26 }}>Qué entra en ese precio</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,220px),1fr))', gap: 18 }}>
-            {INCLUYE.map(([n, ti, body]) => (
-              <div key={n} style={{ border: hair, borderRadius: 18, padding: 24 }}>
+            {INCLUYE.map(([n, ti, body], i) => (
+              <Reveal key={n} delay={i * 80} style={{ border: hair, borderRadius: 18, padding: 24, background: 'rgba(232,212,216,0.18)' }}>
                 <p style={{ ...micro, margin: '0 0 10px', letterSpacing: '0.2em', color: t.accent }}>{n}</p>
                 <p style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 600 }}>{ti}</p>
                 <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: t.soft }}>{body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="testimonios" style={{ padding: '0 5vw clamp(58px,8vh,94px)', scrollMarginTop: 74 }}>
+      <section id="testimonios" style={{ background: 'linear-gradient(180deg, rgba(232,212,216,0.42) 0%, rgba(232,212,216,0.12) 100%)', padding: `clamp(58px,8vh,94px) ${t.gut}`, scrollMarginTop: 74 }}>
         <div style={wrap}>
-          <div style={{ borderTop: hair, paddingTop: 28 }}>
+          <Reveal>
             <h2 style={{ ...h2, marginBottom: 12 }}>Lo que dicen quienes ya lo tienen</h2>
-            <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.65, color: t.soft, maxWidth: '56ch' }}>
+            <p style={{ margin: '0 0 30px', fontSize: 15.5, lineHeight: 1.65, color: t.soft, maxWidth: '56ch' }}>
               Solo publico experiencias reales, con nombre y permiso por escrito. Ninguna dice que el agua cure nada, porque no lo hace.
             </p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,250px),1fr))', gap: 18, marginTop: 30 }}>
-            {[1, 2, 3].map((n) => (
-              <div key={n} style={{ border: hair, borderRadius: 20, overflow: 'hidden' }}>
-                <div style={{ aspectRatio: '4 / 3', background: 'repeating-linear-gradient(135deg, rgba(20,17,16,0.05) 0 1px, transparent 1px 11px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, borderBottom: hair }}>
-                  <span style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(20,17,16,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ width: 0, height: 0, borderLeft: '11px solid ' + t.ink, borderTop: '7px solid transparent', borderBottom: '7px solid transparent', marginLeft: 3 }} />
-                  </span>
-                  <span style={{ ...micro, color: 'rgba(20,17,16,0.45)' }}>Vídeo de clienta · 40 s</span>
-                </div>
-                <div style={{ padding: 22 }}>
-                  <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6 }}>Aquí va, palabra por palabra, lo que ha cambiado en su casa desde que lo tiene.</p>
-                  <p style={{ ...micro, margin: '16px 0 0', color: 'rgba(20,17,16,0.42)' }}>Nombre · Ciudad</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          </Reveal>
+          <Reveal delay={120}><Testimonios /></Reveal>
         </div>
       </section>
 
@@ -184,20 +175,20 @@ export default function Inversion() {
           </div>
           <div style={{ marginTop: 30 }}>
             {NEGOCIO.map(([n, ti, body], i) => (
-              <div key={n} style={{ borderTop: hair, borderBottom: i === NEGOCIO.length - 1 ? hair : undefined, padding: '22px 0', display: 'grid', gridTemplateColumns: 'minmax(34px,42px) 1fr', gap: 20 }}>
+              <Reveal key={n} delay={i * 80} y={14} style={{ borderTop: hair, borderBottom: i === NEGOCIO.length - 1 ? hair : undefined, padding: '22px 0', display: 'grid', gridTemplateColumns: 'minmax(34px,42px) 1fr', gap: 20 }}>
                 <span style={{ ...micro, letterSpacing: '0.14em', color: 'rgba(20,17,16,0.4)', paddingTop: 4 }}>{n}</span>
                 <p style={{ margin: 0, fontSize: 16.5, lineHeight: 1.65 }}>
                   <strong style={{ fontWeight: 600 }}>{ti}</strong> <span style={{ color: t.soft }}>{body}</span>
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
-          <div style={{ marginTop: 30, border: '1px solid ' + t.accent, borderRadius: 18, padding: 'clamp(22px,3vw,32px)' }}>
-            <p style={{ ...micro, letterSpacing: "0.2em", color: t.accent, margin: "0 0 12px" }}>Lo que no te voy a prometer</p>
+          <Reveal style={{ marginTop: 30, background: t.deep, color: '#F4EBED', borderRadius: 18, padding: 'clamp(24px,3.4vw,38px)' }}>
+            <p style={{ ...micro, letterSpacing: "0.2em", color: t.rose, margin: "0 0 12px" }}>Lo que no te voy a prometer</p>
             <p style={{ margin: 0, fontSize: 16.5, lineHeight: 1.65, maxWidth: '62ch' }}>
               Ni una cifra de ingresos, ni un plazo, ni que dejes tu trabajo. Esto es vender, y vender es un oficio que se tarda en aprender. Si buscas algo rápido o pasivo, esto no lo es.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 

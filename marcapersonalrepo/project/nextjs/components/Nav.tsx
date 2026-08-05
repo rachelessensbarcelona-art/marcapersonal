@@ -47,7 +47,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav id="xp-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 80, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: `16px ${t.gut}`, color: t.ink, backdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', WebkitBackdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', background: bajado ? 'rgba(232,212,216,0.55)' : 'transparent', borderBottom: bajado ? '1px solid rgba(44,62,90,0.10)' : '1px solid transparent', transition: 'background-color 300ms ease, border-color 300ms ease' }}>
+      <nav id="xp-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 80, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: `16px ${t.gut}`, color: t.ink, backdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', WebkitBackdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', background: bajado ? 'rgba(251,249,246,0.82)' : 'transparent', borderBottom: bajado ? '1px solid rgba(20,17,16,0.08)' : '1px solid transparent', transition: 'background-color 300ms ease, border-color 300ms ease' }}>
         <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '0.02em' }}>{site.name}</span>
         <button type="button" aria-label="Abrir menú" onClick={() => setOpen((v) => !v)} style={{ width: 44, height: 44, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', gap: 6 }}>
           <span style={bar(false)} />
@@ -55,7 +55,7 @@ export default function Nav() {
         </button>
       </nav>
 
-      <div style={{ position: 'fixed', inset: 0, zIndex: 90, overflowY: 'auto', background: 'rgba(244,235,237,0.96)', backdropFilter: 'blur(26px) saturate(1.6)', WebkitBackdropFilter: 'blur(22px) saturate(1.5)', color: t.ink, opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transform: open ? 'translateY(0)' : 'translateY(-12px)', transition: 'opacity 420ms cubic-bezier(.22,1,.36,1), transform 480ms cubic-bezier(.22,1,.36,1)' }}>
+      <div style={{ position: 'fixed', inset: 0, zIndex: 90, overflowY: 'auto', background: 'rgba(251,249,246,0.97)', backdropFilter: 'blur(24px) saturate(1.5)', WebkitBackdropFilter: 'blur(22px) saturate(1.5)', color: t.ink, opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transform: open ? 'translateY(0)' : 'translateY(-12px)', transition: 'opacity 420ms cubic-bezier(.22,1,.36,1), transform 480ms cubic-bezier(.22,1,.36,1)' }}>
         <button
           type="button"
           aria-label="Cerrar menú"
