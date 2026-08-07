@@ -6,7 +6,7 @@ import Contador from '@/components/Contador';
 import Testimonios from '@/components/Testimonios';
 import { BarrasCoste, Amortizacion, ComoFunciona } from '@/components/Graficos';
 import VideoPresentacion from '@/components/VideoPresentacion';
-import { t, waHref } from '@/lib/site';
+import { t, waHref, videoVertical } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'La inversión — Raquel Rodríguez',
@@ -56,7 +56,16 @@ export default function Inversion() {
             </p>
           </div>
 
-          <figure style={{ margin: 'clamp(28px,4.5vh,56px) 0 0', position: 'relative', borderRadius: 22, overflow: 'hidden', border: hair, background: 'rgba(20,17,16,0.035)', aspectRatio: '16 / 9' }}>
+          {/* El marco sigue la forma del video. Con uno vertical, un marco 16:9
+              deja dos bandas negras enormes a los lados; con este no. Y el fondo
+              va oscuro para que cualquier banda que quede parezca intencionada. */}
+          <figure style={{
+            margin: 'clamp(28px,4.5vh,56px) auto 0',
+            position: 'relative', borderRadius: 22, overflow: 'hidden',
+            border: hair, background: t.deep,
+            aspectRatio: videoVertical ? '9 / 16' : '16 / 9',
+            maxWidth: videoVertical ? 'min(100%, 420px)' : '100%',
+          }}>
             <VideoPresentacion />
           </figure>
 

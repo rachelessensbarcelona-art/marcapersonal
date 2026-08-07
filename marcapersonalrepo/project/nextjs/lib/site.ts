@@ -42,6 +42,13 @@ export const kicker = (color = t.accent) => ({
  */
 export const videoUrl = 'https://drive.google.com/file/d/1v2dSDiNpc0wgSCTVxX7O3-gqCCkQXygD/view?usp=sharing';
 
+/**
+ * Forma del vídeo. Si está grabado en vertical (con el móvil), déjalo en
+ * true: el marco se hace alto y no salen esas bandas negras a los lados.
+ * Si algún día lo cambias por uno horizontal, ponlo en false.
+ */
+export const videoVertical = true;
+
 /** Traduce un enlace normal al enlace que se puede incrustar. */
 export const aEmbed = (url: string): string => {
   const u = url.trim();
