@@ -26,3 +26,16 @@ input { font: inherit; color: inherit; }
   15%, 60%  { opacity: 1 }
   100%      { transform: translateY(260%); opacity: 0 }
 }
+
+/* La tarjeta que lleva a la página de precios: se levanta y la flecha avanza. */
+[data-tarjeta-inversion]:hover {
+  transform: translateY(-3px);
+  border-color: rgba(44, 62, 90, 0.42) !important;
+  box-shadow: 0 14px 34px rgba(30, 45, 66, 0.13);
+  opacity: 1;
+}
+[data-tarjeta-inversion]:hover [data-flecha] { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  [data-tarjeta-inversion]:hover { transform: none; }
+  [data-tarjeta-inversion]:hover [data-flecha] { transform: none; }
+}

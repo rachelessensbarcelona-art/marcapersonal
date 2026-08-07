@@ -536,10 +536,37 @@ export default function Experience() {
                 </div>
               ))}
             </div>
-            <p style={{ margin: 'clamp(22px,3.4vh,38px) 0 0 0', fontSize: 'clamp(13.5px,1.3vw,16px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.56)', maxWidth: '34em' }}>
-              Si antes de hablar prefieres verlo todo escrito —qué es, cuánto cuesta y qué dicen quienes ya lo tienen—, lo tienes{' '}
-              <a href="/inversion" style={{ borderBottom: '1px solid rgba(20,17,16,0.3)', paddingBottom: 1 }}>aquí</a>.
-            </p>
+            {/* Segundo camino: para quien prefiere leerlo antes que hablar.
+                Es la puerta a la pagina de precios, asi que merece forma de
+                tarjeta y no un enlace gris perdido en un parrafo. */}
+            <a
+              data-tarjeta-inversion
+              href="/inversion"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 'clamp(14px,2vw,22px)',
+                margin: 'clamp(22px,3.4vh,38px) 0 0 0', maxWidth: '46em',
+                padding: 'clamp(14px,1.8vh,20px) clamp(18px,2vw,26px)',
+                borderRadius: 16,
+                border: `1px solid ${t.accent}33`,
+                background: 'linear-gradient(120deg, rgba(232,212,216,0.34) 0%, rgba(201,164,171,0.14) 100%)',
+                transition: 'transform 320ms cubic-bezier(.22,1,.36,1), box-shadow 320ms ease, border-color 320ms ease',
+              }}
+            >
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ display: 'block', fontSize: 11.5, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: t.accent, marginBottom: 5 }}>
+                  Antes de hablar
+                </span>
+                <span style={{ display: 'block', fontSize: 'clamp(14.5px,1.4vw,17px)', lineHeight: 1.5, color: t.ink, fontWeight: 500, letterSpacing: '-0.012em' }}>
+                  Míralo todo escrito: qué es, cuánto cuesta y qué dicen quienes ya lo tienen
+                </span>
+              </span>
+              <span data-flecha aria-hidden style={{
+                flex: 'none', width: 40, height: 40, borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: t.accent, color: '#F4EBED', fontSize: 17, lineHeight: 1,
+                transition: 'transform 320ms cubic-bezier(.22,1,.36,1)',
+              }}>→</span>
+            </a>
           </div>
         </div>
       </div>
