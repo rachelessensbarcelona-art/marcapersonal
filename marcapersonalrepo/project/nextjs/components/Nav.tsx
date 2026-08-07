@@ -50,7 +50,7 @@ export default function Nav() {
     <>
       <nav id="xp-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 80, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: `16px ${t.gut}`, color: t.ink, backdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', WebkitBackdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', background: bajado ? 'rgba(251,249,246,0.82)' : 'transparent', borderBottom: bajado ? '1px solid rgba(20,17,16,0.08)' : '1px solid transparent', transition: 'background-color 300ms ease, border-color 300ms ease' }}>
         <a href="/" aria-label={site.name} style={{ display: 'flex', alignItems: 'center' }}>
-          <Logo alto="clamp(34px,4.4vw,46px)" />
+          <Logo alto="clamp(42px,5.2vw,58px)" />
         </a>
         <button type="button" aria-label="Abrir menú" onClick={() => setOpen((v) => !v)} style={{ width: 44, height: 44, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', gap: 6 }}>
           <span style={bar(false)} />
