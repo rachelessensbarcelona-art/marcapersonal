@@ -47,7 +47,7 @@ export const videoUrl = 'https://drive.google.com/file/d/1v2dSDiNpc0wgSCTVxX7O3-
  * true: el marco se hace alto y no salen esas bandas negras a los lados.
  * Si algún día lo cambias por uno horizontal, ponlo en false.
  */
-export const videoVertical = true;
+export const videoVertical = false;
 
 /** Traduce un enlace normal al enlace que se puede incrustar. */
 export const aEmbed = (url: string): string => {
