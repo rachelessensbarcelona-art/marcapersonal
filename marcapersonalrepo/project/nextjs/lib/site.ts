@@ -40,7 +40,7 @@ export const kicker = (color = t.accent) => ({
  * OJO con Google Drive: el archivo tiene que estar compartido como
  * "cualquier persona con el enlace", o se verá un recuadro vacío.
  */
-export const videoUrl = '';
+export const videoUrl = 'https://drive.google.com/file/d/1v2dSDiNpc0wgSCTVxX7O3-gqCCkQXygD/view?usp=sharing';
 
 /** Traduce un enlace normal al enlace que se puede incrustar. */
 export const aEmbed = (url: string): string => {
