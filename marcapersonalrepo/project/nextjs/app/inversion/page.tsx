@@ -5,7 +5,8 @@ import Reveal from '@/components/Reveal';
 import Contador from '@/components/Contador';
 import Testimonios from '@/components/Testimonios';
 import { BarrasCoste, Amortizacion, ComoFunciona } from '@/components/Graficos';
-import { t, waHref, videoUrl, aEmbed } from '@/lib/site';
+import VideoPresentacion from '@/components/VideoPresentacion';
+import { t, waHref } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'La inversión — Raquel Rodríguez',
@@ -55,26 +56,8 @@ export default function Inversion() {
             </p>
           </div>
 
-          {/* El vídeo. Pon el enlace en VIDEO_URL (lib/site.ts) y se sustituye solo. */}
           <figure style={{ margin: 'clamp(28px,4.5vh,56px) 0 0', position: 'relative', borderRadius: 22, overflow: 'hidden', border: hair, background: 'rgba(20,17,16,0.035)', aspectRatio: '16 / 9' }}>
-            {aEmbed(videoUrl) ? (
-              <iframe
-                src={aEmbed(videoUrl)}
-                title="Vídeo de presentación"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                allowFullScreen
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, display: 'block' }}
-              />
-            ) : (
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, background: 'repeating-linear-gradient(135deg, rgba(20,17,16,0.045) 0 1px, transparent 1px 13px)' }}>
-                <span style={{ width: 76, height: 76, borderRadius: '50%', border: '1px solid rgba(20,17,16,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(251,249,246,0.7)' }}>
-                  <span style={{ width: 0, height: 0, borderLeft: `18px solid ${t.ink}`, borderTop: '11px solid transparent', borderBottom: '11px solid transparent', marginLeft: 5 }} />
-                </span>
-                <span style={{ ...micro, letterSpacing: '0.2em', color: '#6B6560', textAlign: 'center', padding: '0 24px', lineHeight: 1.7 }}>
-                  Aquí va tu vídeo · 16:9<br />pega el enlace en lib/site.ts
-                </span>
-              </div>
-            )}
+            <VideoPresentacion />
           </figure>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 'clamp(22px,3.4vh,38px)', alignItems: 'center' }}>
