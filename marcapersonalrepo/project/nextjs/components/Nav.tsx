@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { t, waHref, igHref, mailHref, site } from '@/lib/site';
 import { openChat, setMenuOpen } from '@/lib/chatBus';
+import Logo from '@/components/Logo';
 
 const big = {
   display: 'block',
@@ -48,7 +49,9 @@ export default function Nav() {
   return (
     <>
       <nav id="xp-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 80, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: `16px ${t.gut}`, color: t.ink, backdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', WebkitBackdropFilter: bajado ? 'blur(14px) saturate(1.4)' : 'none', background: bajado ? 'rgba(251,249,246,0.82)' : 'transparent', borderBottom: bajado ? '1px solid rgba(20,17,16,0.08)' : '1px solid transparent', transition: 'background-color 300ms ease, border-color 300ms ease' }}>
-        <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '0.02em' }}>{site.name}</span>
+        <a href="/" aria-label={site.name} style={{ display: 'flex', alignItems: 'center' }}>
+          <Logo alto="clamp(34px,4.4vw,46px)" />
+        </a>
         <button type="button" aria-label="Abrir menú" onClick={() => setOpen((v) => !v)} style={{ width: 44, height: 44, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', gap: 6 }}>
           <span style={bar(false)} />
           <span style={bar(true)} />
@@ -66,6 +69,9 @@ export default function Nav() {
         </button>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: `clamp(104px,15vh,160px) ${t.gut} clamp(36px,6vh,64px)`, minHeight: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 'clamp(40px,8vh,80px)' }}>
           <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 0 }}>
+            <div style={{ marginBottom: 'clamp(22px,3.5vh,38px)' }}>
+              <Logo alto="clamp(74px,9vw,104px)" soloImagen />
+            </div>
             <p style={{ margin: '0 0 clamp(20px,3.5vh,36px)', fontSize: 12, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#9A938C' }}>
               Dónde quieres ir
             </p>

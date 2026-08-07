@@ -32,9 +32,32 @@ export const kicker = (color = t.accent) => ({
 
 /**
  * El vídeo de arriba de la página "Los números, sin rodeos".
- * Pega aquí el enlace para insertar (embed) y aparecerá solo.
- *   YouTube  → https://www.youtube.com/embed/CODIGO
- *   Vimeo    → https://player.vimeo.com/video/CODIGO
+ *
+ * Pega el enlace TAL CUAL, del sitio que sea: YouTube, Vimeo o Google
+ * Drive. Abajo se traduce solo al formato que hace falta para incrustarlo.
  * Déjalo vacío y se ve el marcador con el botón de play.
+ *
+ * OJO con Google Drive: el archivo tiene que estar compartido como
+ * "cualquier persona con el enlace", o se verá un recuadro vacío.
  */
 export const videoUrl = '';
+
+/** Traduce un enlace normal al enlace que se puede incrustar. */
+export const aEmbed = (url: string): string => {
+  const u = url.trim();
+  if (!u) return '';
+
+  // Google Drive: .../file/d/ID/view  →  .../file/d/ID/preview
+  const drive = u.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+  if (drive) return `https://drive.google.com/file/d/${drive[1]}/preview`;
+
+  // YouTube: youtu.be/ID · watch?v=ID · shorts/ID · live/ID
+  const yt = u.match(/(?:youtu\.be\/|[?&]v=|youtube\.com\/(?:shorts|live|embed)\/)([\w-]{11})/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}?rel=0`;
+
+  // Vimeo: vimeo.com/123456789
+  const vi = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vi) return `https://player.vimeo.com/video/${vi[1]}`;
+
+  return u;   // ya venía listo para incrustar
+};

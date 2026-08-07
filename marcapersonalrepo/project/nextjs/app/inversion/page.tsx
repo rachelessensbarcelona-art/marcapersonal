@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal';
 import Contador from '@/components/Contador';
 import Testimonios from '@/components/Testimonios';
 import { BarrasCoste, Amortizacion, ComoFunciona } from '@/components/Graficos';
-import { t, waHref, videoUrl } from '@/lib/site';
+import { t, waHref, videoUrl, aEmbed } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'La inversión — Raquel Rodríguez',
@@ -57,9 +57,9 @@ export default function Inversion() {
 
           {/* El vídeo. Pon el enlace en VIDEO_URL (lib/site.ts) y se sustituye solo. */}
           <figure style={{ margin: 'clamp(28px,4.5vh,56px) 0 0', position: 'relative', borderRadius: 22, overflow: 'hidden', border: hair, background: 'rgba(20,17,16,0.035)', aspectRatio: '16 / 9' }}>
-            {videoUrl ? (
+            {aEmbed(videoUrl) ? (
               <iframe
-                src={videoUrl}
+                src={aEmbed(videoUrl)}
                 title="Vídeo de presentación"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
                 allowFullScreen
