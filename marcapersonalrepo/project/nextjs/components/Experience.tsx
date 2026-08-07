@@ -477,7 +477,7 @@ export default function Experience() {
                 {STORY_WORDS.flatMap((w, i) => [<span key={`w${i}`}>{w}</span>, i < STORY_WORDS.length - 1 ? ' ' : null])}
               </p>
               <p data-disclaimer="1" style={{ margin: '3.5vh 0 0 0', fontSize: 'clamp(14px,1.4vw,16px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.68)', maxWidth: '40ch', opacity: 0 }}>
-                No fue un salto ni una apuesta. No hay atajos: a mí me llevó tiempo, y hubo mucha gente que me dijo que estaba loca.
+                Escalando paso a paso. Me llevó tiempo, pero lo logré. Y tú también puedes.
               </p>
             </div>
             <figure data-portrait="1" style={{ flex: '1 1 0', minWidth: 0, margin: 0, maxWidth: 420, display: 'block' }}>
@@ -509,7 +509,7 @@ export default function Experience() {
                 <span style={kickerSoft}>Lo que cambió</span>
               </div>
               <h2 style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2.7rem,6.4vw,6.4rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 0.98 }}>
-                Pasó el tiempo,<br /><span style={{ color: t.accent, fontWeight: 500 }}>y esto cambió.</span>
+                Cinco años después,<br /><span style={{ color: t.accent, fontWeight: 500 }}>esto es lo que cambió.</span>
               </h2>
             </div>
           </div>
