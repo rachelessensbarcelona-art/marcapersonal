@@ -5,6 +5,15 @@ export const site = {
   email: 'hola@raquelrodriguez.es',
 };
 
+/**
+ * La dirección definitiva de la web, sin la barra final.
+ *
+ * Google necesita saber cuál es "la buena" para no tratar
+ * raquelrodriguez.es y www.raquelrodriguez.es como dos webs distintas
+ * (eso reparte la fuerza entre las dos y sale perdiendo).
+ */
+export const siteUrl = 'https://raquelrodriguez.es';
+
 export const t = {
   bg: '#FBF9F6',
   ink: '#141110',

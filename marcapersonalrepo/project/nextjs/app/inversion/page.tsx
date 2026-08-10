@@ -9,8 +9,25 @@ import VideoPresentacion from '@/components/VideoPresentacion';
 import { t, waHref, videoVertical } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'La inversión — Raquel Rodríguez',
-  description: 'El precio, la financiación, los testimonios y el negocio. Escrito, sin llamadas.',
+  title: 'La inversión: precio y cómo funciona',
+  description:
+    'Cuánto cuesta el equipo, qué incluye, la garantía y cómo funciona el negocio que puedes montar con él, paso a paso. Todo escrito, sin llamadas.',
+  alternates: { canonical: '/inversion' },
+  openGraph: {
+    type: 'article',
+    locale: 'es_ES',
+    url: '/inversion',
+    title: 'La inversión: precio y cómo funciona · Raquel Rodríguez',
+    description:
+      'El precio, qué entra en él, la garantía y cómo funciona el negocio paso a paso. Todo escrito, sin llamadas.',
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Raquel Rodríguez' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'La inversión: precio y cómo funciona',
+    description: 'El precio, qué entra en él y cómo funciona el negocio, paso a paso. Sin llamadas.',
+    images: ['/og.jpg'],
+  },
 };
 
 const wrap = { maxWidth: 1180, margin: '0 auto' } as const;
