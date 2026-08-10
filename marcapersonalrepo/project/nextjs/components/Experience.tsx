@@ -11,9 +11,9 @@ const sm = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
 const eo = (x: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
 
 const BANDS = [
-  { title: 'Mi tiempo', body: 'Mi propio negocio.', rgb: '30,45,66', a: 0.34 },
-  { title: 'Mi gente', body: 'Mujeres que han cambiado y evolucionado conmigo.', rgb: '74,97,120', a: 0.34 },
-  { title: 'Mi familia', body: 'Mi prioridad.', rgb: '201,164,171', a: 0.46 },
+  { title: 'Mi tiempo', body: 'Mi propio negocio.', rgb: '30,45,66', a: 0.42 },
+  { title: 'Mi gente', body: 'Mujeres que han cambiado y evolucionado conmigo.', rgb: '74,97,120', a: 0.44 },
+  { title: 'Mi familia', body: 'Mi prioridad.', rgb: '201,164,171', a: 0.52 },
   { title: 'Mi vida', body: 'Como yo la quiero vivir.', rgb: '232,212,216', a: 0.62 },
 ];
 
@@ -146,13 +146,26 @@ export default function Experience() {
       if (c2 && head && grid) {
         if (narrow) {
           c2.style.display = 'flex'; c2.style.flexDirection = 'column'; c2.style.justifyContent = 'safe center'; c2.style.padding = `${safe}px ${t.gut} 5vh`; c2.style.boxSizing = 'border-box';
+          // El titular va PRIMERO. En el codigo la rejilla esta antes, asi que
+          // en movil hay que adelantarlo a mano o el titulo sale debajo.
+          head.style.order = '-1';
           head.style.position = 'relative'; head.style.inset = 'auto'; head.style.padding = '0'; head.style.flex = 'none';
-          grid.style.position = 'relative'; grid.style.inset = 'auto'; grid.style.gridTemplateColumns = 'repeat(2,1fr)'; grid.style.marginTop = '3.5vh'; grid.style.minHeight = '42vh'; grid.style.borderRadius = '14px'; grid.style.overflow = 'hidden';
+          grid.style.position = 'relative'; grid.style.inset = 'auto'; grid.style.gridTemplateColumns = 'repeat(2,1fr)'; grid.style.marginTop = '3vh'; grid.style.minHeight = '0'; grid.style.borderRadius = '16px'; grid.style.overflow = 'hidden';
         } else {
           c2.style.display = ''; c2.style.flexDirection = ''; c2.style.justifyContent = ''; c2.style.padding = `${safe}px 0 0`;
+          head.style.order = '0';
           head.style.position = 'absolute'; head.style.inset = '0'; head.style.padding = `${safe + 18}px ${t.gut} 0`; head.style.flex = '';
           grid.style.position = 'absolute'; grid.style.inset = '0'; grid.style.gridTemplateColumns = 'repeat(4,1fr)'; grid.style.marginTop = '0'; grid.style.minHeight = ''; grid.style.borderRadius = '0';
         }
+        // Los rotulos: pegados abajo en ordenador; en movil fluyen dentro de
+        // su casilla, que si no se salen de la caja.
+        bandLabels.forEach((l) => {
+          l.style.position = narrow ? 'relative' : 'absolute';
+          l.style.bottom = narrow ? 'auto' : '6vh';
+          l.style.padding = narrow ? '20px 12px' : '0 12px';
+          const cuerpo = l.querySelector<HTMLElement>('p:last-of-type');
+          if (cuerpo) cuerpo.style.minHeight = narrow ? '0' : '3em';
+        });
       }
       const por = document.querySelector<HTMLElement>('[data-portrait]');
       const wseq = document.querySelector<HTMLElement>('[data-wseq]');
@@ -538,15 +551,24 @@ export default function Experience() {
           <div data-ch="3" style={{ position: 'absolute', inset: 0, opacity: 0, color: t.ink }}>
             <div data-bands-grid style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }}>
               {BANDS.map((b, i) => (
-                <div key={b.title} style={{ position: 'relative', overflow: 'hidden', borderRight: i < 3 ? '1px solid rgba(20,17,16,0.08)' : undefined }}>
-                  <div data-band style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(${b.rgb},0) 20%, rgba(${b.rgb},${b.a}) 100%)`, transform: 'scaleY(0)', transformOrigin: 'bottom' }} />
-                  <div data-bandlabel style={{ position: 'absolute', left: 0, right: 0, bottom: '6vh', textAlign: 'center', opacity: 0, padding: '0 12px' }}>
+                <div key={b.title} style={{ position: 'relative' }}>
+                  {/* Antes era un rectangulo de color con el borde marcado y
+                      quedaba duro, como un bloque pegado. Ahora es una luz que
+                      sube del suelo, desenfocada y desbordando a los lados,
+                      para que las cuatro se fundan entre ellas sin costuras. */}
+                  <div data-band style={{ position: 'absolute', left: '-18%', right: '-18%', top: '8%', bottom: 0, background: `radial-gradient(126% 96% at 50% 116%, rgba(${b.rgb},${b.a}) 0%, rgba(${b.rgb},${(b.a * 0.5).toFixed(3)}) 46%, rgba(${b.rgb},0) 82%)`, filter: 'blur(20px)', transform: 'scaleY(0)', transformOrigin: 'bottom', willChange: 'transform' }} />
+                  <div data-bandlabel style={{ position: 'absolute', zIndex: 2, left: 0, right: 0, bottom: '6vh', textAlign: 'center', opacity: 0, padding: '0 12px' }}>
                     <p style={{ margin: 0, fontSize: 14.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>0{i + 1}</p>
                     <p style={{ margin: '10px 0 0 0', fontSize: 'clamp(1.15rem,2vw,1.75rem)', fontWeight: 650, letterSpacing: '-0.02em', lineHeight: 1.12 }}>{b.title}</p>
-                    <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(14.5px,1.15vw,17px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.74)' }}>{b.body}</p>
+                    {/* minHeight: los cuatro rotulos quedan a la misma altura
+                        aunque una descripcion ocupe dos lineas y otra una. */}
+                    <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(14.5px,1.15vw,17px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.74)', minHeight: '3em' }}>{b.body}</p>
                   </div>
                 </div>
               ))}
+              {/* Un velo de crema por encima: rebaja el color de la parte de
+                  abajo para que no quede sobreexpuesto y el texto se lea. */}
+              <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'linear-gradient(180deg, rgba(251,249,246,0) 58%, rgba(251,249,246,0.12) 80%, rgba(251,249,246,0.26) 100%)' }} />
             </div>
             <div data-ch2-head style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: '10vh 5vw 0', textAlign: 'center', pointerEvents: 'none', boxSizing: 'border-box' }}>
               <h2 style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2.7rem,6.4vw,6.4rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 0.98 }}>
