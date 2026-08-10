@@ -543,14 +543,14 @@ export default function Experience() {
                 los 3 pasos y la tarjeta quepan enteros sin cortarse. */}
             <div data-ch5-caja style={{ width: '100%', transformOrigin: 'top center' }}>
             <h2 data-ch5-title style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
-              Si algo he aprendido en estos años, es esto:<br /><span style={{ color: t.accent, fontWeight: 500 }}>nunca es tarde para tener tu propio dinero.</span>
+              Si algo he aprendido en estos años es que esto funciona.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Y hoy quiero compartirlo contigo.</span>
             </h2>
             <p data-ch5-sub style={{ margin: '1.8vh 0 0 0', fontSize: 'clamp(15px,1.35vw,18px)', lineHeight: 1.55, color: 'rgba(20,17,16,0.7)', maxWidth: '44ch' }}>
-              No te digo que sea fácil, ni rápido. Te digo que se puede: yo empecé desde mi casa, sin dejar nada de lo que ya tenía.
+              Encontré una forma de generar ingresos desde casa. Llevo años con ella y tengo resultados. Si te interesa, agenda una llamada conmigo y te la cuento tal cual es.
             </p>
             <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
               {[
-                ['Hablamos 20 minutos', 'Me cuentas dónde estás y qué te gustaría cambiar. Yo te digo con sinceridad si puedo ayudarte.'],
+                ['Agendamos una llamada', 'Me cuentas dónde estás y qué te gustaría cambiar. Yo te digo con sinceridad si puedo ayudarte.'],
                 ['Empiezas pequeño', 'Sin dejar lo que ya tienes. Como empecé yo: en casa y a mi ritmo.'],
                 ['Decides hasta dónde', 'Si te encaja, te acompaño con todo lo que aprendí. Si no, nos hemos conocido y ya está.'],
               ].map(([title, body], i) => (

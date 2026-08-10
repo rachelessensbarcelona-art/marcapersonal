@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: '%s · Raquel Rodríguez',
   },
   description:
-    'Acompaño a mujeres de más de 40 años a montar su propio negocio desde casa y a recuperar su tiempo. Hablamos 20 minutos por videollamada, de mujer a mujer.',
+    'Acompaño a mujeres de más de 40 años a montar su propio negocio desde casa y a recuperar su tiempo. Hablamos por videollamada, de mujer a mujer, sin compromiso.',
   keywords: [
     'Raquel Rodríguez',
     'emprender a los 40 mujeres',
@@ -52,13 +52,13 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: 'Raquel Rodríguez · Emprender desde casa a los 40',
     description:
-      'La historia de cómo decidí algo solo para mí. Y de cómo puedes empezar tú, con lo que ya sabes hacer. Videollamada de 20 minutos, sin compromiso.',
+      'La historia de cómo decidí algo solo para mí. Y de cómo puedes empezar tú, con lo que ya sabes hacer. Agenda una videollamada, sin compromiso.',
     images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Raquel Rodríguez' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Raquel Rodríguez · Emprender desde casa a los 40',
-    description: 'Acompaño a mujeres +40 a montar su propio negocio. Videollamada de 20 minutos, sin compromiso.',
+    description: 'Acompaño a mujeres +40 a montar su propio negocio. Agenda una videollamada, sin compromiso.',
     images: ['/og.jpg'],
   },
   robots: {

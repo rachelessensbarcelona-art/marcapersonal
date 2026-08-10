@@ -65,7 +65,7 @@ export default function BookingAgent() {
 
   const askDay = (changing = false) => {
     bk.current.step = 'day';
-    return say(changing ? 'Sin problema. ¿Qué día te viene mejor?' : '¿Qué día te viene bien? Son unos 20 minutos, sin compromiso.', {
+    return say(changing ? 'Sin problema. ¿Qué día te viene mejor?' : '¿Qué día te viene bien? Es una llamada sin compromiso.', {
       chips: nextDays().map((d) => ({ label: d.label, v: 'd', ymd: d.ymd })),
     });
   };
@@ -82,7 +82,7 @@ export default function BookingAgent() {
       });
       return;
     }
-    await say('Hola, soy el asistente de Raquel. Te reservo 20 minutos con ella en menos de un minuto.');
+    await say('Hola, soy el asistente de Raquel. Te busco hueco en su agenda ahora mismo.');
     bk.current.step = 'interest';
     await say('¿Qué te trae por aquí?', { chips: INTERESTS });
   };
@@ -294,7 +294,7 @@ export default function BookingAgent() {
           onClick={() => { setOpen(true); setOpened(true); setNudge(false); void start(); }}
           style={{ background: '#FFFFFF', color: ink, fontSize: 13.5, fontWeight: 500, padding: '10px 17px', borderRadius: 999, border: '1px solid rgba(20,17,16,0.12)', boxShadow: '0 10px 28px rgba(20,17,16,0.10)', textAlign: 'left', whiteSpace: 'nowrap', transform: nudge && !open ? 'translateY(0)' : 'translateY(8px)', opacity: nudge && !open ? 1 : 0, pointerEvents: nudge && !open ? 'auto' : 'none', transition: 'transform 400ms cubic-bezier(.22,1,.36,1), opacity 350ms ease' }}
         >
-          ¿Hablamos 20 minutos?
+          ¿Hablamos?
         </button>
         <button
           type="button"

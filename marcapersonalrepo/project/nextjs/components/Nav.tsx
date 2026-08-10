@@ -106,7 +106,7 @@ export default function Nav() {
                 Reservar una llamada <span aria-hidden>→</span>
               </button>
               <p style={{ margin: '12px 0 0', fontSize: 13.5, color: 'rgba(20,17,16,0.55)' }}>
-                20 minutos, sin compromiso. Te contesto yo.
+                Una llamada, sin compromiso. Te contesto yo.
               </p>
             </div>
           </nav>

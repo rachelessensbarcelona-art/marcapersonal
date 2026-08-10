@@ -24,13 +24,13 @@ export default function Closing() {
       <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', textAlign: 'center' }}>
         <h2 style={{ margin: 0, fontFamily: t.font, fontSize: 'clamp(3.4rem,9vw,8rem)', fontWeight: 500, letterSpacing: '-0.015em', lineHeight: 1 }}>¿Hablamos?</h2>
         <p style={{ margin: '3vh auto 0', fontSize: 'clamp(17px,1.7vw,21px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.7)', maxWidth: '26ch', fontWeight: 450, letterSpacing: '-0.018em' }}>
-          Veinte minutos de mujer a mujer, sin compromiso. Si no es para ti, seré la primera en decírtelo.
+          Una llamada, de mujer a mujer, sin compromiso. Si no es para ti, seré la primera en decírtelo.
         </p>
         <button type="button" onClick={openChat} style={{ marginTop: '4vh', background: t.ink, color: t.bg, fontSize: 16.5, fontWeight: 600, padding: '16px 34px', borderRadius: 999, transition: 'transform 250ms ease' }}>
           Hablar con Raquel
         </button>
         <p style={{ margin: '16px auto 0', maxWidth: '30ch', fontSize: 'clamp(10.5px,2.7vw,12.5px)', fontWeight: 500, letterSpacing: '0.13em', lineHeight: 1.7, textTransform: 'uppercase', color: '#6B6560' }}>
-          Mi asistente te encuentra hueco en un minuto
+          Mi asistente te busca hueco en mi agenda
         </p>
       </div>
     </section>
