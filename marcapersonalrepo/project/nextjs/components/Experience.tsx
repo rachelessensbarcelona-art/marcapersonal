@@ -91,10 +91,12 @@ export default function Experience() {
       const g5 = document.querySelector<HTMLElement>('[data-ch5-grid]');
       const caja5 = document.querySelector<HTMLElement>('[data-ch5-caja]');
       if (ch5 && t5 && g5) {
-        t5.style.fontSize = narrow ? 'clamp(1.5rem,6vw,2rem)' : 'clamp(2rem,3.8vw,3.6rem)';
+        t5.style.fontSize = narrow ? 'clamp(1.4rem,5.5vw,1.85rem)' : 'clamp(2rem,3.8vw,3.6rem)';
         t5.style.margin = narrow ? '1.2vh 0 0 0' : '2.2vh 0 0 0';
+        const s5 = document.querySelector<HTMLElement>('[data-ch5-sub]');
+        if (s5) { s5.style.fontSize = narrow ? '13.5px' : 'clamp(15px,1.35vw,18px)'; s5.style.margin = narrow ? '1.2vh 0 0 0' : '1.8vh 0 0 0'; }
         g5.style.gap = narrow ? '13px' : 'clamp(18px,2.4vw,34px)';
-        g5.style.marginTop = narrow ? '2vh' : 'clamp(24px,4vh,46px)';
+        g5.style.marginTop = narrow ? '1.8vh' : 'clamp(24px,4vh,46px)';
         // Sitio para la burbuja de Raquel: la foto (54) + su margen (16) + aire.
         ch5.style.paddingBottom = narrow ? '92px' : '';
 
@@ -541,8 +543,11 @@ export default function Experience() {
                 los 3 pasos y la tarjeta quepan enteros sin cortarse. */}
             <div data-ch5-caja style={{ width: '100%', transformOrigin: 'top center' }}>
             <h2 data-ch5-title style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
-              Puedes seguir pensándolo un año más.<br /><span style={{ color: t.accent, fontWeight: 500 }}>O hablar conmigo veinte minutos.</span>
+              Si algo he aprendido en estos años, es esto:<br /><span style={{ color: t.accent, fontWeight: 500 }}>nunca es tarde para tener tu propio dinero.</span>
             </h2>
+            <p data-ch5-sub style={{ margin: '1.8vh 0 0 0', fontSize: 'clamp(15px,1.35vw,18px)', lineHeight: 1.55, color: 'rgba(20,17,16,0.7)', maxWidth: '44ch' }}>
+              No te digo que sea fácil, ni rápido. Te digo que se puede: yo empecé desde mi casa, sin dejar nada de lo que ya tenía.
+            </p>
             <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
               {[
                 ['Hablamos 20 minutos', 'Me cuentas dónde estás y qué te gustaría cambiar. Yo te digo con sinceridad si puedo ayudarte.'],
