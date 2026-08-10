@@ -66,12 +66,12 @@ input { font: inherit; color: inherit; }
    Los !important son necesarios: estos elementos llevan estilos escritos
    en la propia etiqueta, y esos le ganan a la hoja de estilos.           */
 @media (max-width: 700px) {
-  [data-ch5-grid] [data-step] { padding-top: 12px !important; }
-  [data-ch5-grid] [data-step] p:nth-of-type(2) { font-size: 16px !important; margin-top: 7px !important; }
-  [data-ch5-grid] [data-step] p:nth-of-type(3) { font-size: 13px !important; line-height: 1.5 !important; margin-top: 6px !important; }
+  [data-ch5-grid] [data-step] { padding-top: 10px !important; }
+  [data-ch5-grid] [data-step] p:nth-of-type(2) { font-size: 15.5px !important; margin-top: 5px !important; }
+  [data-ch5-grid] [data-step] p:nth-of-type(3) { font-size: 12.5px !important; line-height: 1.45 !important; margin-top: 5px !important; }
   [data-tarjeta-inversion] { padding: 13px 15px !important; border-radius: 14px !important; gap: 12px !important; margin-top: 16px !important; }
   [data-tarjeta-kicker] { display: none !important; }
-  [data-tarjeta-texto] { font-size: 14px !important; line-height: 1.42 !important; }
+  [data-tarjeta-texto] { font-size: 13.5px !important; line-height: 1.36 !important; }
   [data-tarjeta-inversion] [data-flecha] { width: 36px !important; height: 36px !important; font-size: 15px !important; }
 }
 

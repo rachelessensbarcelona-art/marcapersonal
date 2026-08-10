@@ -91,12 +91,14 @@ export default function Experience() {
       const g5 = document.querySelector<HTMLElement>('[data-ch5-grid]');
       const caja5 = document.querySelector<HTMLElement>('[data-ch5-caja]');
       if (ch5 && t5 && g5) {
-        t5.style.fontSize = narrow ? 'clamp(1.4rem,5.5vw,1.85rem)' : 'clamp(2rem,3.8vw,3.6rem)';
+        t5.style.fontSize = narrow ? 'clamp(1.28rem,5.1vw,1.7rem)' : 'clamp(2rem,3.8vw,3.6rem)';
         t5.style.margin = narrow ? '1.2vh 0 0 0' : '2.2vh 0 0 0';
         const s5 = document.querySelector<HTMLElement>('[data-ch5-sub]');
-        if (s5) { s5.style.fontSize = narrow ? '13.5px' : 'clamp(15px,1.35vw,18px)'; s5.style.margin = narrow ? '1.2vh 0 0 0' : '1.8vh 0 0 0'; }
-        g5.style.gap = narrow ? '13px' : 'clamp(18px,2.4vw,34px)';
-        g5.style.marginTop = narrow ? '1.8vh' : 'clamp(24px,4vh,46px)';
+        if (s5) { s5.style.fontSize = narrow ? '13px' : 'clamp(15px,1.35vw,18px)'; s5.style.margin = narrow ? '1vh 0 0 0' : '1.8vh 0 0 0'; }
+        const p5 = document.querySelector<HTMLElement>('[data-ch5-puente]');
+        if (p5) p5.style.fontSize = narrow ? '13.5px' : 'clamp(15px,1.5vw,19px)';
+        g5.style.gap = narrow ? '11px' : 'clamp(18px,2.4vw,34px)';
+        g5.style.marginTop = narrow ? '1.6vh' : 'clamp(24px,4vh,46px)';
         // Sitio para la burbuja de Raquel: la foto (54) + su margen (16) + aire.
         ch5.style.paddingBottom = narrow ? '92px' : '';
 
@@ -111,7 +113,7 @@ export default function Experience() {
             const libre = ch5.clientHeight - parseFloat(cs5.paddingTop) - parseFloat(cs5.paddingBottom);
             const alto = caja5.scrollHeight;
             if (alto > libre && libre > 0) {
-              const k = Math.max(0.76, libre / alto);
+              const k = Math.max(0.8, libre / alto);
               caja5.style.transform = `scale(${k.toFixed(3)})`;
               caja5.style.marginBottom = `${-Math.round(alto * (1 - k))}px`;
             }
@@ -542,11 +544,17 @@ export default function Experience() {
             {/* Caja que se encoge sola si la pantalla es muy bajita, para que
                 los 3 pasos y la tarjeta quepan enteros sin cortarse. */}
             <div data-ch5-caja style={{ width: '100%', transformOrigin: 'top center' }}>
-            <h2 data-ch5-title style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
-              Si algo he aprendido en estos años es que esto funciona.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Y hoy quiero compartirlo contigo.</span>
+            {/* El puente con el capitulo anterior: repite sus cuatro palabras
+                para que quien lee entienda que esto es la respuesta al
+                "esto es lo que cambio" que acaba de leer. */}
+            <p data-ch5-puente style={{ margin: 0, fontSize: 'clamp(15px,1.5vw,19px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.62)', maxWidth: '40ch', fontWeight: 450 }}>
+              Mi tiempo, mi gente, mi familia, mi vida. Nada de eso cambió por suerte.
+            </p>
+            <h2 data-ch5-title style={{ margin: '1.6vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
+              Cambió porque encontré cómo ganarme la vida desde casa.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Y hoy quiero compartirla contigo.</span>
             </h2>
             <p data-ch5-sub style={{ margin: '1.8vh 0 0 0', fontSize: 'clamp(15px,1.35vw,18px)', lineHeight: 1.55, color: 'rgba(20,17,16,0.7)', maxWidth: '44ch' }}>
-              Encontré una forma de generar ingresos desde casa. Llevo años con ella y tengo resultados. Si te interesa, agenda una llamada conmigo y te la cuento tal cual es.
+              Llevo años con esto y tengo resultados. Si algo he aprendido es que funciona. Si te interesa, agenda una llamada y te lo cuento tal cual es.
             </p>
             <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
               {[
