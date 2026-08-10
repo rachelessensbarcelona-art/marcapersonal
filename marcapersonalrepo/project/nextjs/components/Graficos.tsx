@@ -23,6 +23,27 @@ const MARCAS = [
 // que 7.500 case con 43.216. Agrupamos a mano.
 const eur = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €';
 
+/**
+ * Mide el ancho real que ocupa el bloque.
+ *
+ * Hace falta para el gráfico: un SVG con viewBox se estira o se encoge, y
+ * su texto va con él. En un móvil eso dejaba las cifras en 7 px. Sabiendo
+ * el ancho, se corrige el tamaño para que se lean siempre igual.
+ */
+function useAncho<T extends Element>() {
+  const ref = useRef<T>(null);
+  const [ancho, setAncho] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => setAncho(e.contentRect.width));
+    ro.observe(el);
+    setAncho(el.getBoundingClientRect().width);
+    return () => ro.disconnect();
+  }, []);
+  return [ref, ancho] as const;
+}
+
 /** Dispara una animación cuando el bloque entra en pantalla. */
 function useEnPantalla<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -43,7 +64,7 @@ export function BarrasCoste() {
   const [ref, dentro] = useEnPantalla<HTMLDivElement>();
   const filas = [
     ...MARCAS.map((x) => ({ nombre: x.m, valor: x.litro * LITROS_ANO * 20, destacada: false })),
-    { nombre: 'El equipo', valor: EQUIPO + FILTRO_ANO * 20, destacada: true },
+    { nombre: 'El equipo + filtros', valor: EQUIPO + FILTRO_ANO * 20, destacada: true },
   ];
   const max = Math.max(...filas.map((f) => f.valor));
 
@@ -77,13 +98,14 @@ export function BarrasCoste() {
 /* ═══════════ 2. Cuándo se paga solo ═══════════ */
 export function Amortizacion() {
   const [ref, dentro] = useEnPantalla<HTMLDivElement>();
+  const [caja, ancho] = useAncho<SVGSVGElement>();
 
   const anos = 12;
   const aguaAno = MARCAS[1].litro * LITROS_ANO;            // Font Vella, la del medio
   const corte = EQUIPO / (aguaAno - FILTRO_ANO);           // años hasta igualarse
   const max = aguaAno * anos;
 
-  const W = 640, H = 300, ML = 8, MR = 8, MT = 16, MB = 34;
+  const W = 640, H = 300, ML = 8, MR = 8, MT = 22, MB = 42;
   const px = (a: number) => ML + (a / anos) * (W - ML - MR);
   const py = (v: number) => MT + (1 - v / max) * (H - MT - MB);
 
@@ -92,6 +114,11 @@ export function Amortizacion() {
 
   const dAgua = linea((a) => aguaAno * a);
   const dEquipo = linea((a) => EQUIPO + FILTRO_ANO * a);
+
+  // Cuanto se ha estirado o encogido el dibujo. Las letras se dividen por
+  // este numero para que acaben midiendo siempre lo mismo en pantalla.
+  const escala = ancho > 0 ? ancho / W : 1;
+  const letra = (px: number) => (px / escala).toFixed(1);
 
   return (
     <div ref={ref}>
@@ -107,7 +134,7 @@ export function Amortizacion() {
         ))}
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img"
+      <svg ref={caja} viewBox={`0 0 ${W} ${H}`} width="100%" role="img"
            aria-label={`El gasto en agua embotellada supera al del equipo a los ${corte.toFixed(1)} años.`}
            style={{ display: 'block', overflow: 'visible' }}>
         {/* rejilla discreta */}
@@ -117,7 +144,7 @@ export function Amortizacion() {
         {/* años */}
         {[0, 3, 6, 9, 12].map((a) => (
           <text key={a} x={px(a)} y={H - 12} textAnchor={a === 0 ? 'start' : a === 12 ? 'end' : 'middle'}
-                fontSize="11.5" fill="rgba(20,17,16,0.45)">{a === 0 ? 'Hoy' : `${a} años`}</text>
+                fontSize={letra(13)} fill="rgba(20,17,16,0.55)">{a === 0 ? 'Hoy' : `${a} años`}</text>
         ))}
 
         {/* el punto en que se cruzan */}
@@ -135,11 +162,11 @@ export function Amortizacion() {
         {/* etiquetas directas al final de cada línea */}
         <g opacity={dentro ? 1 : 0} style={{ transition: 'opacity 500ms ease 1400ms' }}>
           <circle cx={px(anos)} cy={py(aguaAno * anos)} r="4.5" fill={t.rose} stroke="#FBF9F6" strokeWidth="2" />
-          <text x={px(anos)} y={py(aguaAno * anos) - 12} textAnchor="end" fontSize="13" fontWeight="700" fill={t.ink}>
+          <text x={px(anos)} y={py(aguaAno * anos) - 12} textAnchor="end" fontSize={letra(14.5)} fontWeight="700" fill={t.ink}>
             {eur(aguaAno * anos)}
           </text>
           <circle cx={px(anos)} cy={py(EQUIPO + FILTRO_ANO * anos)} r="4.5" fill={t.accent} stroke="#FBF9F6" strokeWidth="2" />
-          <text x={px(anos)} y={py(EQUIPO + FILTRO_ANO * anos) + 20} textAnchor="end" fontSize="13" fontWeight="700" fill={t.ink}>
+          <text x={px(anos)} y={py(EQUIPO + FILTRO_ANO * anos) + 20} textAnchor="end" fontSize={letra(14.5)} fontWeight="700" fill={t.ink}>
             {eur(EQUIPO + FILTRO_ANO * anos)}
           </text>
         </g>

@@ -67,7 +67,7 @@ export default function VideoPresentacion() {
           style={{
             position: 'absolute', top: 'clamp(11px,1.4vw,16.5px)', right: 'clamp(11px,1.4vw,16.5px)', zIndex: 2,
             display: 'inline-flex', alignItems: 'center', gap: 7,
-            padding: 'clamp(9px,1vw,11px) clamp(13px,1.3vw,16.5px) clamp(9px,1vw,11px) clamp(11px,1.1vw,14px)', borderRadius: 999,
+            minHeight: 44, padding: '0 clamp(15px,1.3vw,18px) 0 clamp(13px,1.1vw,15px)', borderRadius: 999,
             background: 'rgba(251,249,246,0.94)', color: t.ink,
             fontSize: 'clamp(13.5px,1.1vw,15.5px)', fontWeight: 600, letterSpacing: '-0.01em',
             boxShadow: '0 8px 24px rgba(0,0,0,0.28)',

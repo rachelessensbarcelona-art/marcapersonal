@@ -38,6 +38,7 @@ export default function Reveal({ children, delay = 0, y = 26, as = 'div', style,
     <Tag
       ref={ref}
       id={id}
+      data-reveal
       style={{
         ...style,
         opacity: visto ? 1 : 0,

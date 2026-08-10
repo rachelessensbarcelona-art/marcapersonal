@@ -78,6 +78,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={grotesk.variable}>
       <body>
+        {/* Los bloques que aparecen al hacer scroll arrancan invisibles y los
+            enciende el JavaScript. Si el navegador lo tiene desactivado, esto
+            los deja visibles: mas vale sin animacion que sin contenido. */}
+        <noscript>
+          <style>{'[data-reveal]{opacity:1!important;transform:none!important}'}</style>
+        </noscript>
         <DatosGoogle />
         <Nav />
         {children}

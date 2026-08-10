@@ -145,7 +145,9 @@ export default function Inversion() {
             <p style={{ margin: 0, fontSize: 'clamp(3.4rem,8vw,6.4rem)', fontWeight: 500, letterSpacing: '-0.045em', lineHeight: 0.95, color: '#F4EBED' }}>
               <Contador hasta={5600} sufijo=" €" />
             </p>
-            <div style={{ marginTop: 26, display: 'flex', flexDirection: 'column', gap: 10, ...micro, letterSpacing: '0.14em', color: 'rgba(244,235,237,0.65)' }}>
+            {/* El maxWidth deja libre la esquina donde vive la burbuja del
+                asistente: si no, en movil le pasa por encima a estas lineas. */}
+            <div style={{ marginTop: 26, display: 'flex', flexDirection: 'column', gap: 10, maxWidth: '34ch', ...micro, letterSpacing: '0.14em', color: 'rgba(244,235,237,0.65)' }}>
               <span>Pago único · 15–20 años de vida útil</span>
               <span>Financiación directa del fabricante</span>
               <span>Filtro: 95 € ≈ una vez al año</span>
@@ -235,10 +237,18 @@ export default function Inversion() {
               ¿Te cuadran los números? Hablemos de lo importante.
             </p>
             <BookLink />
-            <p style={{ margin: '18px 0 0', fontSize: 14, color: 'rgba(20,17,16,0.4)' }}>
-              O escríbeme por{' '}
-              <a href={waHref('Hola Raquel, vengo de la página de la inversión.')} target="_blank" rel="noopener" style={{ borderBottom: '1px solid rgba(20,17,16,0.25)' }}>WhatsApp</a>.
-            </p>
+            {/* Antes era un enlace de 18 px metido dentro de una frase: con el
+                dedo se fallaba. Ahora es un boton, con su sitio y su area. */}
+            <div style={{ marginTop: 16 }}>
+              <a
+                href={waHref('Hola Raquel, vengo de la página de la inversión.')}
+                target="_blank"
+                rel="noopener"
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, minHeight: 48, padding: '0 24px', borderRadius: 999, border: `1px solid ${t.accent}3d`, color: t.accent, fontSize: 16, fontWeight: 600 }}
+              >
+                O escríbeme por WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>

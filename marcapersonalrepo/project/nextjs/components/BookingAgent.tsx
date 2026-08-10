@@ -228,7 +228,7 @@ export default function BookingAgent() {
               Asistente de agenda · En línea
             </p>
           </div>
-          <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar la conversación" style={{ width: 36, height: 36, flex: 'none', borderRadius: '50%', background: 'rgba(255,255,255,0.16)', color: '#FFFFFF', fontSize: 20, fontWeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+          <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar la conversación" style={{ width: 44, height: 44, flex: 'none', borderRadius: '50%', background: 'rgba(255,255,255,0.16)', color: '#FFFFFF', fontSize: 23, fontWeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
         </div>
 
         <div ref={box} style={{ flex: 1, minHeight: 0, overflowY: 'auto', overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', padding: '20px 18px 12px', display: 'flex', flexDirection: 'column' }}>

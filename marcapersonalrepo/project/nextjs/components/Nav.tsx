@@ -110,10 +110,13 @@ export default function Nav() {
               </p>
             </div>
           </nav>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px 26px', alignItems: 'center', borderTop: `1px solid ${t.hair}`, paddingTop: 20, fontSize: 14.5, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-            <a href={waHref()} target="_blank" rel="noopener">WhatsApp</a>
-            <a href={igHref} target="_blank" rel="noopener">Instagram</a>
-            <a href={mailHref}>Correo</a>
+          {/* Los enlaces llevan padding vertical para que la zona que se puede
+              tocar llegue a los 44 px que recomienda Apple. Con 18 px de alto
+              se fallaba el dedo constantemente. */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 22px', alignItems: 'center', borderTop: `1px solid ${t.hair}`, paddingTop: 12, fontSize: 14.5, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+            <a href={waHref()} target="_blank" rel="noopener" style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '4px 0' }}>WhatsApp</a>
+            <a href={igHref} target="_blank" rel="noopener" style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '4px 0' }}>Instagram</a>
+            <a href={mailHref} style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '4px 0' }}>Correo</a>
             <span style={{ marginLeft: 'auto', color: '#6B6560' }}>© {new Date().getFullYear()} {site.name}</span>
           </div>
         </div>
