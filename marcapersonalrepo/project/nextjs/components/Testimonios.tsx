@@ -38,7 +38,7 @@ export default function Testimonios() {
 
   const flecha: React.CSSProperties = {
     width: 46, height: 46, borderRadius: '50%', border: '1px solid rgba(20,17,16,0.18)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17,
+    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18,
     background: 'rgba(251,249,246,0.7)', backdropFilter: 'blur(8px)',
     transition: 'background-color 260ms ease, border-color 260ms ease, transform 260ms ease',
   };
@@ -76,13 +76,13 @@ export default function Testimonios() {
               }}>
                 <span style={{ width: 0, height: 0, borderLeft: `13px solid ${t.accent}`, borderTop: '8px solid transparent', borderBottom: '8px solid transparent', marginLeft: 4 }} />
               </span>
-              <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(20,17,16,0.5)' }}>
+              <span style={{ fontSize: 13, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(20,17,16,0.5)' }}>
                 Vídeo · 40 s
               </span>
             </div>
             <div style={{ padding: 22 }}>
-              <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6 }}>{f.texto}</p>
-              <p style={{ margin: '16px 0 0', fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(20,17,16,0.45)' }}>
+              <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6 }}>{f.texto}</p>
+              <p style={{ margin: '16px 0 0', fontSize: 13, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(20,17,16,0.45)' }}>
                 {f.quien}
               </p>
             </div>
@@ -102,7 +102,7 @@ export default function Testimonios() {
             }} />
           ))}
         </div>
-        <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(20,17,16,0.4)' }}>
+        <span style={{ marginLeft: 'auto', fontSize: 13, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(20,17,16,0.4)' }}>
           Desliza
         </span>
       </div>

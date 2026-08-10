@@ -72,7 +72,7 @@ export default function Nav() {
             <div style={{ marginBottom: 'clamp(22px,3.5vh,38px)' }}>
               <Logo alto="clamp(74px,9vw,104px)" soloImagen />
             </div>
-            <p style={{ margin: '0 0 clamp(20px,3.5vh,36px)', fontSize: 12, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#9A938C' }}>
+            <p style={{ margin: '0 0 clamp(21px,3.5vh,36px)', fontSize: 14, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#9A938C' }}>
               Dónde quieres ir
             </p>
 
@@ -84,14 +84,14 @@ export default function Nav() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                style={{ display: 'block', borderTop: '1px solid rgba(20,17,16,0.14)', padding: 'clamp(18px,3vh,30px) 0' }}
+                style={{ display: 'block', borderTop: '1px solid rgba(20,17,16,0.14)', padding: 'clamp(19px,3vh,30px) 0' }}
               >
                 <span style={{ display: 'flex', alignItems: 'baseline', gap: 14 }}>
-                  <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.18em', color: t.accent, flex: 'none' }}>{item.n}</span>
+                  <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '0.18em', color: t.accent, flex: 'none' }}>{item.n}</span>
                   <span style={{ ...big, flex: 1 }}>{item.title}</span>
-                  <span style={{ fontSize: 'clamp(20px,2.5vw,28px)', color: t.accent, flex: 'none', lineHeight: 1 }}>→</span>
+                  <span style={{ fontSize: 'clamp(21px,2.5vw,28px)', color: t.accent, flex: 'none', lineHeight: 1 }}>→</span>
                 </span>
-                <span style={{ display: 'block', margin: '8px 0 0 26px', fontSize: 'clamp(14px,1.4vw,16.5px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.6)', maxWidth: '34em' }}>
+                <span style={{ display: 'block', margin: '8px 0 0 26px', fontSize: 'clamp(16.5px,1.4vw,18px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.6)', maxWidth: '34em' }}>
                   {item.desc}
                 </span>
               </a>
@@ -101,16 +101,16 @@ export default function Nav() {
               <button
                 type="button"
                 onClick={() => { setOpen(false); openChat(); }}
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: t.ink, color: t.bg, fontSize: 'clamp(15px,1.5vw,17px)', fontWeight: 600, padding: '16px 30px', borderRadius: 999 }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: t.ink, color: t.bg, fontSize: 'clamp(16.5px,1.5vw,18px)', fontWeight: 600, padding: '16px 30px', borderRadius: 999 }}
               >
                 Reservar una llamada <span aria-hidden>→</span>
               </button>
-              <p style={{ margin: '12px 0 0', fontSize: 13.5, color: 'rgba(20,17,16,0.55)' }}>
+              <p style={{ margin: '12px 0 0', fontSize: 16, color: 'rgba(20,17,16,0.55)' }}>
                 Una llamada, sin compromiso. Te contesto yo.
               </p>
             </div>
           </nav>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px 26px', alignItems: 'center', borderTop: `1px solid ${t.hair}`, paddingTop: 20, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px 26px', alignItems: 'center', borderTop: `1px solid ${t.hair}`, paddingTop: 20, fontSize: 14.5, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
             <a href={waHref()} target="_blank" rel="noopener">WhatsApp</a>
             <a href={igHref} target="_blank" rel="noopener">Instagram</a>
             <a href={mailHref}>Correo</a>

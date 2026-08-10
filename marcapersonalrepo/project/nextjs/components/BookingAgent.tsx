@@ -193,12 +193,12 @@ export default function BookingAgent() {
     background: me ? `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)` : 'rgba(30,45,66,0.06)',
     color: me ? '#FFFFFF' : ink,
     borderRadius: me ? '18px 18px 6px 18px' : '18px 18px 18px 6px',
-    padding: '11px 15px', maxWidth: '84%', fontSize: 14.5, lineHeight: 1.55,
+    padding: '11px 15px', maxWidth: '84%', fontSize: 17, lineHeight: 1.55,
     boxShadow: me ? '0 6px 18px rgba(30,45,66,0.22)' : 'none',
   });
 
   const row = (k: string, v: string) => (
-    <div key={k} style={{ display: 'flex', justifyContent: 'space-between', gap: 16, padding: '7px 0', borderTop: '1px solid rgba(25,21,16,0.1)', fontSize: 13.5 }}>
+    <div key={k} style={{ display: 'flex', justifyContent: 'space-between', gap: 16, padding: '7px 0', borderTop: '1px solid rgba(25,21,16,0.1)', fontSize: 16 }}>
       <span style={{ color: 'rgba(25,21,16,0.55)' }}>{k}</span>
       <span style={{ fontWeight: 600 }}>{v}</span>
     </div>
@@ -222,13 +222,13 @@ export default function BookingAgent() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/raquel-avatar.webp" alt="Raquel Rodríguez" style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', flex: 'none', border: '1.5px solid rgba(255,255,255,0.5)' }} />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em' }}>Raquel Rodríguez</p>
-            <p style={{ margin: '2px 0 0', fontSize: 11.5, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: t.roseSoft, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <p style={{ margin: 0, fontSize: 16.5, fontWeight: 600, letterSpacing: '-0.01em' }}>Raquel Rodríguez</p>
+            <p style={{ margin: '2px 0 0', fontSize: 13.5, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: t.roseSoft, display: 'flex', alignItems: 'center', gap: 6 }}>
               <span aria-hidden style={{ width: 6, height: 6, borderRadius: '50%', background: '#7BD88F', display: 'inline-block' }} />
               Asistente de agenda · En línea
             </p>
           </div>
-          <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar la conversación" style={{ width: 36, height: 36, flex: 'none', borderRadius: '50%', background: 'rgba(255,255,255,0.16)', color: '#FFFFFF', fontSize: 19, fontWeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+          <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar la conversación" style={{ width: 36, height: 36, flex: 'none', borderRadius: '50%', background: 'rgba(255,255,255,0.16)', color: '#FFFFFF', fontSize: 20, fontWeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
         </div>
 
         <div ref={box} style={{ flex: 1, minHeight: 0, overflowY: 'auto', overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', padding: '20px 18px 12px', display: 'flex', flexDirection: 'column' }}>
@@ -239,7 +239,7 @@ export default function BookingAgent() {
             <div key={i} style={{ display: 'flex', justifyContent: m.me ? 'flex-end' : 'flex-start' }}>
               {m.card ? (
                 <div style={{ border: '1px solid rgba(25,21,16,0.14)', borderRadius: 16, padding: '15px 17px', background: '#FFFFFF', width: 'min(100%,300px)' }}>
-                  <p style={{ margin: '0 0 8px', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6B6560' }}>Resumen de tu reserva</p>
+                  <p style={{ margin: '0 0 8px', fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6B6560' }}>Resumen de tu reserva</p>
                   {row('Día', m.card.day || '')}
                   {row('Hora', m.card.time || '')}
                   {row('Tema', m.card.interest || 'Por decidir')}
@@ -267,7 +267,7 @@ export default function BookingAgent() {
         {chips.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, padding: '2px 16px 12px' }}>
             {chips.map((c) => (
-              <button key={c.label} type="button" onClick={() => pick(c)} style={{ background: c.primary ? `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)` : 'rgba(255,255,255,0.72)', color: c.primary ? '#FFFFFF' : t.deep, border: c.primary ? 'none' : `1px solid ${t.accent}38`, borderRadius: 999, padding: '9px 16px', fontSize: 13.5, fontWeight: 600, boxShadow: c.primary ? '0 6px 16px rgba(30,45,66,0.24)' : 'none' }}>
+              <button key={c.label} type="button" onClick={() => pick(c)} style={{ background: c.primary ? `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)` : 'rgba(255,255,255,0.72)', color: c.primary ? '#FFFFFF' : t.deep, border: c.primary ? 'none' : `1px solid ${t.accent}38`, borderRadius: 999, padding: '9px 16px', fontSize: 16, fontWeight: 600, boxShadow: c.primary ? '0 6px 16px rgba(30,45,66,0.24)' : 'none' }}>
                 {c.label}
               </button>
             ))}
@@ -275,10 +275,10 @@ export default function BookingAgent() {
         )}
 
         <form onSubmit={send} style={{ display: 'flex', gap: 10, padding: '12px 14px', borderTop: `1px solid ${t.accent}1f`, alignItems: 'center', flex: 'none', background: 'rgba(255,255,255,0.6)' }}>
-          <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Escribe aquí…" aria-label="Mensaje para el asistente" style={{ flex: 1, minWidth: 0, background: 'rgba(30,45,66,0.06)', border: 'none', borderRadius: 999, padding: '13px 18px', fontSize: 16 }} />
-          <button type="submit" aria-label="Enviar" style={{ width: 44, height: 44, flex: 'none', borderRadius: '50%', background: `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)`, color: '#FFFFFF', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 16px rgba(30,45,66,0.26)' }}>↑</button>
+          <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Escribe aquí…" aria-label="Mensaje para el asistente" style={{ flex: 1, minWidth: 0, background: 'rgba(30,45,66,0.06)', border: 'none', borderRadius: 999, padding: '13px 18px', fontSize: 17.5 }} />
+          <button type="submit" aria-label="Enviar" style={{ width: 44, height: 44, flex: 'none', borderRadius: '50%', background: `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)`, color: '#FFFFFF', fontSize: 19, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 16px rgba(30,45,66,0.26)' }}>↑</button>
         </form>
-        <p style={{ margin: 0, padding: '0 14px calc(12px + env(safe-area-inset-bottom, 0px))', textAlign: 'center', fontSize: 10.5, fontWeight: 500, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(30,45,66,0.45)', background: 'rgba(255,255,255,0.6)', flex: 'none' }}>
+        <p style={{ margin: 0, padding: '0 14px calc(12px + env(safe-area-inset-bottom, 0px))', textAlign: 'center', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(30,45,66,0.45)', background: 'rgba(255,255,255,0.6)', flex: 'none' }}>
           Datos solo para organizar la llamada · RGPD
         </p>
       </div>
@@ -292,7 +292,7 @@ export default function BookingAgent() {
           type="button"
           data-agente-aviso
           onClick={() => { setOpen(true); setOpened(true); setNudge(false); void start(); }}
-          style={{ background: '#FFFFFF', color: ink, fontSize: 13.5, fontWeight: 500, padding: '10px 17px', borderRadius: 999, border: '1px solid rgba(20,17,16,0.12)', boxShadow: '0 10px 28px rgba(20,17,16,0.10)', textAlign: 'left', whiteSpace: 'nowrap', transform: nudge && !open ? 'translateY(0)' : 'translateY(8px)', opacity: nudge && !open ? 1 : 0, pointerEvents: nudge && !open ? 'auto' : 'none', transition: 'transform 400ms cubic-bezier(.22,1,.36,1), opacity 350ms ease' }}
+          style={{ background: '#FFFFFF', color: ink, fontSize: 16, fontWeight: 500, padding: '10px 17px', borderRadius: 999, border: '1px solid rgba(20,17,16,0.12)', boxShadow: '0 10px 28px rgba(20,17,16,0.10)', textAlign: 'left', whiteSpace: 'nowrap', transform: nudge && !open ? 'translateY(0)' : 'translateY(8px)', opacity: nudge && !open ? 1 : 0, pointerEvents: nudge && !open ? 'auto' : 'none', transition: 'transform 400ms cubic-bezier(.22,1,.36,1), opacity 350ms ease' }}
         >
           ¿Hablamos?
         </button>

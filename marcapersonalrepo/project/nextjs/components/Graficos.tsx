@@ -52,7 +52,7 @@ export function BarrasCoste() {
       {filas.map((f, i) => (
         <div key={f.nombre} style={{ marginBottom: i === filas.length - 1 ? 0 : 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 7, gap: 12 }}>
-            <span style={{ fontSize: 14.5, fontWeight: f.destacada ? 700 : 500, color: t.ink }}>{f.nombre}</span>
+            <span style={{ fontSize: 17, fontWeight: f.destacada ? 700 : 500, color: t.ink }}>{f.nombre}</span>
             <span style={{ fontSize: f.destacada ? 18 : 15, fontWeight: f.destacada ? 700 : 600, color: f.destacada ? t.accent : 'rgba(20,17,16,0.75)', fontVariantNumeric: 'tabular-nums' }}>
               {eur(f.valor)}
             </span>
@@ -67,7 +67,7 @@ export function BarrasCoste() {
           </div>
         </div>
       ))}
-      <p style={{ margin: '18px 0 0', fontSize: 12.5, lineHeight: 1.6, color: 'rgba(20,17,16,0.5)' }}>
+      <p style={{ margin: '18px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'rgba(20,17,16,0.5)' }}>
         Coste acumulado en 20 años · 8 litros al día · El equipo incluye un filtro de 95 € al año
       </p>
     </div>
@@ -101,7 +101,7 @@ export function Amortizacion() {
           { c: t.rose, txt: 'Agua embotellada' },
           { c: t.accent, txt: 'El equipo (compra + filtros)' },
         ].map((l) => (
-          <span key={l.txt} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'rgba(20,17,16,0.72)' }}>
+          <span key={l.txt} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 15.5, color: 'rgba(20,17,16,0.72)' }}>
             <span style={{ width: 14, height: 3, borderRadius: 999, background: l.c }} />{l.txt}
           </span>
         ))}
@@ -145,7 +145,7 @@ export function Amortizacion() {
         </g>
       </svg>
 
-      <p style={{ margin: '16px 0 0', fontSize: 14.5, lineHeight: 1.6, color: t.ink }}>
+      <p style={{ margin: '16px 0 0', fontSize: 17, lineHeight: 1.6, color: t.ink }}>
         <strong style={{ fontWeight: 700 }}>Se paga solo a los {corte.toFixed(1).replace('.', ',')} años.</strong>{' '}
         <span style={{ color: 'rgba(20,17,16,0.62)' }}>
           A partir de ahí, cada año que pasa es dinero que te ahorras. A los 12 son{' '}
@@ -187,11 +187,11 @@ export function ComoFunciona() {
           <span style={{
             width: 44, height: 44, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
             background: t.bg, border: `2px solid ${t.accent}`, color: t.accent,
-            fontSize: 13, fontWeight: 700, letterSpacing: '0.04em', position: 'relative', zIndex: 1,
+            fontSize: 15.5, fontWeight: 700, letterSpacing: '0.04em', position: 'relative', zIndex: 1,
           }}>{p.n}</span>
           <div style={{ paddingTop: 6 }}>
-            <p style={{ margin: 0, fontSize: 'clamp(17px,1.6vw,20px)', fontWeight: 600, letterSpacing: '-0.015em' }}>{p.t}</p>
-            <p style={{ margin: '7px 0 0', fontSize: 15, lineHeight: 1.65, color: 'rgba(20,17,16,0.66)', maxWidth: '52ch' }}>{p.d}</p>
+            <p style={{ margin: 0, fontSize: 'clamp(18px,1.6vw,21px)', fontWeight: 600, letterSpacing: '-0.015em' }}>{p.t}</p>
+            <p style={{ margin: '7px 0 0', fontSize: 16.5, lineHeight: 1.65, color: 'rgba(20,17,16,0.66)', maxWidth: '52ch' }}>{p.d}</p>
           </div>
         </div>
       ))}

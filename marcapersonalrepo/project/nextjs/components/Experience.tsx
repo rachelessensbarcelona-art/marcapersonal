@@ -64,10 +64,10 @@ export default function Experience() {
         // fondo solido: ella se ve y el texto se lee, sin pisarse.
         split.style.gridTemplateColumns = narrow ? '1fr' : '52% 48%';
         split.style.gridTemplateRows = narrow ? 'minmax(0,38vh) 1fr' : 'none';
-        txt.style.padding = narrow ? `clamp(18px,3vh,28px) ${t.gut} 15vh` : `clamp(72px,10vh,112px) clamp(28px,3.5vw,64px) clamp(76px,10vh,100px) 7vw`;
+        txt.style.padding = narrow ? `clamp(19px,3vh,28px) ${t.gut} 15vh` : `clamp(72px,10vh,112px) clamp(28px,3.5vw,64px) clamp(76px,10vh,100px) 7vw`;
         txt.style.gridArea = narrow ? '2 / 1' : 'auto';
         txt.style.justifyContent = narrow ? 'flex-start' : 'safe center';
-        h1.style.fontSize = narrow ? 'clamp(1.9rem,9vw,2.9rem)' : 'clamp(2.2rem,min(7.4vw,8.6vh),7.6rem)';
+        h1.style.fontSize = narrow ? 'clamp(2rem,9.4vw,3rem)' : 'clamp(2.2rem,min(7.4vw,8.6vh),7.6rem)';
         const wrapImg = document.querySelector<HTMLElement>('[data-hero-img]');
         if (wrapImg) {
           wrapImg.style.gridArea = narrow ? '1 / 1' : 'auto';
@@ -94,28 +94,44 @@ export default function Experience() {
         t5.style.fontSize = narrow ? 'clamp(1.28rem,5.1vw,1.7rem)' : 'clamp(2rem,3.8vw,3.6rem)';
         t5.style.margin = narrow ? '1.2vh 0 0 0' : '2.2vh 0 0 0';
         const s5 = document.querySelector<HTMLElement>('[data-ch5-sub]');
-        if (s5) { s5.style.fontSize = narrow ? '13px' : 'clamp(15px,1.35vw,18px)'; s5.style.margin = narrow ? '1vh 0 0 0' : '1.8vh 0 0 0'; }
-        const p5 = document.querySelector<HTMLElement>('[data-ch5-puente]');
-        if (p5) p5.style.fontSize = narrow ? '13.5px' : 'clamp(15px,1.5vw,19px)';
-        g5.style.gap = narrow ? '11px' : 'clamp(18px,2.4vw,34px)';
+        if (s5) { s5.style.fontSize = narrow ? '15.5px' : 'clamp(16.5px,1.35vw,19px)'; s5.style.margin = narrow ? '1.2vh 0 0 0' : '1.8vh 0 0 0'; }
+        g5.style.gap = narrow ? '11px' : 'clamp(19px,2.4vw,34px)';
         g5.style.marginTop = narrow ? '1.6vh' : 'clamp(24px,4vh,46px)';
         // Sitio para la burbuja de Raquel: la foto (54) + su margen (16) + aire.
-        ch5.style.paddingBottom = narrow ? '92px' : '';
+        ch5.style.paddingBottom = narrow ? '88px' : '';
 
         // Si aun asi no cabe (moviles bajitos tipo iPhone SE), el bloque se
         // encoge lo justo. El margen negativo compensa el hueco que deja el
         // encogido, para que siga quedando centrado y no se descuadre.
+        // Si no cabe, primero se retiran las explicaciones de los tres pasos
+        // (los titulos solos ya cuentan el proceso, y el detalle esta en la
+        // pagina de precios). Encoger la letra seria el ultimo recurso: para
+        // esta audiencia, un texto diminuto es un texto que nadie lee.
+        const cuerpos = Array.from(ch5.querySelectorAll<HTMLElement>('[data-step] p:nth-of-type(3)'));
         if (caja5) {
+          cuerpos.forEach((el) => { el.style.display = ''; });
           caja5.style.transform = 'none';
           caja5.style.marginBottom = '';
+          const encoger = (k: number) => {
+            caja5.style.transform = `scale(${k.toFixed(3)})`;
+            caja5.style.marginBottom = `${-Math.round(caja5.scrollHeight * (1 - k))}px`;
+          };
           if (narrow) {
             const cs5 = getComputedStyle(ch5);
             const libre = ch5.clientHeight - parseFloat(cs5.paddingTop) - parseFloat(cs5.paddingBottom);
-            const alto = caja5.scrollHeight;
-            if (alto > libre && libre > 0) {
-              const k = Math.max(0.8, libre / alto);
-              caja5.style.transform = `scale(${k.toFixed(3)})`;
-              caja5.style.marginBottom = `${-Math.round(alto * (1 - k))}px`;
+            let alto = caja5.scrollHeight;
+            if (libre > 0 && alto > libre) {
+              const roce = libre / alto;
+              if (roce >= 0.93) {
+                // Le falta muy poco: un pellizco que no se nota al leer.
+                encoger(roce);
+              } else {
+                // Le falta de verdad: se van las explicaciones y todo lo que
+                // queda se lee a tamano completo.
+                cuerpos.forEach((el) => { el.style.display = 'none'; });
+                alto = caja5.scrollHeight;
+                if (alto > libre) encoger(Math.max(0.9, libre / alto));
+              }
             }
           }
         }
@@ -158,7 +174,7 @@ export default function Experience() {
 
         // La historia es larga: la letra se ata tambien al alto de la ventana,
         // que si no en portatiles se sale por abajo.
-        wseq.style.fontSize = narrow ? 'clamp(1.05rem,4.3vw,1.45rem)' : 'clamp(1.3rem,min(2.9vw,3.9vh),2.7rem)';
+        wseq.style.fontSize = narrow ? 'clamp(1.18rem,4.7vw,1.6rem)' : 'clamp(1.3rem,min(2.9vw,3.9vh),2.7rem)';
         wseq.style.maxWidth = narrow ? '100%' : '17em';
         wseq.style.lineHeight = '1.18';
         const dis = document.querySelector<HTMLElement>('[data-disclaimer="1"]');
@@ -461,16 +477,16 @@ export default function Experience() {
                   <span style={{ overflow: 'hidden', display: 'block', padding: '0.02em 0' }}><span data-hline style={{ display: 'block' }}>decidiste algo</span></span>
                   <span style={{ overflow: 'hidden', display: 'block', padding: '0.02em 0' }}><span data-hline style={{ display: 'block', color: t.accent }}>solo para ti?</span></span>
                 </h1>
-                <div data-hero-sub="1" style={{ margin: 'clamp(12px,2.2vh,32px) 0 0 0' }}>
-                  <span style={{ display: 'block', width: 52, height: 1, background: 'rgba(20,17,16,0.28)', marginBottom: 'clamp(9px,1.4vh,22px)' }} />
-                  <p style={{ margin: 0, fontSize: 'clamp(17px,1.6vw,22px)', lineHeight: 1.45, color: t.ink, maxWidth: '19em', fontWeight: 500, letterSpacing: '-0.012em' }}>Soy Raquel Rodríguez.</p>
-                  <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(15px,1.35vw,18px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.7)', maxWidth: '25em', fontWeight: 400 }}>Yo tardé más de 20 años en contestar esta pregunta.</p>
+                <div data-hero-sub="1" style={{ margin: 'clamp(14px,2.2vh,32px) 0 0 0' }}>
+                  <span style={{ display: 'block', width: 52, height: 1, background: 'rgba(20,17,16,0.28)', marginBottom: 'clamp(11px,1.4vh,22px)' }} />
+                  <p style={{ margin: 0, fontSize: 'clamp(18px,1.6vw,22px)', lineHeight: 1.45, color: t.ink, maxWidth: '19em', fontWeight: 500, letterSpacing: '-0.012em' }}>Soy Raquel Rodríguez.</p>
+                  <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(16.5px,1.35vw,19px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.7)', maxWidth: '25em', fontWeight: 400 }}>Yo tardé más de 20 años en contestar esta pregunta.</p>
                 </div>
-                <div data-hero-sub="2" style={{ marginTop: 'clamp(20px,4vh,52px)', display: 'flex', alignItems: 'center', gap: 16 }}>
+                <div data-hero-sub="2" style={{ marginTop: 'clamp(21px,4vh,52px)', display: 'flex', alignItems: 'center', gap: 16 }}>
                   <span aria-hidden style={{ position: 'relative', display: 'block', width: 1, height: 56, background: 'rgba(20,17,16,0.14)', overflow: 'hidden', flex: 'none' }}>
                     <span style={{ position: 'absolute', left: 0, top: 0, width: 1, height: 22, background: t.accent, animation: 'rrgota 2.4s cubic-bezier(0.65,0,0.35,1) infinite' }} />
                   </span>
-                  <span style={{ fontSize: 12.5, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#6B6560' }}>Sigue bajando</span>
+                  <span style={{ fontSize: 14.5, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#6B6560' }}>Sigue bajando</span>
                 </div>
               </div>
               <div data-hero-img style={{ position: 'relative', overflow: 'hidden', willChange: 'transform' }}>
@@ -480,8 +496,8 @@ export default function Experience() {
                 <div data-hero-fade-y style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '16%', background: `linear-gradient(180deg, rgba(251,249,246,0) 0%, ${t.bg} 100%)`, pointerEvents: 'none' }} />
               </div>
             </div>
-            <div data-hero-bar style={{ position: 'absolute', left: t.gut, right: t.gut, bottom: 'clamp(18px,2.6vh,32px)', zIndex: 3, display: 'flex', flexWrap: 'nowrap', alignItems: 'center', justifyContent: 'space-between', gap: 24, borderTop: '1px solid rgba(20,17,16,0.12)', paddingTop: 'clamp(10px,1.6vh,16px)' }}>
-              <p style={{ margin: 0, fontSize: 13, fontWeight: 400, letterSpacing: '0.01em', color: '#6B6560', whiteSpace: 'nowrap' }}>Empresaria · Desde 2008</p>
+            <div data-hero-bar style={{ position: 'absolute', left: t.gut, right: t.gut, bottom: 'clamp(19px,2.6vh,32px)', zIndex: 3, display: 'flex', flexWrap: 'nowrap', alignItems: 'center', justifyContent: 'space-between', gap: 24, borderTop: '1px solid rgba(20,17,16,0.12)', paddingTop: 'clamp(12px,1.6vh,17.5px)' }}>
+              <p style={{ margin: 0, fontSize: 15.5, fontWeight: 400, letterSpacing: '0.01em', color: '#6B6560', whiteSpace: 'nowrap' }}>Empresaria · Desde 2008</p>
             </div>
           </div>
 
@@ -493,19 +509,19 @@ export default function Experience() {
               <p data-ch1-q style={{ margin: '1.6vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(1.7rem,3.6vw,3.2rem)', fontWeight: 500, letterSpacing: '-0.012em', lineHeight: 1.16, maxWidth: '15em' }}>
                 días ayudando a vivir el plan de otros.<br /><span style={{ color: t.accent }}>¿Y yo? ¿Para cuándo?</span>
               </p>
-              <p data-ch1-d style={{ margin: '2.4vh 0 0 0', fontSize: 'clamp(14px,1.4vw,17px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.72)', maxWidth: '24em' }}>
+              <p data-ch1-d style={{ margin: '2.4vh 0 0 0', fontSize: 'clamp(16.5px,1.4vw,18px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.72)', maxWidth: '24em' }}>
                 Tenía todo lo que pintan como una buena vida: buen sueldo, buenos resultados. Pero tenía la sensación de que no era lo que yo quería. Pasaban los días y nunca me preocupé por mí.
               </p>
             </div>
           </div>
 
           {/* 03 — El giro */}
-          <div data-ch="2" style={{ position: 'absolute', inset: 0, opacity: 0, color: t.ink, display: 'flex', alignItems: 'safe center', padding: `0 ${t.gut} clamp(20px,3vh,36px)`, gap: '5vw', boxSizing: 'border-box', overflow: 'hidden' }}>
+          <div data-ch="2" style={{ position: 'absolute', inset: 0, opacity: 0, color: t.ink, display: 'flex', alignItems: 'safe center', padding: `0 ${t.gut} clamp(21px,3vh,36px)`, gap: '5vw', boxSizing: 'border-box', overflow: 'hidden' }}>
             <div style={{ flex: '1.4 1 0', minWidth: 0 }}>
               <p data-wseq style={{ margin: 0, fontFamily: t.font, fontSize: 'clamp(2.2rem,5vw,4.6rem)', fontWeight: 500, letterSpacing: '-0.014em', lineHeight: 1.12, maxWidth: '15em' }}>
                 {STORY_WORDS.flatMap((w, i) => [<span key={`w${i}`}>{w}</span>, i < STORY_WORDS.length - 1 ? ' ' : null])}
               </p>
-              <p data-disclaimer="1" style={{ margin: '3.5vh 0 0 0', fontSize: 'clamp(14px,1.4vw,16px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.68)', maxWidth: '40ch', opacity: 0 }}>
+              <p data-disclaimer="1" style={{ margin: '3.5vh 0 0 0', fontSize: 'clamp(16.5px,1.4vw,17.5px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.68)', maxWidth: '40ch', opacity: 0 }}>
                 Escalando paso a paso. Me llevó tiempo, pero lo logré. Y tú también puedes.
               </p>
             </div>
@@ -514,7 +530,7 @@ export default function Experience() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/raquel-retrato.webp" alt="Raquel Rodríguez" style={{ width: '100%', height: '118%', objectFit: 'cover', objectPosition: '50% 15%', display: 'block' }} />
               </div>
-              <figcaption data-portrait-pie style={{ margin: '12px 0 0 0', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>Raquel Rodríguez · Empresaria desde 2008</figcaption>
+              <figcaption data-portrait-pie style={{ margin: '12px 0 0 0', fontSize: 14.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>Raquel Rodríguez · Empresaria desde 2008</figcaption>
             </figure>
           </div>
 
@@ -525,9 +541,9 @@ export default function Experience() {
                 <div key={b.title} style={{ position: 'relative', overflow: 'hidden', borderRight: i < 3 ? '1px solid rgba(20,17,16,0.08)' : undefined }}>
                   <div data-band style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(${b.rgb},0) 20%, rgba(${b.rgb},${b.a}) 100%)`, transform: 'scaleY(0)', transformOrigin: 'bottom' }} />
                   <div data-bandlabel style={{ position: 'absolute', left: 0, right: 0, bottom: '6vh', textAlign: 'center', opacity: 0, padding: '0 12px' }}>
-                    <p style={{ margin: 0, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>0{i + 1}</p>
+                    <p style={{ margin: 0, fontSize: 14.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>0{i + 1}</p>
                     <p style={{ margin: '10px 0 0 0', fontSize: 'clamp(1.15rem,2vw,1.75rem)', fontWeight: 650, letterSpacing: '-0.02em', lineHeight: 1.12 }}>{b.title}</p>
-                    <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(12.5px,1.15vw,14.5px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.74)' }}>{b.body}</p>
+                    <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(14.5px,1.15vw,17px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.74)' }}>{b.body}</p>
                   </div>
                 </div>
               ))}
@@ -544,28 +560,22 @@ export default function Experience() {
             {/* Caja que se encoge sola si la pantalla es muy bajita, para que
                 los 3 pasos y la tarjeta quepan enteros sin cortarse. */}
             <div data-ch5-caja style={{ width: '100%', transformOrigin: 'top center' }}>
-            {/* El puente con el capitulo anterior: repite sus cuatro palabras
-                para que quien lee entienda que esto es la respuesta al
-                "esto es lo que cambio" que acaba de leer. */}
-            <p data-ch5-puente style={{ margin: 0, fontSize: 'clamp(15px,1.5vw,19px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.62)', maxWidth: '40ch', fontWeight: 450 }}>
-              Mi tiempo, mi gente, mi familia, mi vida. Nada de eso cambió por suerte.
-            </p>
-            <h2 data-ch5-title style={{ margin: '1.6vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
+            <h2 data-ch5-title style={{ margin: 0, fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
               Cambió porque encontré cómo ganarme la vida desde casa.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Y hoy quiero compartirla contigo.</span>
             </h2>
-            <p data-ch5-sub style={{ margin: '1.8vh 0 0 0', fontSize: 'clamp(15px,1.35vw,18px)', lineHeight: 1.55, color: 'rgba(20,17,16,0.7)', maxWidth: '44ch' }}>
+            <p data-ch5-sub style={{ margin: '1.8vh 0 0 0', fontSize: 'clamp(16.5px,1.35vw,19px)', lineHeight: 1.55, color: 'rgba(20,17,16,0.7)', maxWidth: '44ch' }}>
               Llevo años con esto y tengo resultados. Si algo he aprendido es que funciona. Si te interesa, agenda una llamada y te lo cuento tal cual es.
             </p>
-            <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
+            <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(19px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
               {[
-                ['Agendamos una llamada', 'Me cuentas dónde estás y qué te gustaría cambiar. Yo te digo con sinceridad si puedo ayudarte.'],
+                ['Agendamos una llamada', 'Me cuentas dónde estás. Yo te digo con sinceridad si puedo ayudarte.'],
                 ['Empiezas pequeño', 'Sin dejar lo que ya tienes. Como empecé yo: en casa y a mi ritmo.'],
-                ['Decides hasta dónde', 'Si te encaja, te acompaño con todo lo que aprendí. Si no, nos hemos conocido y ya está.'],
+                ['Decides hasta dónde', 'Si te encaja, te acompaño. Si no, nos hemos conocido y ya está.'],
               ].map(([title, body], i) => (
                 <div key={title} data-step style={{ borderTop: '1px solid rgba(20,17,16,0.16)', paddingTop: 16 }}>
-                  <p style={{ margin: 0, fontSize: 12.5, fontWeight: 600, letterSpacing: '0.18em', color: t.accent }}>0{i + 1}</p>
-                  <p style={{ margin: '10px 0 0 0', fontSize: 'clamp(17px,1.6vw,21px)', fontWeight: 600, letterSpacing: '-0.02em' }}>{title}</p>
-                  <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(13.5px,1.25vw,15.5px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.7)' }}>{body}</p>
+                  <p style={{ margin: 0, fontSize: 14.5, fontWeight: 600, letterSpacing: '0.18em', color: t.accent }}>0{i + 1}</p>
+                  <p style={{ margin: '10px 0 0 0', fontSize: 'clamp(18px,1.6vw,22px)', fontWeight: 600, letterSpacing: '-0.02em' }}>{title}</p>
+                  <p style={{ margin: '8px 0 0 0', fontSize: 'clamp(16px,1.25vw,17px)', lineHeight: 1.6, color: 'rgba(20,17,16,0.7)' }}>{body}</p>
                 </div>
               ))}
             </div>
@@ -576,9 +586,9 @@ export default function Experience() {
               data-tarjeta-inversion
               href="/inversion"
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: 'clamp(14px,2vw,22px)',
+                display: 'inline-flex', alignItems: 'center', gap: 'clamp(16.5px,2vw,22px)',
                 margin: 'clamp(22px,3.4vh,38px) 0 0 0', maxWidth: '46em',
-                padding: 'clamp(14px,1.8vh,20px) clamp(18px,2vw,26px)',
+                padding: 'clamp(16.5px,1.8vh,21px) clamp(19px,2vw,26px)',
                 borderRadius: 16,
                 border: `1px solid ${t.accent}33`,
                 background: 'linear-gradient(120deg, rgba(232,212,216,0.34) 0%, rgba(201,164,171,0.14) 100%)',
@@ -586,17 +596,17 @@ export default function Experience() {
               }}
             >
               <span style={{ flex: 1, minWidth: 0 }}>
-                <span data-tarjeta-kicker style={{ display: 'block', fontSize: 11.5, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: t.accent, marginBottom: 5 }}>
+                <span data-tarjeta-kicker style={{ display: 'block', fontSize: 13.5, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: t.accent, marginBottom: 5 }}>
                   Antes de hablar
                 </span>
-                <span data-tarjeta-texto style={{ display: 'block', fontSize: 'clamp(14.5px,1.4vw,17px)', lineHeight: 1.5, color: t.ink, fontWeight: 500, letterSpacing: '-0.012em' }}>
+                <span data-tarjeta-texto style={{ display: 'block', fontSize: 'clamp(17px,1.4vw,18px)', lineHeight: 1.5, color: t.ink, fontWeight: 500, letterSpacing: '-0.012em' }}>
                   Míralo todo escrito: qué es, cuánto cuesta y qué dicen quienes ya lo tienen
                 </span>
               </span>
               <span data-flecha aria-hidden style={{
                 flex: 'none', width: 40, height: 40, borderRadius: '50%',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: t.accent, color: '#F4EBED', fontSize: 17, lineHeight: 1,
+                background: t.accent, color: '#F4EBED', fontSize: 18, lineHeight: 1,
                 transition: 'transform 320ms cubic-bezier(.22,1,.36,1)',
               }}>→</span>
             </a>

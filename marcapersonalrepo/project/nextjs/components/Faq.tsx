@@ -17,12 +17,12 @@ export default function Faq() {
       {ITEMS.map(([q, a], i) => (
         <div key={q} style={{ borderTop: '1px solid ' + t.hair, borderBottom: i === ITEMS.length - 1 ? '1px solid ' + t.hair : undefined }}>
           <button type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? -1 : i)} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, textAlign: 'left', padding: '21px 0' }}>
-            <span style={{ fontSize: 'clamp(15.5px,1.4vw,17.5px)', fontWeight: 600 }}>{q}</span>
+            <span style={{ fontSize: 'clamp(17px,1.4vw,18.5px)', fontWeight: 600 }}>{q}</span>
             <span style={{ fontSize: 24, fontWeight: 300, color: t.accent, lineHeight: 1, transition: 'transform 400ms cubic-bezier(.22,1,.36,1)', transform: open === i ? 'rotate(45deg)' : 'none' }}>+</span>
           </button>
           <div style={{ display: 'grid', gridTemplateRows: open === i ? '1fr' : '0fr', transition: 'grid-template-rows 400ms cubic-bezier(.22,1,.36,1)' }}>
             <div style={{ overflow: 'hidden', minHeight: 0 }}>
-              <p style={{ margin: '0 0 22px', fontSize: 15.5, lineHeight: 1.65, color: t.soft, maxWidth: '64ch' }}>{a}</p>
+              <p style={{ margin: '0 0 22px', fontSize: 17, lineHeight: 1.65, color: t.soft, maxWidth: '64ch' }}>{a}</p>
             </div>
           </div>
         </div>

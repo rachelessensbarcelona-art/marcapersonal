@@ -22,7 +22,7 @@ export default function Logo({ alto, soloImagen = false }: { alto: string; soloI
 
   if (roto) {
     return soloImagen ? null : (
-      <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '0.02em' }}>{site.name}</span>
+      <span style={{ fontSize: 16.5, fontWeight: 600, letterSpacing: '0.02em' }}>{site.name}</span>
     );
   }
 
