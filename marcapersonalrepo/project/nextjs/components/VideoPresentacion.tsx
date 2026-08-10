@@ -1,67 +1,83 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { t, videoUrl, aEmbed } from '@/lib/site';
+import { useEffect, useRef, useState } from 'react';
+import { t } from '@/lib/site';
 
 /**
- * El vídeo de la página de inversión.
+ * El vídeo de presentación, servido desde la propia web (public/video.mp4).
  *
- * Si existe public/video.mp4 (lo subes tú, igual que el logo), se usa
- * el reproductor nativo del navegador: carga al instante y siempre
- * tiene su botón de play/pausa, porque es el propio navegador quien
- * lo dibuja — no depende de ningún servicio externo.
+ * Tres cosas hacen que arranque al instante:
  *
- * Si no existe ese archivo, cae al enlace de VIDEO_URL en lib/site.ts
- * (YouTube, Vimeo o Drive) incrustado en un iframe. Esa vía depende
- * del reproductor de terceros: no podemos garantizar su velocidad de
- * carga ni sus controles, porque el vídeo vive en sus servidores, no
- * en los nuestros.
+ *  1. El archivo está preparado con "faststart": el índice del vídeo va al
+ *     principio, así que el navegador puede empezar a pintar imagen mientras
+ *     todavía se está descargando el resto. Sin eso habría que esperar a
+ *     tener los 12 MB enteros antes de ver nada.
+ *  2. Arranca solo y en silencio. Los navegadores solo permiten el arranque
+ *     automático si no hay sonido — con sonido lo bloquean siempre, sin
+ *     excepción. Como el vídeo lleva los subtítulos incrustados, se entiende
+ *     igual desde el primer segundo.
+ *  3. Encima queda un botón para activar el sonido. Un solo toque.
+ *
+ * Y como es el reproductor del propio navegador, el botón de pausa es de
+ * verdad y funciona en cualquier móvil.
  */
 export default function VideoPresentacion() {
-  const [autohospedado, setAutohospedado] = useState(false);
+  const ref = useRef<HTMLVideoElement>(null);
+  const [conSonido, setConSonido] = useState(false);
 
   useEffect(() => {
-    let vivo = true;
-    fetch('/video.mp4', { method: 'HEAD' })
-      .then((r) => { if (vivo && r.ok) setAutohospedado(true); })
-      .catch(() => {});
-    return () => { vivo = false; };
+    const v = ref.current;
+    if (!v) return;
+    // Si la persona ha pedido menos animación en su móvil, no arrancamos solos.
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Algunos navegadores rechazan la promesa si aún no hay datos: da igual,
+    // el botón de play sigue estando para quien quiera darle.
+    v.play().catch(() => {});
   }, []);
 
-  if (autohospedado) {
-    return (
-      <video
-        controls
-        preload="auto"
-        playsInline
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block', background: '#000' }}
-      >
-        <source src="/video.mp4" type="video/mp4" />
-      </video>
-    );
-  }
-
-  const embed = aEmbed(videoUrl);
-  if (embed) {
-    return (
-      <iframe
-        src={embed}
-        title="Vídeo de presentación"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-        allowFullScreen
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, display: 'block' }}
-      />
-    );
-  }
+  const activarSonido = () => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = false;
+    v.volume = 1;
+    setConSonido(true);
+    v.play().catch(() => {});
+  };
 
   return (
-    <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, background: 'repeating-linear-gradient(135deg, rgba(20,17,16,0.045) 0 1px, transparent 1px 13px)' }}>
-      <span style={{ width: 76, height: 76, borderRadius: '50%', border: '1px solid rgba(20,17,16,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(251,249,246,0.7)' }}>
-        <span style={{ width: 0, height: 0, borderLeft: `18px solid ${t.ink}`, borderTop: '11px solid transparent', borderBottom: '11px solid transparent', marginLeft: 5 }} />
-      </span>
-      <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#6B6560', textAlign: 'center', padding: '0 24px', lineHeight: 1.7 }}>
-        Aquí va tu vídeo · 16:9<br />sube public/video.mp4 o pega el enlace en lib/site.ts
-      </span>
-    </div>
+    <>
+      <video
+        ref={ref}
+        controls
+        muted
+        autoPlay
+        playsInline
+        preload="auto"
+        poster="/video-poster.jpg"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block', background: '#000', objectFit: 'cover' }}
+      >
+        <source src="/video.mp4" type="video/mp4" />
+        Tu navegador no puede reproducir este vídeo.
+      </video>
+
+      {!conSonido && (
+        <button
+          type="button"
+          onClick={activarSonido}
+          style={{
+            position: 'absolute', top: 'clamp(9px,1.4vw,14px)', right: 'clamp(9px,1.4vw,14px)', zIndex: 2,
+            display: 'inline-flex', alignItems: 'center', gap: 7,
+            padding: 'clamp(7px,1vw,9px) clamp(11px,1.3vw,15px) clamp(7px,1vw,9px) clamp(9px,1.1vw,12px)', borderRadius: 999,
+            background: 'rgba(251,249,246,0.94)', color: t.ink,
+            fontSize: 'clamp(11.5px,1.1vw,13px)', fontWeight: 600, letterSpacing: '-0.01em',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
+            backdropFilter: 'blur(6px)',
+          }}
+        >
+          <span aria-hidden style={{ fontSize: 15, lineHeight: 1 }}>🔇</span>
+          Activar sonido
+        </button>
+      )}
+    </>
   );
 }
