@@ -20,9 +20,6 @@ const BANDS = [
 const STORY_WORDS = 'Hasta que todo cambió. Empecé pensando en mí, en mi casa, sin contárselo a nadie. Fueron meses de constancia, presentaciones hasta altas horas de la madrugada con equipos del otro lado del mundo.'.split(' ');
 const ACCENT_WORDS = /cambió\.|mí,|Hasta/;
 
-const kicker: React.CSSProperties = { fontSize: 12.5, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: t.accent };
-const kickerSoft: React.CSSProperties = { fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' };
-
 export default function Experience() {
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -120,11 +117,9 @@ export default function Experience() {
         }
       }
 
-      // Los indicadores de capitulo estorban en movil: fuera. Queda la barra de abajo.
+      // Las rayitas de capitulo estorban en movil: fuera. Queda la barra de abajo.
       const rail = document.getElementById('xp-rail');
-      const num = document.getElementById('xp-slidenum');
       if (rail) rail.style.display = narrow ? 'none' : 'flex';
-      if (num) num.style.display = narrow ? 'none' : 'flex';
       const c2 = document.querySelector<HTMLElement>('[data-ch="3"]');
       const head = document.querySelector<HTMLElement>('[data-ch2-head]');
       const grid = document.querySelector<HTMLElement>('[data-bands-grid]');
@@ -142,10 +137,24 @@ export default function Experience() {
       const por = document.querySelector<HTMLElement>('[data-portrait]');
       const wseq = document.querySelector<HTMLElement>('[data-wseq]');
       if (por && wseq) {
+        // En movil ella tambien sale: la foto va arriba, redonda y compacta,
+        // y la frase debajo. Antes se escondia y la historia quedaba sin cara.
+        const c3 = document.querySelector<HTMLElement>('[data-ch="2"]');
+        const marco = document.querySelector<HTMLElement>('[data-portrait-marco]');
+        const pie = document.querySelector<HTMLElement>('[data-portrait-pie]');
+        por.style.display = 'block';
+        if (c3) { c3.style.flexDirection = narrow ? 'column' : 'row'; c3.style.gap = narrow ? '2.2vh' : '5vw'; }
+        por.style.order = narrow ? '-1' : '0';
+        por.style.flex = narrow ? 'none' : '1 1 0';
+        por.style.width = narrow ? 'min(42vw,164px)' : 'auto';
+        por.style.maxWidth = narrow ? 'none' : '420px';
+        por.style.alignSelf = narrow ? 'flex-start' : 'auto';
+        if (marco) { marco.style.aspectRatio = narrow ? '1 / 1' : '4 / 5'; marco.style.borderRadius = narrow ? '999px' : '24px'; }
+        if (pie) pie.style.display = narrow ? 'none' : 'block';
+
         // La historia es larga: la letra se ata tambien al alto de la ventana,
         // que si no en portatiles se sale por abajo.
-        por.style.display = narrow ? 'none' : 'block';
-        wseq.style.fontSize = narrow ? 'clamp(1.15rem,4.8vw,1.6rem)' : 'clamp(1.3rem,min(2.9vw,3.9vh),2.7rem)';
+        wseq.style.fontSize = narrow ? 'clamp(1.05rem,4.3vw,1.45rem)' : 'clamp(1.3rem,min(2.9vw,3.9vh),2.7rem)';
         wseq.style.maxWidth = narrow ? '100%' : '17em';
         wseq.style.lineHeight = '1.18';
         const dis = document.querySelector<HTMLElement>('[data-disclaimer="1"]');
@@ -296,7 +305,10 @@ export default function Experience() {
       pt = tt;
 
       if (moved) {
-        const bgs = [[251, 249, 246], [248, 246, 242], [245, 243, 239], [251, 249, 246], [248, 246, 242]];
+        // Cada capitulo respira un color distinto de la paleta, muy suave:
+        // crema, azul, rosa, azul y rosa. Sin llegar a distraer, pero el
+        // recorrido deja de ser todo blanco.
+        const bgs = [[251, 249, 246], [244, 246, 250], [250, 244, 246], [243, 246, 251], [250, 245, 247]];
         const bi = Math.min(4, Math.floor(tt)), bp = tt - bi;
         const nb = Math.min(4, bi + 1);
         const mix = sm((bp - 0.62) / 0.38);
@@ -309,8 +321,6 @@ export default function Experience() {
         // del todo justo ahi, y siguen enteros en el resto de capitulos.
         canvas.style.opacity = esMovil && tt > 3.55 ? Math.max(0.16, 1 - (tt - 3.55) * 2.4).toFixed(2) : '1';
         const activeNow = Math.max(0, Math.min(4, Math.round(tt - 0.2)));
-        const num = document.getElementById('xp-slidenow');
-        if (num) num.textContent = '0' + (activeNow + 1);
         if (activeNow !== active) {
           active = activeNow;
           railBtns.forEach((b, i) => { const bar = b.firstChild as HTMLElement; bar.style.opacity = i === active ? '0.95' : '0.3'; bar.style.transform = i === active ? 'scaleX(1.35)' : 'scaleX(1)'; });
@@ -432,10 +442,6 @@ export default function Experience() {
       <div style={{ position: 'fixed', left: 0, right: 0, bottom: 0, height: 2, zIndex: 82, background: 'rgba(20,17,16,0.08)' }}>
         <div id="xp-progress" style={{ height: '100%', width: '0%', background: t.accent, transformOrigin: 'left' }} />
       </div>
-      <div id="xp-slidenum" style={{ position: 'fixed', left: `calc(${t.gut} / 2 - 13px)`, top: '50%', marginTop: -96, zIndex: 82, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', color: '#6B6560' }}>
-        <span id="xp-slidenow" style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em', color: t.ink }}>01</span>
-        <span style={{ fontSize: 12, letterSpacing: '0.12em', color: '#6B6560' }}>/ 05</span>
-      </div>
 
       <div ref={trackRef} style={{ position: 'relative', height: '900vh' }}>
         <div ref={stageRef} style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: t.bg }}>
@@ -446,10 +452,6 @@ export default function Experience() {
           <div data-ch="0" style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
             <div data-hero-split style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: '52% 48%' }}>
               <div data-hero-text="1" style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', justifyContent: 'safe center', padding: 'clamp(72px,10vh,112px) clamp(28px,3.5vw,64px) clamp(76px,10vh,100px) 7vw', boxSizing: 'border-box', minHeight: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 'clamp(10px,1.8vh,26px)' }}>
-                  <span style={kicker}>01</span>
-                  <span style={kickerSoft}>La pregunta</span>
-                </div>
                 <h1 data-hero-h1 style={{ margin: 0, fontWeight: 500, fontSize: 'clamp(2.2rem,min(7.4vw,8.6vh),7.6rem)', letterSpacing: '-0.042em', lineHeight: 0.92, color: t.ink }}>
                   <span style={{ overflow: 'hidden', display: 'block', padding: '0.02em 0' }}><span data-hline style={{ display: 'block' }}>¿Cuándo</span></span>
                   <span style={{ overflow: 'hidden', display: 'block', padding: '0.02em 0' }}><span data-hline style={{ display: 'block' }}>decidiste algo</span></span>
@@ -483,10 +485,6 @@ export default function Experience() {
           <div data-ch="1" style={{ position: 'absolute', inset: 0, opacity: 0, color: t.ink }}>
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(80% 70% at 22% 50%, rgba(251,249,246,0.94) 0%, rgba(251,249,246,0.7) 45%, rgba(251,249,246,0.1) 100%)' }} />
             <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: `0 ${t.gut}` }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-                <span style={kicker}>02</span>
-                <span style={kickerSoft}>Lo que no contaba</span>
-              </div>
               <p data-big="dias" style={{ margin: '1.4vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(5rem,15vw,14rem)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 0.86, fontVariantNumeric: 'tabular-nums', color: t.ink }}>0</p>
               <p data-ch1-q style={{ margin: '1.6vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(1.7rem,3.6vw,3.2rem)', fontWeight: 500, letterSpacing: '-0.012em', lineHeight: 1.16, maxWidth: '15em' }}>
                 días ayudando a vivir el plan de otros.<br /><span style={{ color: t.accent }}>¿Y yo? ¿Para cuándo?</span>
@@ -500,10 +498,6 @@ export default function Experience() {
           {/* 03 — El giro */}
           <div data-ch="2" style={{ position: 'absolute', inset: 0, opacity: 0, color: t.ink, display: 'flex', alignItems: 'safe center', padding: `0 ${t.gut} clamp(20px,3vh,36px)`, gap: '5vw', boxSizing: 'border-box', overflow: 'hidden' }}>
             <div style={{ flex: '1.4 1 0', minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: '3vh' }}>
-                <span style={kicker}>03</span>
-                <span style={kickerSoft}>El giro</span>
-              </div>
               <p data-wseq style={{ margin: 0, fontFamily: t.font, fontSize: 'clamp(2.2rem,5vw,4.6rem)', fontWeight: 500, letterSpacing: '-0.014em', lineHeight: 1.12, maxWidth: '15em' }}>
                 {STORY_WORDS.flatMap((w, i) => [<span key={`w${i}`}>{w}</span>, i < STORY_WORDS.length - 1 ? ' ' : null])}
               </p>
@@ -512,11 +506,11 @@ export default function Experience() {
               </p>
             </div>
             <figure data-portrait="1" style={{ flex: '1 1 0', minWidth: 0, margin: 0, maxWidth: 420, display: 'block' }}>
-              <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4 / 5' }}>
+              <div data-portrait-marco style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4 / 5', boxShadow: '0 18px 44px rgba(30,45,66,0.18)' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/raquel-retrato.webp" alt="Raquel Rodríguez" style={{ width: '100%', height: '118%', objectFit: 'cover', objectPosition: '50% 15%', display: 'block' }} />
               </div>
-              <figcaption style={{ margin: '12px 0 0 0', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>Raquel Rodríguez · Empresaria desde 2008</figcaption>
+              <figcaption data-portrait-pie style={{ margin: '12px 0 0 0', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>Raquel Rodríguez · Empresaria desde 2008</figcaption>
             </figure>
           </div>
 
@@ -535,10 +529,6 @@ export default function Experience() {
               ))}
             </div>
             <div data-ch2-head style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: '10vh 5vw 0', textAlign: 'center', pointerEvents: 'none', boxSizing: 'border-box' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-                <span style={kicker}>04</span>
-                <span style={kickerSoft}>Lo que cambió</span>
-              </div>
               <h2 style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2.7rem,6.4vw,6.4rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 0.98 }}>
                 Cinco años después,<br /><span style={{ color: t.accent, fontWeight: 500 }}>esto es lo que cambió.</span>
               </h2>
@@ -550,12 +540,8 @@ export default function Experience() {
             {/* Caja que se encoge sola si la pantalla es muy bajita, para que
                 los 3 pasos y la tarjeta quepan enteros sin cortarse. */}
             <div data-ch5-caja style={{ width: '100%', transformOrigin: 'top center' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-              <span style={kicker}>05</span>
-              <span style={kickerSoft}>Y ahora tú</span>
-            </div>
             <h2 data-ch5-title style={{ margin: '2.2vh 0 0 0', fontFamily: t.font, fontSize: 'clamp(2rem,3.8vw,3.6rem)', fontWeight: 500, letterSpacing: '-0.018em', lineHeight: 1.06, maxWidth: '16em' }}>
-              Piensa en ti.<br /><span style={{ color: t.accent, fontWeight: 500 }}>Transfórmate en 3 pasos. Tú decides.</span>
+              Puedes seguir pensándolo un año más.<br /><span style={{ color: t.accent, fontWeight: 500 }}>O hablar conmigo veinte minutos.</span>
             </h2>
             <div data-ch5-grid style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,230px),1fr))', gap: 'clamp(18px,2.4vw,34px)', marginTop: 'clamp(24px,4vh,46px)', maxWidth: 1100 }}>
               {[

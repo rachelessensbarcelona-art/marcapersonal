@@ -32,6 +32,27 @@ export default function BookingAgent() {
   }, []);
   useEffect(() => { if (box.current) box.current.scrollTop = box.current.scrollHeight; }, [msgs, typing]);
 
+  // Con la conversacion abierta, la pagina de detras se queda quieta. Antes
+  // se movia al arrastrar y era incomodisimo apuntar un dato.
+  useEffect(() => {
+    if (!open) return;
+    const y = window.scrollY;
+    const body = document.body;
+    const antes = body.style.cssText;
+    body.style.position = 'fixed';
+    body.style.top = `-${y}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.overflow = 'hidden';
+    const cerrarConEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    addEventListener('keydown', cerrarConEsc);
+    return () => {
+      body.style.cssText = antes;
+      window.scrollTo(0, y);
+      removeEventListener('keydown', cerrarConEsc);
+    };
+  }, [open]);
+
   const push = (m: Msg) => setMsgs((v) => [...v, m]);
 
   const say = async (text: string, opts: { fast?: boolean; chips?: Chip[] } = {}) => {
@@ -165,12 +186,15 @@ export default function BookingAgent() {
     void route(v);
   };
 
-  const ink = '#191510', bone = '#F3EFE9';
+  const ink = '#191510';
+  // Los mensajes de la persona van en el azul de la paleta, no en negro:
+  // la conversacion deja de parecer un documento y parece una conversacion.
   const bubble = (me?: boolean) => ({
-    background: me ? '#1B1611' : 'rgba(25,21,16,0.06)',
-    color: me ? bone : ink,
+    background: me ? `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)` : 'rgba(30,45,66,0.06)',
+    color: me ? '#FFFFFF' : ink,
     borderRadius: me ? '18px 18px 6px 18px' : '18px 18px 18px 6px',
     padding: '11px 15px', maxWidth: '84%', fontSize: 14.5, lineHeight: 1.55,
+    boxShadow: me ? '0 6px 18px rgba(30,45,66,0.22)' : 'none',
   });
 
   const row = (k: string, v: string) => (
@@ -181,19 +205,36 @@ export default function BookingAgent() {
   );
 
   return (
-    <div data-agente style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 96, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, pointerEvents: 'none', opacity: menuAbierto ? 0 : 1, visibility: menuAbierto ? 'hidden' : 'visible', transition: 'opacity 260ms ease' }}>
-      <div data-native-cursor style={{ width: 'min(376px, calc(100vw - 44px))', height: 'min(560px, calc(100dvh - 140px))', display: 'flex', flexDirection: 'column', background: '#FFFFFF', color: ink, borderRadius: 24, overflow: 'hidden', boxShadow: '0 26px 70px rgba(20,17,16,0.16)', border: '1px solid rgba(25,21,16,0.08)', transformOrigin: '100% 100%', transform: open ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.96)', opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transition: 'transform 380ms cubic-bezier(.22,1,.36,1), opacity 300ms ease' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 18px', borderBottom: '1px solid rgba(25,21,16,0.1)' }}>
+    <>
+      {/* El velo oscuro: apaga la pagina de detras para que nadie intente
+          hacer scroll con la conversacion abierta. */}
+      <div
+        data-agente-velo
+        onClick={() => setOpen(false)}
+        style={{ position: 'fixed', inset: 0, zIndex: 120, background: 'rgba(20,29,44,0.62)', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)', opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transition: 'opacity 320ms ease' }}
+      />
+
+      {/* La conversacion, a pantalla completa. Crece desde la esquina donde
+          esta la foto de Raquel y se encoge hacia ella al cerrar. */}
+      <div data-agente-escena style={{ position: 'fixed', inset: 0, zIndex: 121, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--marco-chat, 0px)', pointerEvents: open ? 'auto' : 'none' }}>
+      <div data-native-cursor data-agente-panel style={{ width: '100%', height: '100%', maxWidth: 'var(--ancho-chat, 100%)', maxHeight: 'var(--alto-chat, 100%)', display: 'flex', flexDirection: 'column', background: 'linear-gradient(168deg, #FFFFFF 0%, #FBF9F6 44%, #F6EBEE 100%)', color: ink, borderRadius: 'var(--radio-chat, 0px)', overflow: 'hidden', boxShadow: '0 40px 110px rgba(20,29,44,0.42)', transformOrigin: 'bottom right', transform: open ? 'scale(1) translate(0,0)' : 'scale(0.28) translate(12%, 14%)', opacity: open ? 1 : 0, transition: 'transform 460ms cubic-bezier(.22,1,.36,1), opacity 260ms ease' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 'calc(14px + env(safe-area-inset-top, 0px)) 18px 14px', background: `linear-gradient(118deg, ${t.deep} 0%, ${t.accent} 58%, ${t.accentSoft} 100%)`, color: '#FFFFFF', flex: 'none' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/raquel-avatar.webp" alt="Raquel Rodríguez" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', flex: 'none' }} />
+          <img src="/raquel-avatar.webp" alt="Raquel Rodríguez" style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', flex: 'none', border: '1.5px solid rgba(255,255,255,0.5)' }} />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>Raquel Rodríguez</p>
-            <p style={{ margin: '1px 0 0', fontSize: 12, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6B6560' }}>Asistente de agenda · En línea</p>
+            <p style={{ margin: 0, fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em' }}>Raquel Rodríguez</p>
+            <p style={{ margin: '2px 0 0', fontSize: 11.5, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: t.roseSoft, display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span aria-hidden style={{ width: 6, height: 6, borderRadius: '50%', background: '#7BD88F', display: 'inline-block' }} />
+              Asistente de agenda · En línea
+            </p>
           </div>
-          <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar" style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(25,21,16,0.06)', fontSize: 15, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+          <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar la conversación" style={{ width: 36, height: 36, flex: 'none', borderRadius: '50%', background: 'rgba(255,255,255,0.16)', color: '#FFFFFF', fontSize: 19, fontWeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
         </div>
 
-        <div ref={box} style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '18px 18px 10px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div ref={box} style={{ flex: 1, minHeight: 0, overflowY: 'auto', overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', padding: '20px 18px 12px', display: 'flex', flexDirection: 'column' }}>
+          {/* marginTop:auto empuja la conversacion hacia abajo, como en
+              cualquier chat, en vez de dejar media pantalla en blanco. */}
+          <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
           {msgs.map((m, i) => (
             <div key={i} style={{ display: 'flex', justifyContent: m.me ? 'flex-end' : 'flex-start' }}>
               {m.card ? (
@@ -213,34 +254,39 @@ export default function BookingAgent() {
           ))}
           {typing && (
             <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-              <div style={{ background: 'rgba(25,21,16,0.06)', borderRadius: '18px 18px 18px 6px', padding: '14px 16px', display: 'flex', gap: 5 }}>
+              <div style={{ background: 'rgba(30,45,66,0.07)', borderRadius: '18px 18px 18px 6px', padding: '14px 16px', display: 'flex', gap: 5 }}>
                 {[0, 0.15, 0.3].map((d) => (
-                  <span key={d} style={{ width: 6, height: 6, borderRadius: '50%', background: ink, animation: `rrdot 1.1s ${d}s infinite` }} />
+                  <span key={d} style={{ width: 6, height: 6, borderRadius: '50%', background: t.accent, animation: `rrdot 1.1s ${d}s infinite` }} />
                 ))}
               </div>
             </div>
           )}
+          </div>
         </div>
 
         {chips.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, padding: '2px 16px 12px' }}>
             {chips.map((c) => (
-              <button key={c.label} type="button" onClick={() => pick(c)} style={{ background: c.primary ? '#1B1611' : 'transparent', color: c.primary ? bone : ink, border: c.primary ? '1px solid #1B1611' : '1px solid rgba(25,21,16,0.28)', borderRadius: 999, padding: '8px 15px', fontSize: 13.5, fontWeight: 500 }}>
+              <button key={c.label} type="button" onClick={() => pick(c)} style={{ background: c.primary ? `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)` : 'rgba(255,255,255,0.72)', color: c.primary ? '#FFFFFF' : t.deep, border: c.primary ? 'none' : `1px solid ${t.accent}38`, borderRadius: 999, padding: '9px 16px', fontSize: 13.5, fontWeight: 600, boxShadow: c.primary ? '0 6px 16px rgba(30,45,66,0.24)' : 'none' }}>
                 {c.label}
               </button>
             ))}
           </div>
         )}
 
-        <form onSubmit={send} style={{ display: 'flex', gap: 10, padding: '11px 13px', borderTop: '1px solid rgba(25,21,16,0.1)', alignItems: 'center' }}>
-          <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Escribe aquí…" aria-label="Mensaje para el asistente" style={{ flex: 1, minWidth: 0, background: 'rgba(25,21,16,0.05)', border: 'none', borderRadius: 999, padding: '11px 17px', fontSize: 14.5 }} />
-          <button type="submit" aria-label="Enviar" style={{ width: 40, height: 40, flex: 'none', borderRadius: '50%', background: '#191510', color: bone, fontSize: 17, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>↑</button>
+        <form onSubmit={send} style={{ display: 'flex', gap: 10, padding: '12px 14px', borderTop: `1px solid ${t.accent}1f`, alignItems: 'center', flex: 'none', background: 'rgba(255,255,255,0.6)' }}>
+          <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Escribe aquí…" aria-label="Mensaje para el asistente" style={{ flex: 1, minWidth: 0, background: 'rgba(30,45,66,0.06)', border: 'none', borderRadius: 999, padding: '13px 18px', fontSize: 16 }} />
+          <button type="submit" aria-label="Enviar" style={{ width: 44, height: 44, flex: 'none', borderRadius: '50%', background: `linear-gradient(135deg, ${t.accent} 0%, ${t.deep} 100%)`, color: '#FFFFFF', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 16px rgba(30,45,66,0.26)' }}>↑</button>
         </form>
-        <p style={{ margin: 0, padding: '0 14px 11px', textAlign: 'center', fontSize: 10.5, fontWeight: 500, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(25,21,16,0.45)' }}>
+        <p style={{ margin: 0, padding: '0 14px calc(12px + env(safe-area-inset-bottom, 0px))', textAlign: 'center', fontSize: 10.5, fontWeight: 500, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(30,45,66,0.45)', background: 'rgba(255,255,255,0.6)', flex: 'none' }}>
           Datos solo para organizar la llamada · RGPD
         </p>
       </div>
+      </div>
 
+      {/* La foto flotante: desaparece mientras la conversacion esta abierta,
+          porque su sitio lo ocupa ahora el panel entero. */}
+      <div data-agente style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 96, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, pointerEvents: 'none', opacity: menuAbierto || open ? 0 : 1, visibility: menuAbierto || open ? 'hidden' : 'visible', transition: 'opacity 260ms ease' }}>
       <div data-agente-fila style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'auto' }}>
         <button
           type="button"
@@ -262,6 +308,7 @@ export default function BookingAgent() {
           {!opened && <span style={{ position: 'absolute', top: 4, right: 4, width: 8, height: 8, borderRadius: '50%', background: t.accent, boxShadow: `0 0 0 2px ${t.bg}`, display: 'block' }} />}
         </button>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

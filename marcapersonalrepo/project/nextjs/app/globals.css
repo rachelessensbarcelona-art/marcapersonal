@@ -31,6 +31,23 @@ input { font: inherit; color: inherit; }
    la barra del navegador (safe-area) para que no lo corte.              */
 [data-agente] { bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
 
+/* ─── La conversacion con Raquel ───────────────────────────────────────
+   En movil ocupa la pantalla entera: se abre grande y hay que cerrarla
+   para volver a la pagina, asi nadie intenta hacer scroll por debajo.
+   En ordenador es un panel grande centrado sobre el velo oscuro.        */
+[data-agente-escena] {
+  --marco-chat: clamp(16px, 4vh, 40px);
+  --ancho-chat: 560px;
+  --alto-chat: 780px;
+  --radio-chat: 26px;
+}
+@media (max-width: 700px) {
+  [data-agente-escena] { --marco-chat: 0px; --ancho-chat: 100%; --alto-chat: 100%; --radio-chat: 0px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-agente-panel] { transition: opacity 200ms ease !important; transform: none !important; }
+}
+
 /* Tablet y movil: hay que reservarle sitio a la burbuja. */
 @media (max-width: 900px) { :root { --hueco-asistente: 72px; } }
 

@@ -17,10 +17,12 @@ export default function Closing() {
         ['--pb' as string]: 'clamp(48px,7vh,90px)',
       }}
     >
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(60% 50% at 50% 30%, rgba(201,164,171,0.22) 0%, rgba(201,164,171,0) 70%)' }} />
+      {/* Dos luces de la paleta, rosa arriba y azul abajo, para que el cierre
+          no quede en blanco y negro. */}
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(66% 52% at 50% 24%, rgba(201,164,171,0.34) 0%, rgba(201,164,171,0) 72%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(84% 48% at 50% 112%, rgba(44,62,90,0.18) 0%, rgba(44,62,90,0) 70%)' }} />
       <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', textAlign: 'center' }}>
-        <p style={{ margin: 0, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>06 — Tu turno</p>
-        <h2 style={{ margin: '2vh 0 0', fontFamily: t.font, fontSize: 'clamp(3.4rem,9vw,8rem)', fontWeight: 500, letterSpacing: '-0.015em', lineHeight: 1 }}>¿Hablamos?</h2>
+        <h2 style={{ margin: 0, fontFamily: t.font, fontSize: 'clamp(3.4rem,9vw,8rem)', fontWeight: 500, letterSpacing: '-0.015em', lineHeight: 1 }}>¿Hablamos?</h2>
         <p style={{ margin: '3vh auto 0', fontSize: 'clamp(17px,1.7vw,21px)', lineHeight: 1.5, color: 'rgba(20,17,16,0.7)', maxWidth: '26ch', fontWeight: 450, letterSpacing: '-0.018em' }}>
           Veinte minutos de mujer a mujer, sin compromiso. Si no es para ti, seré la primera en decírtelo.
         </p>
