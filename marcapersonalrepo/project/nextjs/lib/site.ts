@@ -49,7 +49,7 @@ export const kicker = (color = t.accent) => ({
  * OJO con Google Drive: el archivo tiene que estar compartido como
  * "cualquier persona con el enlace", o se verá un recuadro vacío.
  */
-export const videoUrl = 'https://drive.google.com/file/d/1TeLgG18hpuEFqhv0WvY5EUG0EG--3bPo/view?usp=sharing';
+export const videoUrl = 'https://youtu.be/B8RfQnZke68';
 
 /**
  * Forma del vídeo. Si está grabado en vertical (con el móvil), déjalo en

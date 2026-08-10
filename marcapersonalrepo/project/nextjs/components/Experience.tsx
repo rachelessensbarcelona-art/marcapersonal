@@ -44,6 +44,7 @@ export default function Experience() {
 
     function layout() {
       const narrow = innerWidth < 860;
+      esMovil = narrow;
       const nav = document.getElementById('xp-nav');
       const safe = Math.round((nav ? nav.getBoundingClientRect().height : 60) + 22);
       chs.forEach((el) => {
@@ -91,12 +92,32 @@ export default function Experience() {
       const ch5 = document.querySelector<HTMLElement>('[data-ch="4"]');
       const t5 = document.querySelector<HTMLElement>('[data-ch5-title]');
       const g5 = document.querySelector<HTMLElement>('[data-ch5-grid]');
+      const caja5 = document.querySelector<HTMLElement>('[data-ch5-caja]');
       if (ch5 && t5 && g5) {
-        t5.style.fontSize = narrow ? 'clamp(1.55rem,6.4vw,2.1rem)' : 'clamp(2rem,3.8vw,3.6rem)';
-        t5.style.margin = narrow ? '1.4vh 0 0 0' : '2.2vh 0 0 0';
-        g5.style.gap = narrow ? '16px' : 'clamp(18px,2.4vw,34px)';
-        g5.style.marginTop = narrow ? '2.4vh' : 'clamp(24px,4vh,46px)';
-        ch5.style.paddingBottom = narrow ? '108px' : '';
+        t5.style.fontSize = narrow ? 'clamp(1.5rem,6vw,2rem)' : 'clamp(2rem,3.8vw,3.6rem)';
+        t5.style.margin = narrow ? '1.2vh 0 0 0' : '2.2vh 0 0 0';
+        g5.style.gap = narrow ? '13px' : 'clamp(18px,2.4vw,34px)';
+        g5.style.marginTop = narrow ? '2vh' : 'clamp(24px,4vh,46px)';
+        // Sitio para la burbuja de Raquel: la foto (54) + su margen (16) + aire.
+        ch5.style.paddingBottom = narrow ? '92px' : '';
+
+        // Si aun asi no cabe (moviles bajitos tipo iPhone SE), el bloque se
+        // encoge lo justo. El margen negativo compensa el hueco que deja el
+        // encogido, para que siga quedando centrado y no se descuadre.
+        if (caja5) {
+          caja5.style.transform = 'none';
+          caja5.style.marginBottom = '';
+          if (narrow) {
+            const cs5 = getComputedStyle(ch5);
+            const libre = ch5.clientHeight - parseFloat(cs5.paddingTop) - parseFloat(cs5.paddingBottom);
+            const alto = caja5.scrollHeight;
+            if (alto > libre && libre > 0) {
+              const k = Math.max(0.76, libre / alto);
+              caja5.style.transform = `scale(${k.toFixed(3)})`;
+              caja5.style.marginBottom = `${-Math.round(alto * (1 - k))}px`;
+            }
+          }
+        }
       }
 
       // Los indicadores de capitulo estorban en movil: fuera. Queda la barra de abajo.
@@ -252,6 +273,7 @@ export default function Experience() {
 
     // ---------- main loop
     let lastS = scrollY, energy = 1, pt = -9, cleared = false, active = -1, raf = 0;
+    let esMovil = innerWidth < 860;
     const t0 = performance.now();
 
     function loop(now: number) {
@@ -282,6 +304,10 @@ export default function Experience() {
         stage.style.background = `rgb(${bg.join(',')})`;
         const prog = document.getElementById('xp-progress');
         if (prog) prog.style.width = (Math.min(1, Math.max(0, tt / 5)) * 100).toFixed(2) + '%';
+        // En el capitulo 5 hay mucho texto y poco ancho: en movil los circulos
+        // le pasaban por encima a las palabras y se leia fatal. Se apagan casi
+        // del todo justo ahi, y siguen enteros en el resto de capitulos.
+        canvas.style.opacity = esMovil && tt > 3.55 ? Math.max(0.16, 1 - (tt - 3.55) * 2.4).toFixed(2) : '1';
         const activeNow = Math.max(0, Math.min(4, Math.round(tt - 0.2)));
         const num = document.getElementById('xp-slidenow');
         if (num) num.textContent = '0' + (activeNow + 1);
@@ -378,6 +404,8 @@ export default function Experience() {
     }
 
     layout();
+    // Con la tipografia ya cargada las medidas cambian: hay que recalcular.
+    document.fonts?.ready.then(() => layout()).catch(() => {});
     sizeCanvas();
     const onResize = () => { sizeCanvas(); layout(); };
     addEventListener('resize', onResize);
@@ -519,6 +547,9 @@ export default function Experience() {
 
           {/* 05 — Y ahora tú */}
           <div data-ch="4" style={{ position: 'absolute', inset: 0, opacity: 0, color: t.ink, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: `0 ${t.gut}`, boxSizing: 'border-box' }}>
+            {/* Caja que se encoge sola si la pantalla es muy bajita, para que
+                los 3 pasos y la tarjeta quepan enteros sin cortarse. */}
+            <div data-ch5-caja style={{ width: '100%', transformOrigin: 'top center' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
               <span style={kicker}>05</span>
               <span style={kickerSoft}>Y ahora tú</span>
@@ -556,10 +587,10 @@ export default function Experience() {
               }}
             >
               <span style={{ flex: 1, minWidth: 0 }}>
-                <span style={{ display: 'block', fontSize: 11.5, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: t.accent, marginBottom: 5 }}>
+                <span data-tarjeta-kicker style={{ display: 'block', fontSize: 11.5, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: t.accent, marginBottom: 5 }}>
                   Antes de hablar
                 </span>
-                <span style={{ display: 'block', fontSize: 'clamp(14.5px,1.4vw,17px)', lineHeight: 1.5, color: t.ink, fontWeight: 500, letterSpacing: '-0.012em' }}>
+                <span data-tarjeta-texto style={{ display: 'block', fontSize: 'clamp(14.5px,1.4vw,17px)', lineHeight: 1.5, color: t.ink, fontWeight: 500, letterSpacing: '-0.012em' }}>
                   Míralo todo escrito: qué es, cuánto cuesta y qué dicen quienes ya lo tienen
                 </span>
               </span>
@@ -570,6 +601,7 @@ export default function Experience() {
                 transition: 'transform 320ms cubic-bezier(.22,1,.36,1)',
               }}>→</span>
             </a>
+            </div>
           </div>
         </div>
       </div>

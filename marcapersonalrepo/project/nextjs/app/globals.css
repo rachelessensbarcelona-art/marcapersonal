@@ -37,7 +37,25 @@ input { font: inherit; color: inherit; }
 @media (max-width: 700px) {
   [data-agente] { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
   [data-agente-fila] { flex-direction: column; align-items: flex-end; gap: 9px; }
-  [data-agente-aviso] { font-size: 13px; padding: 9px 15px; max-width: min(74vw, 260px); }
+  /* En movil el globo "¿Hablamos 20 minutos?" cruzaba la pantalla por encima
+     del texto. Se queda solo la foto con el puntito: invita igual y no tapa. */
+  [data-agente-aviso] { display: none; }
+}
+
+/* ─── Capitulo 05 en movil ─────────────────────────────────────────────
+   Los 3 pasos y la tarjeta tienen que caber enteros en una pantalla de
+   movil. Aqui se aprietan un poco; si aun asi no caben, Experience.tsx
+   encoge el bloque lo justo.
+   Los !important son necesarios: estos elementos llevan estilos escritos
+   en la propia etiqueta, y esos le ganan a la hoja de estilos.           */
+@media (max-width: 700px) {
+  [data-ch5-grid] [data-step] { padding-top: 12px !important; }
+  [data-ch5-grid] [data-step] p:nth-of-type(2) { font-size: 16px !important; margin-top: 7px !important; }
+  [data-ch5-grid] [data-step] p:nth-of-type(3) { font-size: 13px !important; line-height: 1.5 !important; margin-top: 6px !important; }
+  [data-tarjeta-inversion] { padding: 13px 15px !important; border-radius: 14px !important; gap: 12px !important; margin-top: 16px !important; }
+  [data-tarjeta-kicker] { display: none !important; }
+  [data-tarjeta-texto] { font-size: 14px !important; line-height: 1.42 !important; }
+  [data-tarjeta-inversion] [data-flecha] { width: 36px !important; height: 36px !important; font-size: 15px !important; }
 }
 
 /* Deja aire abajo del todo para que la burbuja no tape la ultima frase. */
