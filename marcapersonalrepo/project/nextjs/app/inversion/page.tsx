@@ -86,9 +86,9 @@ export default function Inversion() {
             <VideoPresentacion />
           </figure>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 'clamp(22px,3.4vh,38px)', alignItems: 'center' }}>
-            <a href="#precio" style={{ background: t.ink, color: t.bg, borderRadius: 999, padding: '14px 26px', fontSize: 15, fontWeight: 600 }}>Ver el precio</a>
-            <a href="#negocio" style={{ border: hair, borderRadius: 999, padding: '14px 26px', fontSize: 15, fontWeight: 500 }}>Y si quiero venderlo</a>
+          <div data-botones-video style={{ marginTop: 'clamp(22px,3.4vh,38px)' }}>
+            <a href="#precio" style={{ background: t.ink, color: t.bg, borderRadius: 999, padding: '15px 26px', fontSize: 15, fontWeight: 600 }}>Ver el precio</a>
+            <a href="#negocio" style={{ border: hair, borderRadius: 999, padding: '15px 26px', fontSize: 15, fontWeight: 500 }}>Y si quiero venderlo</a>
           </div>
         </div>
       </header>
@@ -226,7 +226,7 @@ export default function Inversion() {
         </div>
       </section>
 
-      <section style={{ padding: '0 5vw clamp(66px,9vh,104px)' }}>
+      <section data-fin-pagina style={{ paddingLeft: '5vw', paddingRight: '5vw', ['--pb' as string]: 'clamp(66px,9vh,104px)' }}>
         <div style={wrap}>
           <h2 style={{ ...h2, borderTop: hair, paddingTop: 28, marginBottom: 24 }}>Las preguntas del dinero</h2>
           <Faq />

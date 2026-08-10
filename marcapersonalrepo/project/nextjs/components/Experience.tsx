@@ -295,7 +295,10 @@ export default function Experience() {
       chs.forEach((ch, i) => {
         const a = tt - i;
         const inP = i === 0 ? 1 : sm((a + 0.13) / 0.2);
-        const outP = i === 4 ? sm((a - 0.86) / 0.14) : sm((a - 0.67) / 0.2);
+        // El ultimo capitulo NO se desvanece: si lo hace, al final del scroll
+        // queda un hueco gris enorme antes de "¿Hablamos?". Se queda puesto
+        // hasta que la seccion se va sola hacia arriba.
+        const outP = i === 4 ? 0 : sm((a - 0.67) / 0.2);
         const vis = inP * (1 - outP);
         const hold = Math.min(1, Math.max(0, a / 0.62));
         holds[i] = i === 0 ? Math.min(1, Math.max(0, tt / 0.7)) : hold;

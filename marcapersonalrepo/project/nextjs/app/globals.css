@@ -1,4 +1,11 @@
-:root { color-scheme: light; --accent: #2C3E5A; --rose: #C9A4AB; --rose-soft: #E8D4D8; --gut: clamp(26px,6.2vw,104px); }
+:root {
+  color-scheme: light; --accent: #2C3E5A; --rose: #C9A4AB; --rose-soft: #E8D4D8;
+  --gut: clamp(26px,6.2vw,104px);
+  /* Sitio que hay que dejar libre abajo para que la burbuja de Raquel no
+     se coma la ultima linea de texto. En movil ocupa mas porque la burbuja
+     se coloca encima del borde inferior del navegador. */
+  --hueco-asistente: 0px;
+}
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -16,6 +23,35 @@ button { font: inherit; color: inherit; background: none; border: none; padding:
 input { font: inherit; color: inherit; }
 ::selection { background: rgba(201,164,171,0.45); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ─── La burbuja del asistente, en movil ───────────────────────────────
+   Antes el aviso "¿Hablamos 20 minutos?" salia AL LADO de la foto, y en
+   una pantalla estrecha eso cruza la pantalla entera por encima del
+   texto. Ahora se pone ENCIMA de la foto, pegado a la derecha, y respeta
+   la barra del navegador (safe-area) para que no lo corte.              */
+[data-agente] { bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
+
+/* Tablet y movil: hay que reservarle sitio a la burbuja. */
+@media (max-width: 900px) { :root { --hueco-asistente: 72px; } }
+
+@media (max-width: 700px) {
+  [data-agente] { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  [data-agente-fila] { flex-direction: column; align-items: flex-end; gap: 9px; }
+  [data-agente-aviso] { font-size: 13px; padding: 9px 15px; max-width: min(74vw, 260px); }
+}
+
+/* Deja aire abajo del todo para que la burbuja no tape la ultima frase. */
+[data-fin-pagina] { padding-bottom: calc(var(--pb, 0px) + var(--hueco-asistente)); }
+
+/* ─── Los dos botones de debajo del video ──────────────────────────────
+   En ordenador van uno al lado del otro. En movil se ponian con anchos
+   distintos y quedaba todo descuadrado: ahora ocupan lo mismo, uno
+   debajo del otro y con el texto centrado.                              */
+[data-botones-video] { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+[data-botones-video] > a { display: inline-flex; align-items: center; justify-content: center; }
+@media (max-width: 700px) {
+  [data-botones-video] { display: grid; grid-template-columns: 1fr; gap: 10px; }
+}
 
 @keyframes rrdot { 0%,60%,100% { opacity:.25; transform:translateY(0) } 30% { opacity:1; transform:translateY(-3px) } }
 @keyframes rrslide { 0% { transform:translateX(-100%) } 55%,100% { transform:translateX(100%) } }

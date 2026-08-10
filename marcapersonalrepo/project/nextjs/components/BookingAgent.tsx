@@ -181,7 +181,7 @@ export default function BookingAgent() {
   );
 
   return (
-    <div style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 96, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, pointerEvents: 'none', opacity: menuAbierto ? 0 : 1, visibility: menuAbierto ? 'hidden' : 'visible', transition: 'opacity 260ms ease' }}>
+    <div data-agente style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 96, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, pointerEvents: 'none', opacity: menuAbierto ? 0 : 1, visibility: menuAbierto ? 'hidden' : 'visible', transition: 'opacity 260ms ease' }}>
       <div data-native-cursor style={{ width: 'min(376px, calc(100vw - 44px))', height: 'min(560px, calc(100dvh - 140px))', display: 'flex', flexDirection: 'column', background: '#FFFFFF', color: ink, borderRadius: 24, overflow: 'hidden', boxShadow: '0 26px 70px rgba(20,17,16,0.16)', border: '1px solid rgba(25,21,16,0.08)', transformOrigin: '100% 100%', transform: open ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.96)', opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transition: 'transform 380ms cubic-bezier(.22,1,.36,1), opacity 300ms ease' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 18px', borderBottom: '1px solid rgba(25,21,16,0.1)' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -241,9 +241,10 @@ export default function BookingAgent() {
         </p>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'auto' }}>
+      <div data-agente-fila style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'auto' }}>
         <button
           type="button"
+          data-agente-aviso
           onClick={() => { setOpen(true); setOpened(true); setNudge(false); void start(); }}
           style={{ background: '#FFFFFF', color: ink, fontSize: 13.5, fontWeight: 500, padding: '10px 17px', borderRadius: 999, border: '1px solid rgba(20,17,16,0.12)', boxShadow: '0 10px 28px rgba(20,17,16,0.10)', textAlign: 'left', whiteSpace: 'nowrap', transform: nudge && !open ? 'translateY(0)' : 'translateY(8px)', opacity: nudge && !open ? 1 : 0, pointerEvents: nudge && !open ? 'auto' : 'none', transition: 'transform 400ms cubic-bezier(.22,1,.36,1), opacity 350ms ease' }}
         >

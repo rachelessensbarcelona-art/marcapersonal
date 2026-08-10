@@ -5,7 +5,18 @@ import { openChat } from '@/lib/chatBus';
 
 export default function Closing() {
   return (
-    <section id="cierre" style={{ position: 'relative', background: t.bg, color: t.ink, padding: `clamp(100px,16vh,180px) ${t.gut} clamp(56px,7vh,90px)`, overflow: 'hidden' }}>
+    <section
+      id="cierre"
+      data-fin-pagina
+      style={{
+        position: 'relative', background: t.bg, color: t.ink, overflow: 'hidden',
+        // El padding de abajo NO se pone aquí: lo pone globals.css, que le
+        // suma el hueco que necesita la burbuja del asistente en móvil.
+        paddingTop: 'clamp(64px,11vh,180px)',
+        paddingLeft: t.gut, paddingRight: t.gut,
+        ['--pb' as string]: 'clamp(48px,7vh,90px)',
+      }}
+    >
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(60% 50% at 50% 30%, rgba(201,164,171,0.22) 0%, rgba(201,164,171,0) 70%)' }} />
       <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', textAlign: 'center' }}>
         <p style={{ margin: 0, fontSize: 12.5, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6560' }}>06 — Tu turno</p>
@@ -16,7 +27,7 @@ export default function Closing() {
         <button type="button" onClick={openChat} style={{ marginTop: '4vh', background: t.ink, color: t.bg, fontSize: 16.5, fontWeight: 600, padding: '16px 34px', borderRadius: 999, transition: 'transform 250ms ease' }}>
           Hablar con Raquel
         </button>
-        <p style={{ margin: '14px 0 0', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#6B6560' }}>
+        <p style={{ margin: '16px auto 0', maxWidth: '30ch', fontSize: 'clamp(10.5px,2.7vw,12.5px)', fontWeight: 500, letterSpacing: '0.13em', lineHeight: 1.7, textTransform: 'uppercase', color: '#6B6560' }}>
           Mi asistente te encuentra hueco en un minuto
         </p>
       </div>
