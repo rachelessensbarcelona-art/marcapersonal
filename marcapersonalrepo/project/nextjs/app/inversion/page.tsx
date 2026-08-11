@@ -180,11 +180,13 @@ export default function Inversion() {
       </section>
 
       <section id="testimonios" style={{ background: 'linear-gradient(180deg, rgba(232,212,216,0.42) 0%, rgba(232,212,216,0.12) 100%)', padding: `clamp(58px,8vh,94px) ${t.gut}`, scrollMarginTop: 74 }}>
-        <div style={wrap}>
+        {/* En pantalla ancha el texto va al lado del video, no encima: un
+            video vertical solo dejaba media pantalla vacia a su derecha. */}
+        <div style={{ ...wrap, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,320px),1fr))', gap: 'clamp(28px,4vw,64px)', alignItems: 'center' }}>
           <Reveal>
-            <h2 style={{ ...h2, marginBottom: 12 }}>Lo que dicen quienes ya lo tienen</h2>
-            <p style={{ margin: '0 0 30px', fontSize: 17, lineHeight: 1.65, color: t.soft, maxWidth: '56ch' }}>
-              Solo publico experiencias reales, con nombre y permiso por escrito. Ninguna dice que el agua cure nada, porque no lo hace.
+            <h2 style={{ ...h2, marginBottom: 14 }}>Lo que dicen quienes ya lo tienen</h2>
+            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65, color: t.soft, maxWidth: '46ch' }}>
+              Grabados por ellas mismas y publicados con su permiso. Ninguna dice que el agua cure nada, porque no lo hace.
             </p>
           </Reveal>
           <Reveal delay={120}><Testimonios /></Reveal>

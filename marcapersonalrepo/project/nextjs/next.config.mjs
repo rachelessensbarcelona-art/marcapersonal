@@ -7,7 +7,7 @@ const nextConfig = {
     // aparece al momento, sin volver a descargar 12 MB.
     return [
       {
-        source: '/:archivo(video\\.mp4|video-poster\\.jpg)',
+        source: '/:archivo(video\\.mp4|video-poster\\.jpg|testimonio-.+\\.(?:mp4|jpg))',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ];
